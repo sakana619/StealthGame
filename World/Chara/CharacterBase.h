@@ -1,0 +1,52 @@
+#pragma once
+#include"../GameObject.h"
+
+#include<memory>
+#include<vector>
+#include"Animation.h"
+#include"AnimationController.h"
+#include"../Component/AttackCollision.h"
+
+class CharacterBase :public GameObject
+{
+
+public:
+
+	CharacterBase();
+	~CharacterBase()override = default;
+
+	virtual void Init()override = 0;
+	virtual void Update(float deltaTime)override = 0;
+	virtual void Draw()override;
+	virtual void End()override;
+
+	/// <summary>
+	/// 衝突結果の解決を行う
+	/// </summary>
+	/// <param name="result"></param>
+	/// <param name="myData"></param>
+	/// <param name="otherData"></param>
+	/// <param name="other"></param>
+	virtual void ResolveCollision(
+		const Collision::Result result,
+		const CollisionData& myData,
+		const CollisionData& otherData,
+		CollisionTag other)override = 0;
+
+protected:
+	/// <summary>
+	/// アニメーションのコントローラー
+	/// </summary>
+	std::unique_ptr<AnimationController> m_anim;
+	/// <summary>
+	/// 再生するアニメーションのデータ
+	/// </summary>
+	std::vector<Animation::AnimationData>m_animData;
+	/// <summary>
+	/// 攻撃コリジョン
+	/// </summary>
+	std::unique_ptr<AttackCollision>m_pAttackCollision;
+
+	float m_fallSpeed;
+
+};
