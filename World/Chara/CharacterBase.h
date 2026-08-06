@@ -33,6 +33,13 @@ public:
 		const CollisionData& otherData,
 		CollisionTag other)override = 0;
 
+	/// <summary>
+	/// ダメージ処理
+	/// </summary>
+	/// <param name="attackInfo">攻撃情報</param>
+	/// <param name="normal">攻撃のヒットした法線</param>
+	virtual void Damage(const AttackInfo& attackInfo, const Vector3& normal)override;
+
 protected:
 	/// <summary>
 	/// アニメーションのコントローラー
@@ -42,7 +49,14 @@ protected:
 	/// 再生するアニメーションのデータ
 	/// </summary>
 	std::vector<Animation::AnimationData>m_animData;
-
+	/// <summary>
+	/// 落下速度
+	/// </summary>
 	float m_fallSpeed;
+
+	/// <summary>
+	/// ノックバック量
+	/// </summary>
+	Vector3 m_unresolveKnockback;
 
 };

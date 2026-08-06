@@ -70,6 +70,13 @@ public:
 	virtual void DebugDraw();
 
 	/// <summary>
+	/// コリジョン追加
+	/// </summary>
+	/// <param name="shape"></param>
+	/// <param name="type"></param>
+	void AddCollision(std::unique_ptr<Collision::Shape> shape, CollisionType type);
+
+	/// <summary>
 	/// コリジョン衝突結果の解決
 	/// </summary>
 	/// <param name="result"></param>
@@ -83,11 +90,11 @@ public:
 		CollisionTag other) = 0;
 
 	/// <summary>
-	/// コリジョン追加
+	/// ダメージ処理
 	/// </summary>
-	/// <param name="shape"></param>
-	/// <param name="type"></param>
-	void AddCollision(std::unique_ptr<Collision::Shape> shape, CollisionType type);
+	/// <param name="attackInfo">攻撃情報</param>
+	/// <param name="normal">攻撃のヒットした法線</param>
+	virtual void Damage(const AttackInfo& attackInfo, const Vector3& normal) {};
 
 	/// <summary>
 	/// 座標を取得

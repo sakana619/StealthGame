@@ -21,6 +21,8 @@ public:
 
 	virtual void End()override;
 
+	void Damage(const AttackInfo& attackInfo, const Vector3& normal)override;
+
 	/// <summary>
 	/// 衝突結果の解決を行う
 	/// </summary>
@@ -33,8 +35,6 @@ public:
 		const CollisionData& myData,
 		const CollisionData& otherData,
 		CollisionTag other)override = 0;
-
-	void Damage(int damage);
 
 	virtual void Death() {}
 

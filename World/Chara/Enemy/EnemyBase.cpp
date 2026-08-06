@@ -31,12 +31,12 @@ void EnemyBase::End()
 	GameObject::End();
 }
 
-void EnemyBase::Damage(int damage)
+void EnemyBase::Damage(const AttackInfo& attackInfo, const Vector3& normal)
 {
 	//damageが0以下ならリターン
-	if (damage < 0)return;
+	if (attackInfo.damage < 0)return;
 	//HPを減らす
-	m_hp -= damage;
+	m_hp -= attackInfo.damage;
 	//HPが0以下になったら
 	if (m_hp < 0) {
 		//死亡処理

@@ -22,3 +22,12 @@ void CharacterBase::End()
 {
 	GameObject::End();
 }
+
+void CharacterBase::Damage(const AttackInfo& attackInfo, const Vector3& normal)
+{
+	//ノックバック方向の決定
+	m_unresolveKnockback = normal;
+	//ノックバックを加算
+	m_unresolveKnockback *= attackInfo.knockBack;
+
+}

@@ -146,8 +146,6 @@ void Player::Update(float deltaTime)
 		if (CheckHitKey(KEY_INPUT_L)) {
 			//アニメーションの再生
 			m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Attack)]);
-			//敵にダメージ
-			nearestEnemy->Damage(1);
 			//方向を合わせる
 			m_transform.rotation.y = atan2f(-(nearestEnemyPos.x - m_transform.position.x), -(nearestEnemyPos.z - m_transform.position.z));
 		}
