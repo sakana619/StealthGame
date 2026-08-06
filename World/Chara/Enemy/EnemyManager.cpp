@@ -7,6 +7,7 @@
 
 #include<DxLib.h>
 #include<cassert>
+#include"../../GameObjectManager.h"
 
 namespace {
 
@@ -19,14 +20,14 @@ EnemyManager::EnemyManager():
 {
 }
 
-void EnemyManager::Init()
+void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 {
 
 	const int posX = 500;
 
 	for (int i = 0; i < 1; i++) {
 
-		std::unique_ptr<EnemyBase>newEnemy = std::make_unique<EnemyBee>();
+		auto newEnemy = gameObjectMgr->CreateObject<EnemyBee>();
 		newEnemy->Init();
 		Vector3 pos = Vector3(posX * (i + 1), 0, 0);
 		//newEnemy->SetPosition(pos);
@@ -72,7 +73,7 @@ EnemyBase* EnemyManager::GetNearestEnemy(const Vector3& position)
 
 	if (m_pEnemies.empty())return nullptr;
 
-	EnemyBase* nearestEnemy = m_pEnemies[0].get();
+	EnemyBase* nearestEnemy = m_pEnemies[0];
 	float nearest = (position - nearestEnemy->GetPosition()).GetSqLength();
 
 	//全ての敵を調べる
@@ -86,7 +87,7 @@ EnemyBase* EnemyManager::GetNearestEnemy(const Vector3& position)
 		if (nearest < range)continue;
 		//結果を更新
 		nearest = range;
-		nearestEnemy = enemy.get();
+		nearestEnemy = enemy;
 
 	}
 

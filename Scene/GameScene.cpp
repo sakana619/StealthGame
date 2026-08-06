@@ -27,7 +27,7 @@ void GameScene::Init()
 	m_pMap = std::make_unique<Map>();
 
 	m_pCamera->Init();
-	m_pEnemyMgr->Init();
+	m_pEnemyMgr->Init(m_pGameObjectMgr.get());
 	m_pMap->Init();
 
 	m_pPlayer->SetEnemyManager(m_pEnemyMgr.get());

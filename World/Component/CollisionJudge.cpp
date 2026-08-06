@@ -193,11 +193,11 @@ Result CheckToAABBBySphere(const Collision::Shape& sphere, const Collision::Shap
 	closest.y = MyMath::Max(minPos.y, MyMath::Min(spherePos.y, maxPos.y));
 	closest.z = MyMath::Max(minPos.z, MyMath::Min(spherePos.z, maxPos.z));
 
-	DrawSphere3D(closest.ToVECTOR(), 10.0f, 32, 0x000000, 0x000000, TRUE);
+	//DrawSphere3D(closest.ToVECTOR(), 10.0f, 32, 0x000000, 0x000000, TRUE);
 
-	printfDx("closest.x : %f\n", closest.x);
-	printfDx("closest.y : %f\n", closest.y);
-	printfDx("closest.z : %f\n", closest.z);
+	//printfDx("closest.x : %f\n", closest.x);
+	//printfDx("closest.y : %f\n", closest.y);
+	//printfDx("closest.z : %f\n", closest.z);
 
 	float distanceSq = (closest - spherePos).GetSqLength();
 	float sphereRadius = sphere.GetHalfSize().x;

@@ -5,6 +5,7 @@
 class EnemyBase;
 
 struct Vector3;
+class GameObjectManager;
 
 class EnemyManager
 {
@@ -14,7 +15,7 @@ public:
 	EnemyManager();
 	~EnemyManager() = default;
 
-	void Init();
+	void Init(GameObjectManager* gameObjectMgr);
 	void Update(float deltaTime);
 	void Draw();
 	void End();
@@ -33,6 +34,6 @@ private:
 	/// <summary>
 	/// 敵の配列
 	/// </summary>
-	std::vector<std::unique_ptr<EnemyBase>> m_pEnemies;
+	std::vector<EnemyBase*> m_pEnemies;
 
 };
