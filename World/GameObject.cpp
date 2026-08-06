@@ -6,7 +6,9 @@
 
 GameObject::GameObject():
 	m_transform(),
-	m_modelHandle()
+	m_modelHandle(),
+	m_pAttackCollision(nullptr),
+	m_collisionTag(CollisionTag::Invalid)
 {
 }
 

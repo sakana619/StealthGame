@@ -16,7 +16,15 @@ public:
 	void Update(float deltaTime);
 	void Draw();
 
+	/// <summary>
+	/// GameObject同士の当たり判定を行う
+	/// </summary>
 	void CheckCollision();
+
+	/// <summary>
+	/// GameObject同士の攻撃コリジョン判定を行う
+	/// </summary>
+	void CheckAttackCollision();
 
 	/// <summary>
 	/// ゲームオブジェクトの生成を行う

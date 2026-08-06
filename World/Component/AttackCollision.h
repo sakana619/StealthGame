@@ -47,7 +47,7 @@ private:
 		/// コリジョンの取得
 		/// </summary>
 		/// <returns></returns>
-		Collision::Shape* GetCollision() { return m_collision.get(); }
+		const Collision::Shape* GetCollision()const { return m_collision.get(); }
 
 		/// <summary>
 		/// 存在するか

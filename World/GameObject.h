@@ -16,6 +16,7 @@ public:
 	/// 衝突判定時に何と当たったか判定をするタグ
 	/// </summary>
 	enum class CollisionTag {
+		Invalid = -1,
 		Player,
 		Enemy,
 		Floor,
@@ -96,6 +97,8 @@ public:
 
 	const std::vector<CollisionData>& GetCollisionData()const { return m_collisions; }
 
+	AttackCollision* GetAttackCollision() { return m_pAttackCollision.get(); }
+
 	/// <summary>
 	/// コリジョンタグを取得
 	/// </summary>
@@ -110,7 +113,15 @@ protected:
 
 	int m_modelHandle;
 
+	/// <summary>
+	/// 自身のコリジョン
+	/// </summary>
 	std::vector<CollisionData>m_collisions;
+
+	/// <summary>
+	/// 攻撃コリジョン
+	/// </summary>
+	std::unique_ptr<AttackCollision>m_pAttackCollision;
 
 	/// <summary>
 	/// 衝突時の判定に使うタグの管理

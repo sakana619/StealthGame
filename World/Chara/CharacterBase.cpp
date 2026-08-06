@@ -9,7 +9,6 @@
 CharacterBase::CharacterBase():
 	m_anim(nullptr),
 	m_animData(),
-	m_pAttackCollision(nullptr),
 	m_fallSpeed(0)
 {
 }

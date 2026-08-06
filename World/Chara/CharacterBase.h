@@ -42,10 +42,6 @@ protected:
 	/// 再生するアニメーションのデータ
 	/// </summary>
 	std::vector<Animation::AnimationData>m_animData;
-	/// <summary>
-	/// 攻撃コリジョン
-	/// </summary>
-	std::unique_ptr<AttackCollision>m_pAttackCollision;
 
 	float m_fallSpeed;
 

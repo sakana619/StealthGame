@@ -138,8 +138,11 @@ Result CheckToSphereByAABB(const Collision::Shape& AABB, const Collision::Shape&
 	//printfDx("closest.y : %f\n", closest.y);
 	//printfDx("closest.z : %f\n", closest.z);
 
+	//最近接点との距離の2乗
 	float distanceSq = (closest - spherePos).GetSqLength();
+	//球の半径を取得
 	float sphereRadius = sphere.GetHalfSize().x;
+	//距離が半径より大きいなら当たっていない
 	if (distanceSq > sphereRadius * sphereRadius)return result;
 
 	result.isHit = true;

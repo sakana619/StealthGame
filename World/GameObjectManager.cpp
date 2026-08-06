@@ -75,3 +75,50 @@ void GameObjectManager::CheckCollision()
 	}
 
 }
+
+void GameObjectManager::CheckAttackCollision()
+{
+
+	size_t objCount = m_pObjects.size();
+
+	for (size_t i = 0; i < objCount; i++) {
+		//攻撃者を取得
+		auto attacker = m_pObjects[i].get();
+		//攻撃者の攻撃コリジョンを取得
+		const auto& attackCollisionDatas = attacker->GetAttackCollision()->GetCollisionDatas();
+
+		for (size_t j = i + 1; j < objCount; j++) {
+			//ターゲットを取得
+			auto target = m_pObjects[j].get();
+			//タグが同じなら処理しない
+			if (attacker->GetCollisionTag() == target->GetCollisionTag())continue;
+			//ターゲットのコリジョンを取得
+			const auto& targetCollisionData = target->GetCollisionData();
+
+			for (const auto& attackCollision : attackCollisionDatas) {
+				//存在しなければ処理しない
+				if (!attackCollision.GetIsExist())continue;
+
+				for (const auto& targetCollision : targetCollisionData) {
+
+					if (!targetCollision.shape)continue;
+
+					Collision::Result result = targetCollision.shape->CheckCollision(*attackCollision.GetCollision());
+					//当たっていなければ処理しない
+					if (!result.isHit)continue;
+
+					printfDx("HIT\n");
+					printfDx("HIT\n");
+					printfDx("HIT\n");
+					printfDx("HIT\n");
+					printfDx("HIT\n");
+
+				}
+
+			}
+
+		}
+
+	}
+
+}

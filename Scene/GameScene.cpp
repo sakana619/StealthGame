@@ -47,6 +47,7 @@ SceneBase* GameScene::Update()
 	m_pEnemyMgr->Update(deltaTime);
 
 	m_pGameObjectMgr->CheckCollision();
+	m_pGameObjectMgr->CheckAttackCollision();
 	m_pMap->CheckHitMap(m_pGameObjectMgr.get());
 
 	return nullptr;
