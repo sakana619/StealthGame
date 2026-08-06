@@ -9,7 +9,8 @@
 #include"../../System/Time.h"
 #include"../../Utility/MyMath.h"
 
-AttackCollision::AttackData::AttackData(std::unique_ptr<Collision::Shape> collision) :
+AttackCollision::AttackData::AttackData(const AttackInfo& attackInfo, std::unique_ptr<Collision::Shape> collision) :
+	m_info(attackInfo),
 	m_durationSec(0.0f),
 	m_elapsedSec(0.0f),
 	m_isExist(false),

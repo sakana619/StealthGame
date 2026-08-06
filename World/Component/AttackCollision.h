@@ -2,6 +2,7 @@
 
 #include"Collision.h"
 #include"../../Utility/Vector3.h"
+#include"AttackInfo.h"
 #include<memory>
 #include<vector>
 #include<type_traits>
@@ -19,7 +20,7 @@ private:
 	public:
 
 		AttackData() = default;
-		AttackData(std::unique_ptr<Collision::Shape> collision);
+		AttackData(const AttackInfo& attackInfo,std::unique_ptr<Collision::Shape> collision);
 		~AttackData() = default;
 
 		AttackData(AttackData&&)noexcept = default;
@@ -58,6 +59,11 @@ private:
 	private:
 
 		/// <summary>
+		/// 攻撃の情報
+		/// </summary>
+		AttackInfo m_info;
+
+		/// <summary>
 		/// 持続時間
 		/// </summary>
 		float m_durationSec;
@@ -94,7 +100,7 @@ public:
 	/// <typeparam name="...Args"></typeparam>
 	/// <param name="...args"></param>
 	template<class T, class ...Args>
-	void AddCollision(Args && ...args);
+	void AddCollision(const AttackInfo& attackInfo, Args && ...args);
 
 	/// <summary>
 	/// 登録したすべての攻撃コリジョンを取得する
@@ -119,14 +125,12 @@ private:
 };
 
 template<class T, class ...Args>
-inline void AttackCollision::AddCollision(Args && ...args)
+inline void AttackCollision::AddCollision(const AttackInfo& attackInfo, Args && ...args)
 {
+
 	//コリジョンの基底クラスを継承しているか確認
-	static_assert(std::is_base_of<Collision::Shape, T>::value,"");
-	//新しいコリジョンを作成
-	//auto newCollision = std::make_unique<T>(std::forward<Args>(args)...);
+	static_assert(std::is_base_of<Collision::Shape, T>::value, "");
 	//コリジョンを追加する
-	//m_collisions.emplace_back(AttackCollision::CollisionData(std::move(newCollision)));
-	m_collisions.emplace_back(AttackCollision::AttackData(std::make_unique<T>(std::forward<Args>(args)...)));
+	m_collisions.emplace_back(attackInfo, std::make_unique<T>(std::forward<Args>(args)...));
 
 }

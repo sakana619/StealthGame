@@ -171,6 +171,7 @@
   <ItemGroup>
     <ClInclude Include="Utility\DataConvert.h" />
     <ClInclude Include="Utility\LoadData.h" />
+    <ClInclude Include="World\Component\AttackInfo.h" />
     <ClInclude Include="World\GameObjectManager.h" />
     <ClInclude Include="World\Component\AttackCollision.h" />
     <ClInclude Include="World\Component\Collision.h" />

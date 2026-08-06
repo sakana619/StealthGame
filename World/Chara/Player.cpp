@@ -46,7 +46,12 @@ void Player::Init()
 	AddCollision(std::make_unique<Collision::AABB>(Vector3(0, -1, 0), Vector3(100, 14, 100)), CollisionType::Foot);
 
 	m_pAttackCollision = std::make_unique<AttackCollision>();
-	m_pAttackCollision->AddCollision<Collision::AABB>(Vector3::Zero, Vector3(100, 100, 100));
+
+	AttackInfo attackInfo{
+		0,0
+	};
+
+	m_pAttackCollision->AddCollision<Collision::AABB>(attackInfo, Vector3::Zero, Vector3(100, 100, 100));
 
 	m_collisionTag = CollisionTag::Player;
 
