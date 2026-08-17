@@ -40,8 +40,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();		// 画面の初期化
 		clsDx();				// デバッグ文字の初期化
 
-		printfDx("FPS %f\n", Time::GetFPS());
-		printfDx("deltaTime %f\n", Time::GetDeltaTime());
+		//printfDx("FPS %f\n", Time::GetFPS());
+		//printfDx("deltaTime %f\n", Time::GetDeltaTime());
 
 		pSceneMgr->Update();
 		pSceneMgr->Draw();

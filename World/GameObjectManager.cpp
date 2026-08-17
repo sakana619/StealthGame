@@ -108,7 +108,7 @@ void GameObjectManager::CheckAttackCollision()
 					if (!result.isHit)continue;
 
 					//ƒ_ƒ[ƒW‚ð—^‚¦‚é
-					target->Damage(attackCollision.GetAttackInfo(), -result.normal);
+					target->Damage(attackCollision.GetAttackInfo(), result.normal);
 
 					printfDx("HIT\n");
 					printfDx("HIT\n");

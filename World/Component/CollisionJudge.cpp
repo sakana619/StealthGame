@@ -113,8 +113,6 @@ Result CheckToSphereByAABB(const Collision::Shape& AABB, const Collision::Shape&
 
 	Result result;
 
-	Vector3 closest = Vector3::Zero;
-
 	//中心座標を取得
 	Vector3 centerPos = AABB.GetCenterPos();
 	//半分のサイズを取得
@@ -128,15 +126,10 @@ Result CheckToSphereByAABB(const Collision::Shape& AABB, const Collision::Shape&
 	Vector3 spherePos = sphere.GetCenterPos();
 
 	//衝突判定
+	Vector3 closest = Vector3::Zero;
 	closest.x = MyMath::Max(minPos.x, MyMath::Min(spherePos.x, maxPos.x));
 	closest.y = MyMath::Max(minPos.y, MyMath::Min(spherePos.y, maxPos.y));
 	closest.z = MyMath::Max(minPos.z, MyMath::Min(spherePos.z, maxPos.z));
-
-	//DrawSphere3D(closest.ToVECTOR(), 10.0f, 32, 0x000000, 0x000000, TRUE);
-
-	//printfDx("closest.x : %f\n", closest.x);
-	//printfDx("closest.y : %f\n", closest.y);
-	//printfDx("closest.z : %f\n", closest.z);
 
 	//最近接点との距離の2乗
 	float distanceSq = (closest - spherePos).GetSqLength();
@@ -146,6 +139,9 @@ Result CheckToSphereByAABB(const Collision::Shape& AABB, const Collision::Shape&
 	if (distanceSq > sphereRadius * sphereRadius)return result;
 
 	result.isHit = true;
+
+
+
 
 	return result;
 
@@ -174,8 +170,6 @@ Result CheckToAABBBySphere(const Collision::Shape& sphere, const Collision::Shap
 
 	Result result;
 
-	Vector3 closest = Vector3::Zero;
-
 	//中心座標を取得
 	Vector3 centerPos = AABB.GetCenterPos();
 	//半分のサイズを取得
@@ -188,7 +182,8 @@ Result CheckToAABBBySphere(const Collision::Shape& sphere, const Collision::Shap
 	//球の座標
 	Vector3 spherePos = sphere.GetCenterPos();
 
-	//衝突判定
+	//衝突判定に使う最近接点を取得
+	Vector3 closest = Vector3::Zero;
 	closest.x = MyMath::Max(minPos.x, MyMath::Min(spherePos.x, maxPos.x));
 	closest.y = MyMath::Max(minPos.y, MyMath::Min(spherePos.y, maxPos.y));
 	closest.z = MyMath::Max(minPos.z, MyMath::Min(spherePos.z, maxPos.z));
@@ -199,13 +194,21 @@ Result CheckToAABBBySphere(const Collision::Shape& sphere, const Collision::Shap
 	//printfDx("closest.y : %f\n", closest.y);
 	//printfDx("closest.z : %f\n", closest.z);
 
+	//距離の2乗を取得
 	float distanceSq = (closest - spherePos).GetSqLength();
+	//球の半径を取得
 	float sphereRadius = sphere.GetHalfSize().x;
+	//球の半径の二乗と距離の2乗を比較
 	if (distanceSq > sphereRadius * sphereRadius)return result;
+	//ここまで来たら当たっている
+	result.isHit = true;
+
+	//
+
+
 
 	DrawSphere3D(closest.ToVECTOR(), 10.0f, 32, 0xff0000, 0xff0000, TRUE);
 
-	result.isHit = true;
 
 	return result;
 

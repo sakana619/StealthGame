@@ -48,7 +48,7 @@ void Player::Init()
 	m_pAttackCollision = std::make_unique<AttackCollision>();
 
 	AttackInfo attackInfo{
-		0,0
+		1,1
 	};
 
 	m_pAttackCollision->AddCollision<Collision::AABB>(attackInfo, Vector3::Zero, Vector3(100, 100, 100));

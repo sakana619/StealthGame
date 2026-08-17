@@ -33,8 +33,10 @@ void EnemyBase::End()
 
 void EnemyBase::Damage(const AttackInfo& attackInfo, const Vector3& normal)
 {
+	CharacterBase::Damage(attackInfo, normal);
 	//damageが0以下ならリターン
 	if (attackInfo.damage < 0)return;
+	//規定のダメージ処理
 	//HPを減らす
 	m_hp -= attackInfo.damage;
 	//HPが0以下になったら
