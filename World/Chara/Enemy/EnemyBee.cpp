@@ -86,7 +86,7 @@ void EnemyBee::Update(float deltaTime)
 	}
 
 	if (m_anim->GetIsPlayAnimation()) {
-		m_anim->Update();
+		m_anim->Update(deltaTime);
 	}
 
 	m_transform.position += m_unresolveKnockback;
@@ -135,7 +135,7 @@ void EnemyBee::Draw()
 	for (auto& collision : m_collisions) {
 		collision.shape->DrawCollisionShape();
 	}
-	//return;
+
 	EnemyBase::Draw();
 	MV1SetScale(m_modelHandle, m_transform.scale.ToVECTOR());
 

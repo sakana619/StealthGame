@@ -9,7 +9,7 @@ public:
 	AnimationController(int modelHandle);
 	~AnimationController() = default;
 
-	void Update();
+	void Update(float deltaTime);
 
 	/// <summary>
 	/// アニメーションの再生

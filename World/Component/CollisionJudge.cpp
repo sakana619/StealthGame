@@ -144,7 +144,7 @@ Result CheckToSphereByAABB(const Collision::Shape& AABB, const Collision::Shape&
 	//めり込み量を計算
 	result.penetration = sphereRadius - distance;
 	//衝突法線を計算
-	result.normal = (closest - spherePos).GetNormalize();
+	result.normal = -(spherePos - closest).GetNormalize();
 
 	return result;
 

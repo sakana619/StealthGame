@@ -97,7 +97,7 @@ void Player::Init()
 void Player::Update(float deltaTime)
 {
 
-	UpdateAnimation();
+	UpdateAnimation(deltaTime);
 
 	Dodge();
 
@@ -148,6 +148,7 @@ void Player::Update(float deltaTime)
 			m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Attack)]);
 			//方向を合わせる
 			m_transform.rotation.y = atan2f(-(nearestEnemyPos.x - m_transform.position.x), -(nearestEnemyPos.z - m_transform.position.z));
+			nearestEnemy->Damage(m_pAttackCollision->GetCollisionData(0).GetAttackInfo(), enemyToPlayer);
 		}
 
 	}
@@ -268,7 +269,7 @@ Vector3 Player::GetInputVectorRotedByCamera()
 
 }
 
-void Player::UpdateAnimation()
+void Player::UpdateAnimation(float deltaTime)
 {
 
 	//アニメーションの再生がされていないなら待機アニメーションの再生
@@ -276,7 +277,7 @@ void Player::UpdateAnimation()
 
 	//割り込み不可能なアニメーションなら
 	if (m_anim->GetIsForcePlay()) {
-		m_anim->Update();
+		m_anim->Update(deltaTime);
 		//リターン
 		return;
 	}
@@ -300,7 +301,7 @@ void Player::UpdateAnimation()
 	}
 
 	//アニメーションの更新
-	m_anim->Update();
+	m_anim->Update(deltaTime);
 
 }
 

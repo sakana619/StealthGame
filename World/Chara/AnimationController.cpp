@@ -21,12 +21,12 @@ AnimationController::AnimationController(int modelHandle) :
 {
 }
 
-void AnimationController::Update()
+void AnimationController::Update(float deltaTime)
 {
 
 	if (!m_isPlaying)return;
 
-	m_time += Time::GetDeltaTime() * 30;
+	m_time += deltaTime * 30;
 
 	if (m_totalTime <= m_time) {
 		//再生時間をリセット

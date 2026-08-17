@@ -33,6 +33,41 @@ Data::Csv Data::LoadRaw(const std::string& path)
 
 }
 
+std::vector<Data::HeaderData> Data::ToHeaderData(const Csv& csvData)
+{
+
+	std::vector<HeaderData>datas;
+
+	//空チェック
+	if (csvData.empty()) {
+		return datas;
+	}
+
+	//1行目をヘッダーとして保管
+	const std::vector<std::string> header = csvData[0];
+	//ヘッダーのサイズ
+	size_t headerSize = header.size();
+
+	//2行目から読み込む
+	for (size_t i = 1; i < csvData.size(); i++) {
+		//読み込む列を取得
+		const auto& line = csvData[i];
+
+		HeaderData data;
+
+		for (size_t j = 0; j < headerSize; j++) {
+
+
+
+		}
+
+
+	}
+
+	return datas;
+
+}
+
 std::vector<std::string> Data::Split(const std::string& string, char separate) {
 
 	std::vector<std::string> split;

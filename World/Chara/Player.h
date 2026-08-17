@@ -40,7 +40,7 @@ private:
 
 	Vector3 GetInputVectorRotedByCamera();
 
-	void UpdateAnimation();
+	void UpdateAnimation(float deltaTime);
 
 	void Move();
 
