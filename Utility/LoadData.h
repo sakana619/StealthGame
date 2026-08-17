@@ -2,7 +2,7 @@
 #include<vector>
 #include<string>
 
-namespace LoadData {
+namespace Data {
 
 	using Csv = std::vector<std::vector<std::string>>;
 

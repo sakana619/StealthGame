@@ -7,7 +7,7 @@
 #include<sstream>
 #include<cassert>
 
-LoadData::Csv LoadData::LoadRaw(const std::string& path)
+Data::Csv Data::LoadRaw(const std::string& path)
 {
 
 	Csv res;
@@ -33,7 +33,7 @@ LoadData::Csv LoadData::LoadRaw(const std::string& path)
 
 }
 
-std::vector<std::string> LoadData::Split(const std::string& string, char separate) {
+std::vector<std::string> Data::Split(const std::string& string, char separate) {
 
 	std::vector<std::string> split;
 

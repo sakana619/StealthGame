@@ -52,7 +52,7 @@ void EnemyBee::Init()
 	//m_collisions.emplace_back(std::make_unique<Collision::Sphere>(Vector3(0, 100, 0), 90.0f), CollisionType::Body);
 
 	AddCollision(std::make_unique<Collision::Sphere>(Vector3(0, 100, 0), 90.0f), CollisionType::Body);
-	AddCollision(std::make_unique<Collision::AABB>(Vector3::Zero, Vector3(100, 100, 100)), CollisionType::Body);
+	//AddCollision(std::make_unique<Collision::AABB>(Vector3::Zero, Vector3(100, 100, 100)), CollisionType::Body);
 
 	GameObject::m_transform.scale = Vector3{ 0.3f,0.3f,0.3f };
 

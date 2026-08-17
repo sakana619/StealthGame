@@ -24,7 +24,7 @@ std::vector<std::vector<MapData::ObjectType>> MapData::GetStageData()
 	//読み込まれていなければステージの読み込み
 	if (!isLoaded) {
 		//ステージデータのcsvを取得
-		auto stageDataCsv = LoadData::LoadRaw(kStageDataPath);
+		auto stageDataCsv = Data::LoadRaw(kStageDataPath);
 
 		//ステージのZサイズ
 		int stageZSize = stageDataCsv.size();
@@ -39,7 +39,7 @@ std::vector<std::vector<MapData::ObjectType>> MapData::GetStageData()
 
 			for (int x = 0; x < stageXSize; x++) {
 				//読み込んだデータをObjectTypeに変換して設定する
-				stageData[z][x] = LoadData::Convert<MapData::ObjectType>(stageDataCsv[z][x]);
+				stageData[z][x] = Data::Convert<MapData::ObjectType>(stageDataCsv[z][x]);
 
 			}
 		}

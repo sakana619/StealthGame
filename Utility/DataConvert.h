@@ -3,7 +3,7 @@
 #include<cassert>
 #include"../World/Map/MapData.h"
 
-namespace LoadData {
+namespace Data {
 
 	/// <summary>
 	/// 読み込んだデータを変換する
