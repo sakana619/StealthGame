@@ -13,8 +13,6 @@
 
 namespace {
 
-	constexpr int kEnemyMaxNum = 1;
-
 }
 
 EnemyManager::EnemyManager():
@@ -25,21 +23,33 @@ EnemyManager::EnemyManager():
 void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 {
 
-	const int posX = 500;
 	//データの取得
 	std::vector<EnemyData> datas = DataLoader::LoadMasterData<EnemyData>(".\\Data\\Enemy\\EnemyPatrolPos.csv");
 
 	//敵の数を取得 IDは0も含まれるので + 1
 	int enemyCount = datas[datas.size() - 1].ID + 1;
 
+	std::vector<std::vector<Vector3>>patrolPos;
+	patrolPos.resize(enemyCount);
+
+	for (int i = 0; i < datas.size(); i++) {
+
+		for (int j = 0; j < patrolPos.size(); j++) {
+
+			if (j != datas[i].ID)continue;
+
+			patrolPos[j].push_back(datas[i].patrolPos);
+
+		}
+
+	}
 
 	for (int i = 0; i < enemyCount; i++) {
 
 		auto newEnemy = gameObjectMgr->CreateObject<EnemyBee>();
 		newEnemy->Init();
-		Vector3 pos = Vector3(posX * (i + 1), 0, 0);
-		//newEnemy->SetPosition(pos);
 		newEnemy->SetPosition(Vector3(1000, 100, 100));
+		newEnemy->SetPatrolPos(patrolPos[i]);
 
 		m_pEnemies.push_back(std::move(newEnemy));
 
