@@ -8,6 +8,8 @@
 #include<DxLib.h>
 #include<cassert>
 #include"../../GameObjectManager.h"
+#include"../Utility/Loader/DataLoader.h"
+#include"EnemyData.h"
 
 namespace {
 
@@ -24,14 +26,20 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 {
 
 	const int posX = 500;
+	//データの取得
+	std::vector<EnemyData> datas = DataLoader::LoadMasterData<EnemyData>(".\\Data\\Enemy\\EnemyPatrolPos.csv");
 
-	for (int i = 0; i < 1; i++) {
+	//敵の数を取得 IDは0も含まれるので + 1
+	int enemyCount = datas[datas.size() - 1].ID + 1;
+
+
+	for (int i = 0; i < enemyCount; i++) {
 
 		auto newEnemy = gameObjectMgr->CreateObject<EnemyBee>();
 		newEnemy->Init();
 		Vector3 pos = Vector3(posX * (i + 1), 0, 0);
 		//newEnemy->SetPosition(pos);
-		newEnemy->SetPosition(Vector3(1000,100,100));
+		newEnemy->SetPosition(Vector3(1000, 100, 100));
 
 		m_pEnemies.push_back(std::move(newEnemy));
 

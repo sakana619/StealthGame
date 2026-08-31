@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Utility\LoadData.cpp" />
+    <ClCompile Include="Utility\Loader\LoadData.cpp" />
     <ClCompile Include="World\GameObjectManager.cpp" />
     <ClCompile Include="World\Component\AttackCollision.cpp" />
     <ClCompile Include="World\Component\Collision.cpp" />
@@ -169,9 +169,10 @@
     <Image Include="Image\Cloud.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utility\DataConvert.h" />
-    <ClInclude Include="Utility\DataLoader.h" />
-    <ClInclude Include="Utility\LoadData.h" />
+    <ClInclude Include="Utility\Loader\DataBinder.h" />
+    <ClInclude Include="Utility\Loader\DataConvert.h" />
+    <ClInclude Include="Utility\Loader\DataLoader.h" />
+    <ClInclude Include="Utility\Loader\LoadData.h" />
     <ClInclude Include="World\Component\AttackInfo.h" />
     <ClInclude Include="World\GameObjectManager.h" />
     <ClInclude Include="World\Component\AttackCollision.h" />

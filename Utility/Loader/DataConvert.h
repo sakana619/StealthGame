@@ -12,7 +12,7 @@ namespace Data {
 	/// <param name="str"></param>
 	/// <returns></returns>
 	template<typename T>
-	T Convert(std::string& str) {
+	T Convert(const std::string& str) {
 
 		return T{};
 	}
@@ -23,7 +23,7 @@ namespace Data {
 	/// <param name="str"></param>
 	/// <returns></returns>
 	template<>
-	inline int Convert<int>(std::string& str) {
+	inline int Convert<int>(const std::string& str) {
 		return std::stoi(str);
 	}
 
@@ -33,7 +33,7 @@ namespace Data {
 	/// <param name="str"></param>
 	/// <returns></returns>
 	template<>
-	inline float Convert<float>(std::string& str) {
+	inline float Convert<float>(const std::string& str) {
 		return std::stof(str);
 	}
 
@@ -43,7 +43,7 @@ namespace Data {
 	/// <param name="str"></param>
 	/// <returns></returns>
 	template<>
-	inline double Convert<double>(std::string& str) {
+	inline double Convert<double>(const std::string& str) {
 		return std::stod(str);
 	}
 
@@ -53,7 +53,7 @@ namespace Data {
 	/// <param name="str"></param>
 	/// <returns></returns>
 	template<>
-	inline bool Convert<bool>(std::string& str) {
+	inline bool Convert<bool>(const std::string& str) {
 		if (str == "false" || str == "0")return false;
 		if (str == "true" || str == "1")return true;
 
@@ -62,12 +62,22 @@ namespace Data {
 	}
 
 	/// <summary>
+	/// stringに変換
+	/// </summary>
+	/// <param name="str"></param>
+	/// <returns></returns>
+	template<>
+	inline std::string Convert<std::string>(const std::string& str) {
+		return str;
+	}
+
+	/// <summary>
 	/// MapObjectに変換
 	/// </summary>
 	/// <param name="str"></param>
 	/// <returns></returns>
 	template<>
-	inline MapData::ObjectType Convert<MapData::ObjectType>(std::string& str) {
+	inline MapData::ObjectType Convert<MapData::ObjectType>(const std::string& str) {
 
 		if (str == "Floor" || str == "0")return MapData::ObjectType::Floor;
 		if (str == "Wall" || str == "1")return MapData::ObjectType::Wall;

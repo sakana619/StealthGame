@@ -2,8 +2,8 @@
 #include"../../Utility/Vector3.h"
 #include<vector>
 
-#include"../../Utility/LoadData.h"
-#include"../../Utility/DataConvert.h"
+#include"../../Utility/Loader/LoadData.h"
+#include"../../Utility/Loader/DataConvert.h"
 
 namespace {
 	//ステージデータのファイルパス

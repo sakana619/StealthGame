@@ -56,11 +56,14 @@ std::vector<Data::HeaderData> Data::ToHeaderData(const Csv& csvData)
 		HeaderData data;
 
 		for (size_t j = 0; j < headerSize; j++) {
+			//範囲外にアクセスしない用にする
+			if (j > line.size()) continue;
 
-
+			data[header[j]] = line[j];
 
 		}
-
+		//読み込んだデータリストに追加
+		datas.push_back(data);
 
 	}
 

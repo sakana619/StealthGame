@@ -87,7 +87,7 @@
     <ClCompile Include="World\GameObjectManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\LoadData.cpp">
+    <ClCompile Include="Utility\Loader\LoadData.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -181,16 +181,19 @@
     <ClInclude Include="World\GameObjectManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\LoadData.h">
+    <ClInclude Include="Utility\Loader\LoadData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\DataConvert.h">
+    <ClInclude Include="Utility\Loader\DataConvert.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="World\Component\AttackInfo.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\DataLoader.h">
+    <ClInclude Include="Utility\Loader\DataLoader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Loader\DataBinder.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
