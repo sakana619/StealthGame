@@ -49,10 +49,7 @@ void EnemyBee::Init()
 
 	InitAnimation();
 
-	//m_collisions.emplace_back(std::make_unique<Collision::Sphere>(Vector3(0, 100, 0), 90.0f), CollisionType::Body);
-
 	AddCollision(std::make_unique<Collision::Sphere>(Vector3(0, 100, 0), 90.0f), CollisionType::Body);
-	//AddCollision(std::make_unique<Collision::AABB>(Vector3::Zero, Vector3(100, 100, 100)), CollisionType::Body);
 
 	GameObject::m_transform.scale = Vector3{ 0.3f,0.3f,0.3f };
 
@@ -60,17 +57,14 @@ void EnemyBee::Init()
 
 	MV1SetScale(GameObject::m_modelHandle, GameObject::m_transform.scale.ToVECTOR());
 
-	Vector3 pos1 = Vector3(0, 0, 0);
-	Vector3 pos2 = Vector3(100, 0, 0);
-	Vector3 pos3 = Vector3(200, 0, 100);
+	m_pAttackCollision = std::make_unique<AttackCollision>();
 
-	std::vector<Vector3> set;
+	AttackInfo attackInfo;
+	attackInfo.damage = 10;
+	attackInfo.knockBack = 1.0f;
+	//攻撃コリジョンを登録
+	m_pAttackCollision->AddCollision<Collision::AABB>(attackInfo, Collision::AABB(Vector3::Zero, Vector3(100, 100, 100)));
 
-	set.push_back(pos1);
-	set.push_back(pos2);
-	set.push_back(pos3);
-
-	SetPatrolPos(set);
 	m_state = EnemyBase::State::Caution;
 
 }
@@ -136,6 +130,8 @@ void EnemyBee::Draw()
 		collision.shape->DrawCollisionShape();
 	}
 
+	m_pAttackCollision->DrawCollision();
+
 	EnemyBase::Draw();
 	MV1SetScale(m_modelHandle, m_transform.scale.ToVECTOR());
 
@@ -195,8 +191,6 @@ void EnemyBee::UpdatePatrol(float deltaTime)
 {
 
 	Vector3 nextPos = m_patrolPositions[m_nextPatrolIndex];
-
-	Vector3 dif = nextPos - m_transform.position;
 
 	UpdateForward(kMoveDirection, m_transform.rotation.y);
 
@@ -280,6 +274,8 @@ void EnemyBee::UpdateCombat(float deltaTime)
 	UpdateForward(kMoveDirection, targetAngle);
 	//正面に進む
 	m_transform.Translate(m_forward);
+
+	m_pAttackCollision->GetCollisionData(0).SpawnCollision(0.1f, m_transform.position);
 
 	if (dif.GetLength() < 150) {
 		m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::EnemyBee::Bite)]);

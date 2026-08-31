@@ -30,9 +30,9 @@ void Map::Init()
 			obj->Init();
 
 			//サイズの調整
-			float posX = x * 210;
+			float posX = x * 200;
 			float posY = 0;
-			float posZ = z * 210;
+			float posZ = z * 200;
 			//壁なら高さを変える
 			if (type == MapData::ObjectType::Wall) {
 				posY = 200;

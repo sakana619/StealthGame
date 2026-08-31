@@ -87,6 +87,10 @@ void GameScene::Draw()
 	m_pPlayer->Draw();
 	m_pEnemyMgr->Draw();
 
+	printfDx("x : %f\n", m_pPlayer->GetPosition().x);
+	printfDx("y : %f\n", m_pPlayer->GetPosition().y);
+	printfDx("z : %f\n", m_pPlayer->GetPosition().z);
+
 }
 
 void GameScene::End()
@@ -95,4 +99,7 @@ void GameScene::End()
 	m_pEnemyMgr->End();
 	m_pCamera->End();
 	m_pMap->End();
+
+	m_pGameObjectMgr->End();
+
 }

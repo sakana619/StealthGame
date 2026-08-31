@@ -16,6 +16,8 @@ public:
 	void Update(float deltaTime);
 	void Draw();
 
+	void End();
+
 	/// <summary>
 	/// GameObject同士の当たり判定を行う
 	/// </summary>
