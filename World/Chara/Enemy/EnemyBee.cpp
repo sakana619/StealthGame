@@ -3,7 +3,6 @@
 
 #include<DxLib.h>
 #include<math.h>
-#include"../Player.h"
 #include"../../../System/Time.h"
 
 namespace {
@@ -61,7 +60,7 @@ void EnemyBee::Init()
 
 	AttackInfo attackInfo;
 	attackInfo.damage = 10;
-	attackInfo.knockBack = 1.0f;
+	attackInfo.knockBack = 100.0f;
 	//攻撃コリジョンを登録
 	m_pAttackCollision->AddCollision<Collision::AABB>(attackInfo, Collision::AABB(Vector3::Zero, Vector3(100, 100, 100)));
 
@@ -82,6 +81,8 @@ void EnemyBee::Update(float deltaTime)
 	if (m_anim->GetIsPlayAnimation()) {
 		m_anim->Update(deltaTime);
 	}
+
+	m_pAttackCollision->Update();
 
 	m_transform.position += m_unresolveKnockback;
 

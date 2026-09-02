@@ -99,6 +99,15 @@ void Player::Update(float deltaTime)
 
 	UpdateAnimation(deltaTime);
 
+	if (m_unresolveKnockback.GetSqLength() > 0) {
+
+		m_transform.Translate(m_unresolveKnockback);
+
+		m_unresolveKnockback *= -0.1f;
+
+		return;
+	}
+
 	Dodge();
 
 	//if (m_isDodging)return;
@@ -166,6 +175,11 @@ void Player::Draw()
 		collision.shape->DrawCollisionShape(color);
 	}
 	m_pAttackCollision->DrawCollision();
+
+	printfDx("xxx : %f\n", m_unresolveKnockback.x);
+	printfDx("yyy : %f\n", m_unresolveKnockback.y);
+	printfDx("zzz : %f\n", m_unresolveKnockback.z);
+
 }
 
 void Player::End()

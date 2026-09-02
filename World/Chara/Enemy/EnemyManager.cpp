@@ -13,6 +13,8 @@
 
 namespace {
 
+	const char* const kDataPath = ".\\Data\\Enemy\\EnemyPatrolPos.csv";
+
 }
 
 EnemyManager::EnemyManager():
@@ -24,7 +26,7 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 {
 
 	//データの取得
-	std::vector<EnemyData> datas = DataLoader::LoadMasterData<EnemyData>(".\\Data\\Enemy\\EnemyPatrolPos.csv");
+	std::vector<EnemyData> datas = DataLoader::LoadMasterData<EnemyData>(kDataPath);
 
 	//敵の数を取得 IDは0も含まれるので + 1
 	int enemyCount = datas.back().ID + 1;

@@ -2,6 +2,7 @@
 #include"LoadData.h"
 #include"DataConvert.h"
 #include"../../World/Chara/Enemy/EnemyData.h"
+#include"../../World/Component/AttackInfo.h"
 
 /// <summary>
 /// ƒf[ƒ^‚ÌŠ„‚èU‚è
@@ -46,6 +47,24 @@ namespace Data {
 			param.patrolPos.x = Get<float>(data, "posX");
 			param.patrolPos.y = Get<float>(data, "posY");
 			param.patrolPos.z = Get<float>(data, "posZ");
+
+			return param;
+
+		}
+
+	};
+
+	/// <summary>
+	/// UŒ‚î•ñ‚É•ÏŠ·
+	/// </summary>
+	template<>
+	struct FromData<AttackInfo> {
+		static AttackInfo Binding(const HeaderData& data) {
+
+			AttackInfo param;
+
+			param.damage = Get<int>(data, "damage");
+			param.knockBack = Get<float>(data, "knockBack");
 
 			return param;
 

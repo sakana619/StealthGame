@@ -66,8 +66,17 @@ protected:
 
 	virtual void UpdateCombat(float deltaTime) = 0;
 
+	/// <summary>
+	/// 見える距離か判定
+	/// </summary>
+	/// <param name="rangeSq"></param>
+	/// <returns></returns>
 	bool CheckInViewRange(float rangeSq);
 
+	/// <summary>
+	/// 見える角度か判定
+	/// </summary>
+	/// <returns></returns>
 	bool CheckInViewRadAngle();
 
 protected:

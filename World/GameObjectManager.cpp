@@ -98,7 +98,10 @@ void GameObjectManager::CheckAttackCollision()
 		//攻撃者の攻撃コリジョンを取得
 		const auto& attackCollisionDatas = attacker->GetAttackCollision()->GetCollisionDatas();
 
-		for (size_t j = i + 1; j < objCount; j++) {
+		for (size_t j = 0; j < objCount; j++) {
+
+			if (i == j)continue;
+
 			//ターゲットを取得
 			GameObject* target = m_pObjects[j].get();
 			//タグが同じなら処理しない
