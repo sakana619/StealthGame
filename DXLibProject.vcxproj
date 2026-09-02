@@ -149,7 +149,6 @@
     <ClCompile Include="World\Map\MapObject.cpp" />
     <ClCompile Include="World\Map\Map.cpp" />
     <ClCompile Include="World\Chara\CharacterBase.cpp" />
-    <ClCompile Include="World\Chara\Enemy\EnemyData.cpp" />
     <ClCompile Include="World\Chara\AnimationController.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="System\Time.cpp" />

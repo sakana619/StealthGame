@@ -65,6 +65,13 @@ protected:
 	virtual void UpdateCombat(float deltaTime) = 0;
 
 	/// <summary>
+	/// 次の座標に着いたか判定
+	/// </summary>
+	/// <param name="nextPos"></param>
+	/// <returns></returns>
+	bool IsArrivedNextPos(const Vector3& nextPos, float moveAmount);
+
+	/// <summary>
 	/// 見える距離か判定
 	/// </summary>
 	/// <param name="rangeSq"></param>

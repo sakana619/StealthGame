@@ -96,6 +96,11 @@ void EnemyBee::Update(float deltaTime)
 
 	}
 
+	//コリジョンの設定
+	for (const auto& collision : m_collisions) {
+		collision.shape->SetCenterPos(m_transform.position);
+	}
+
 	//プレイヤーへの方向
 	Vector3 dif = *m_pTargetPos - GameObject::m_transform.position;
 
@@ -184,21 +189,25 @@ void EnemyBee::InitAnimation()
 
 void EnemyBee::UpdatePatrol(float deltaTime)
 {
-
+	//次の巡回座標を取得
 	Vector3 nextPos = m_patrolPositions[m_nextPatrolIndex];
-
+	//角度の更新
 	UpdateForward(kMoveDirection, m_transform.rotation.y);
-
+	//移動量を取得
 	float moveAmount = kMoveSpeed * Time::GetDeltaTime();
-
+	//移動
 	m_transform.Translate(m_forward * moveAmount);
 
-	float distanceToTarget = (nextPos - m_transform.position).GetSqLength();
-
-	if (distanceToTarget < moveAmount * moveAmount) {
+	//次の巡回座標に着いたら
+	if (IsArrivedNextPos(nextPos, moveAmount)) {
+		//座標のずれをなくす
 		m_transform.position = nextPos;
+		//巡回が戻りなら
 		if (m_isBack) {
+			//戻る
 			m_nextPatrolIndex--;
+
+			//最初の地点に来たら
 			if (m_nextPatrolIndex <= 0) {
 				m_nextPatrolIndex = 0;
 				m_isBack = false;
@@ -207,13 +216,17 @@ void EnemyBee::UpdatePatrol(float deltaTime)
 		}
 		else
 		{
+			//巡回位置を更新
 			m_nextPatrolIndex++;
+			//最後の地点なら
 			if (m_nextPatrolIndex >= m_patrolPositions.size() - 1) {
+				//巡回を戻りにする
 				m_nextPatrolIndex = m_patrolPositions.size() - 1;
 				m_isBack = true;
 			}
 
 		}
+		//状態の変更
 		m_state = EnemyBase::State::Caution;
 	}
 
@@ -227,6 +240,10 @@ void EnemyBee::UpdateCaution(float deltaTime)
 	Vector3 dif = nextPos - m_transform.position;
 	//次の目的地への角度
 	float targetAngle = atan2f(-dif.x, -dif.z);
+	targetAngle = MyMath::NormalizeRadAngle(targetAngle);
+
+	m_transform.rotation.y = MyMath::NormalizeRadAngle(m_transform.rotation.y);
+
 	//次の目的地への角度と現在の角度の差
 	float difAngle = targetAngle - m_transform.rotation.y;
 	difAngle = MyMath::NormalizeRadAngle(difAngle);

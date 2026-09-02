@@ -57,9 +57,6 @@
     <ClCompile Include="World\Chara\AnimationController.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="World\Chara\Enemy\EnemyData.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="World\Chara\CharacterBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>

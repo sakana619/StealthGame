@@ -40,6 +40,8 @@ public:
 
 private:
 
+	void InitAnimation();
+
 	Vector3 GetInputVectorRotedByCamera();
 
 	void UpdateAnimation(float deltaTime);

@@ -40,11 +40,10 @@ SceneBase* GameScene::Update()
 
 	float deltaTime = Time::GetDeltaTime();
 
-	m_pPlayer->Update(deltaTime);
+	m_pGameObjectMgr->Update(deltaTime);
+
 	m_pCamera->SetTargetPos(m_pPlayer->GetPosition());
 	m_pCamera->Update();
-
-	m_pEnemyMgr->Update(deltaTime);
 
 	m_pGameObjectMgr->CheckCollision();
 	m_pGameObjectMgr->CheckAttackCollision();

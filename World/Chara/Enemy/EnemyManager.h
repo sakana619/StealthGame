@@ -16,8 +16,6 @@ public:
 	~EnemyManager() = default;
 
 	void Init(GameObjectManager* gameObjectMgr);
-	void Update(float deltaTime);
-	void Draw();
 	void End();
 
 	/// <summary>

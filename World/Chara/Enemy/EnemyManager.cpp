@@ -50,10 +50,10 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 	}
 
 	for (int i = 0; i < enemyCount; i++) {
-
+		if (i != 0)return;
 		EnemyBase* newEnemy = gameObjectMgr->CreateObject<EnemyBee>();
 		newEnemy->Init();
-		newEnemy->SetPosition(Vector3(1000, 100, 100));
+		newEnemy->SetPosition(patrolPos[i][0]);
 		//巡回座標を設定
 		newEnemy->SetPatrolPos(patrolPos[i]);
 		//攻撃情報を追加
@@ -61,26 +61,6 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 
 		m_pEnemies.push_back(std::move(newEnemy));
 
-	}
-
-}
-
-void EnemyManager::Update(float deltaTime)
-{
-
-	for (const auto& enemy : m_pEnemies) {
-		if (!enemy->IsActive())continue;
-		enemy->Update(deltaTime);
-	}
-
-}
-
-void EnemyManager::Draw()
-{
-
-	for (auto& enemy : m_pEnemies) {
-		if (!enemy->IsActive())continue;
-		enemy->Draw();
 	}
 
 }

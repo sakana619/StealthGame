@@ -57,41 +57,10 @@ void Player::Init()
 	m_pAttackCollision->AddCollision<Collision::AABB>(attackInfo, Vector3::Zero, Vector3(100, 100, 100));
 	//タグの設定
 	m_collisionTag = CollisionTag::Player;
-	//モデルの読み込み
-	GameObject::m_modelHandle = MV1LoadModel(kModelPath);
 
-	//アニメーションデータの移動量を無効
-	int moveAnimFrameIndex = MV1SearchFrame(m_modelHandle, "root");
-	MV1SetFrameUserLocalMatrix(
-		m_modelHandle,
-		moveAnimFrameIndex,
-		MV1GetFrameLocalMatrix(m_modelHandle, moveAnimFrameIndex)
-	);
-	m_anim = std::make_unique<AnimationController>(m_modelHandle);
+	InitAnimation();
 
-	int animNum = static_cast<int>(Animation::Player::Max);
-	m_animData.resize(animNum);
-
-	for (int i = 0; i < animNum; i++) {
-		m_animData[i].index = MV1GetAnimIndex(m_modelHandle, kAnimationName[i]);
-	}
-
-	//アニメーションの設定
-	m_animData[static_cast<int>(Animation::Player::Neutral)].isLoop = true;
-	m_animData[static_cast<int>(Animation::Player::Run)].isLoop = true;
-	m_animData[static_cast<int>(Animation::Player::JumpIn)].isLoop = false;
-	m_animData[static_cast<int>(Animation::Player::JumpLoop)].isLoop = true;
-	m_animData[static_cast<int>(Animation::Player::JumpOut)].isLoop = false;
-	m_animData[static_cast<int>(Animation::Player::Attack)].isLoop = false;
-
-	m_animData[static_cast<int>(Animation::Player::Neutral)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::Run)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::JumpIn)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::JumpLoop)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::JumpOut)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::Attack)].isForcePlay = true;
-
-	m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Neutral)]);
+	m_hp = kMaxHp;
 
 	m_transform.position = Vector3(1000, 500, 1000);
 
@@ -233,6 +202,48 @@ void Player::SetEnemyManager(EnemyManager* pEnemyManager)
 	assert(pEnemyManager);
 	if (!pEnemyManager)return;
 	m_pEnemyManager = pEnemyManager;
+
+}
+
+void Player::InitAnimation() 
+{
+
+	//モデルの読み込み
+	GameObject::m_modelHandle = MV1LoadModel(kModelPath);
+
+	//アニメーションデータの移動量を無効
+	int moveAnimFrameIndex = MV1SearchFrame(m_modelHandle, "root");
+	MV1SetFrameUserLocalMatrix(
+		m_modelHandle,
+		moveAnimFrameIndex,
+		MV1GetFrameLocalMatrix(m_modelHandle, moveAnimFrameIndex)
+	);
+	m_anim = std::make_unique<AnimationController>(m_modelHandle);
+
+	//アニメーションの設定
+	int animNum = static_cast<int>(Animation::Player::Max);
+	m_animData.resize(animNum);
+
+	for (int i = 0; i < animNum; i++) {
+		m_animData[i].index = MV1GetAnimIndex(m_modelHandle, kAnimationName[i]);
+	}
+
+	m_animData[static_cast<int>(Animation::Player::Neutral)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::Run)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::JumpIn)].isLoop = false;
+	m_animData[static_cast<int>(Animation::Player::JumpLoop)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::JumpOut)].isLoop = false;
+	m_animData[static_cast<int>(Animation::Player::Attack)].isLoop = false;
+
+	m_animData[static_cast<int>(Animation::Player::Neutral)].isForcePlay = false;
+	m_animData[static_cast<int>(Animation::Player::Run)].isForcePlay = false;
+	m_animData[static_cast<int>(Animation::Player::JumpIn)].isForcePlay = false;
+	m_animData[static_cast<int>(Animation::Player::JumpLoop)].isForcePlay = false;
+	m_animData[static_cast<int>(Animation::Player::JumpOut)].isForcePlay = false;
+	m_animData[static_cast<int>(Animation::Player::Attack)].isForcePlay = true;
+
+	m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Neutral)]);
+
 
 }
 

@@ -45,6 +45,11 @@ void EnemyBase::Damage(const AttackInfo& attackInfo, const Vector3& normal)
 
 }
 
+bool EnemyBase::IsArrivedNextPos(const Vector3& nextPos, float moveAmount)
+{
+	return (nextPos - m_transform.position).GetSqLength() < moveAmount * moveAmount;
+}
+
 bool EnemyBase::CheckInViewRange(float rangeSq)
 {
 	//視界の距離の外にいたらfalse
