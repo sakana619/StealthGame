@@ -26,6 +26,8 @@ namespace {
 		"Attack1",
 	};
 
+	constexpr int kMaxHp = 100;
+
 }
 
 Player::Player():
@@ -42,6 +44,7 @@ Player::Player(Camera* pCamera) :
 void Player::Init()
 {
 
+	//コリジョンの追加
 	AddCollision(std::make_unique<Collision::AABB>(Vector3(0, 100, 0), Vector3(100, 200, 100)), CollisionType::Body);
 	AddCollision(std::make_unique<Collision::AABB>(Vector3(0, -1, 0), Vector3(100, 14, 100)), CollisionType::Foot);
 
@@ -50,11 +53,11 @@ void Player::Init()
 	AttackInfo attackInfo{
 		1,1
 	};
-
+	//攻撃コリジョンを追加
 	m_pAttackCollision->AddCollision<Collision::AABB>(attackInfo, Vector3::Zero, Vector3(100, 100, 100));
-
+	//タグの設定
 	m_collisionTag = CollisionTag::Player;
-
+	//モデルの読み込み
 	GameObject::m_modelHandle = MV1LoadModel(kModelPath);
 
 	//アニメーションデータの移動量を無効
@@ -64,7 +67,6 @@ void Player::Init()
 		moveAnimFrameIndex,
 		MV1GetFrameLocalMatrix(m_modelHandle, moveAnimFrameIndex)
 	);
-
 	m_anim = std::make_unique<AnimationController>(m_modelHandle);
 
 	int animNum = static_cast<int>(Animation::Player::Max);
@@ -74,6 +76,7 @@ void Player::Init()
 		m_animData[i].index = MV1GetAnimIndex(m_modelHandle, kAnimationName[i]);
 	}
 
+	//アニメーションの設定
 	m_animData[static_cast<int>(Animation::Player::Neutral)].isLoop = true;
 	m_animData[static_cast<int>(Animation::Player::Run)].isLoop = true;
 	m_animData[static_cast<int>(Animation::Player::JumpIn)].isLoop = false;
@@ -214,6 +217,13 @@ void Player::ResolveCollision(const Collision::Result result, const CollisionDat
 	for (auto& collision : m_collisions) {
 		collision.shape->SetCenterPos(m_transform.position);
 	}
+
+}
+
+void Player::Damage(const AttackInfo& attackInfo, const Vector3& normal)
+{
+
+	CharacterBase::Damage(attackInfo, normal);
 
 }
 

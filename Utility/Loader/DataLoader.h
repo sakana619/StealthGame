@@ -12,17 +12,15 @@ namespace DataLoader {
 		//ヘッダーデータに変換
 		std::vector<Data::HeaderData> datas = Data::ToHeaderData(rawData);
 
-
 		std::vector<T>res;
 		//メモリの確保
 		res.reserve(rawData.size());
 
 		for (auto data : datas) {
 
-			res.emplace_back(Data::FromData<EnemyData>::Binding(data));
+			res.emplace_back(Data::FromData<T>::Binding(data));
 
 		}
-
 
 		return res;
 

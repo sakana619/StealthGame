@@ -30,9 +30,9 @@ namespace Animation
 	/// </summary>
 	struct AnimationData
 	{
-		int index;
-		bool isLoop;
-		bool isForcePlay;
+		int index;			//アニメーション番号
+		bool isLoop;		//ループするか
+		bool isForcePlay;	//割り込み可能か
 	};
 
 };

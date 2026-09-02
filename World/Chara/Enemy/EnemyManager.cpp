@@ -13,6 +13,7 @@
 
 namespace {
 
+	//敵のデータのファイルパス
 	const char* const kDataPath = ".\\Data\\Enemy\\EnemyPatrolPos.csv";
 
 }
@@ -27,6 +28,8 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 
 	//データの取得
 	std::vector<EnemyData> datas = DataLoader::LoadMasterData<EnemyData>(kDataPath);
+
+	std::vector<AttackInfo> attackInfo = DataLoader::LoadMasterData<AttackInfo>(".\\Data\\AttackInfo.csv");
 
 	//敵の数を取得 IDは0も含まれるので + 1
 	int enemyCount = datas.back().ID + 1;
@@ -51,7 +54,10 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 		EnemyBase* newEnemy = gameObjectMgr->CreateObject<EnemyBee>();
 		newEnemy->Init();
 		newEnemy->SetPosition(Vector3(1000, 100, 100));
+		//巡回座標を設定
 		newEnemy->SetPatrolPos(patrolPos[i]);
+		//攻撃情報を追加
+		newEnemy->GetAttackCollision()->AddCollision<Collision::AABB>(attackInfo[0], Collision::AABB(Vector3::Zero, Vector3(100, 100, 100)));
 
 		m_pEnemies.push_back(std::move(newEnemy));
 

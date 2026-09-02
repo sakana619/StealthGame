@@ -58,12 +58,6 @@ void EnemyBee::Init()
 
 	m_pAttackCollision = std::make_unique<AttackCollision>();
 
-	AttackInfo attackInfo;
-	attackInfo.damage = 10;
-	attackInfo.knockBack = 100.0f;
-	//攻撃コリジョンを登録
-	m_pAttackCollision->AddCollision<Collision::AABB>(attackInfo, Collision::AABB(Vector3::Zero, Vector3(100, 100, 100)));
-
 	m_state = EnemyBase::State::Caution;
 
 }

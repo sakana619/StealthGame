@@ -34,6 +34,8 @@ public:
 		const CollisionData& otherData,
 		CollisionTag other)override;
 
+	void Damage(const AttackInfo& attackInfo, const Vector3& normal)override;
+
 	void SetEnemyManager(EnemyManager* pEnemyManager);
 
 private:

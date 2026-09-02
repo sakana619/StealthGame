@@ -40,6 +40,8 @@ public:
 	/// <param name="normal">攻撃のヒットした法線</param>
 	virtual void Damage(const AttackInfo& attackInfo, const Vector3& normal)override;
 
+	bool IsDead()const { return m_isDead; }
+
 protected:
 	/// <summary>
 	/// アニメーションのコントローラー
@@ -58,5 +60,15 @@ protected:
 	/// ノックバック量
 	/// </summary>
 	Vector3 m_unresolveKnockback;
+
+	/// <summary>
+	/// 体力
+	/// </summary>
+	int m_hp;
+
+	/// <summary>
+	/// 死亡しているか
+	/// </summary>
+	bool m_isDead;
 
 };

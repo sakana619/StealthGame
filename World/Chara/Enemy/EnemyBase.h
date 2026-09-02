@@ -40,8 +40,6 @@ public:
 
 	bool IsActive()const { return m_isActive; }
 
-	bool IsDead()const { return m_isDead; }
-
 	/// <summary>
 	/// 正面方向のベクトルを取得
 	/// </summary>
@@ -81,11 +79,7 @@ protected:
 
 protected:
 
-	int m_hp;
-
 	bool m_isActive;
-
-	bool m_isDead;
 
 	/// <summary>
 	/// 敵キャラクターの状態

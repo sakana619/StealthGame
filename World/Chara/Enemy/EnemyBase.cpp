@@ -6,9 +6,7 @@
 #include"../../../Utility/Vector3.h"
 
 EnemyBase::EnemyBase() :
-	m_hp(0),
 	m_isActive(true),
-	m_isDead(false),
 	m_state(EnemyBase::State::Patrol),
 	m_moveSpeed(0),
 	m_visibleDistance(0),
@@ -33,12 +31,10 @@ void EnemyBase::End()
 
 void EnemyBase::Damage(const AttackInfo& attackInfo, const Vector3& normal)
 {
-	CharacterBase::Damage(attackInfo, normal);
 	//damageが0以下ならリターン
 	if (attackInfo.damage < 0)return;
 	//規定のダメージ処理
-	//HPを減らす
-	m_hp -= attackInfo.damage;
+	CharacterBase::Damage(attackInfo, normal);
 	//HPが0以下になったら
 	if (m_hp < 0) {
 		//死亡処理
