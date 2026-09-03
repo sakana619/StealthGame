@@ -5,6 +5,14 @@
 #include<DxLib.h>
 #include"MapObjectModelAssignor.h"
 
+namespace {
+	//コリジョンのオフセット
+	constexpr Vector3 kCollisionOffSet = { 69.0f, 50.0f, 79.0f };
+	//コリジョンのサイズ
+	constexpr Vector3 kCollisionSize = { 200.0f, 200.0f, 200.0f };
+
+}
+
 MapObject::MapObject(MapData::ObjectType type)
 {
 	//モデルの取得
@@ -23,9 +31,7 @@ MapObject::MapObject(MapData::ObjectType type)
 void MapObject::Init()
 {
 
-	//m_collisions.emplace_back(std::make_unique<Collision::AABB>(Vector3::Zero, Vector3(200, 200, 200)), CollisionType::Body);
-
-	AddCollision(std::make_unique<Collision::AABB>(Vector3::Zero, Vector3(200, 200, 200)), CollisionType::Body);
+	AddCollision(std::make_unique<Collision::AABB>(kCollisionOffSet, kCollisionSize), CollisionType::Body);
 
 	for (auto& collision : m_collisions) {
 		collision.shape->SetCenterPos(m_transform.position);
@@ -39,7 +45,7 @@ void MapObject::Update(float deltaTime)
 
 void MapObject::Draw()
 {
-	//GameObject::Draw();
+	GameObject::Draw();
 
 	for (auto& collision : m_collisions) {
 		collision.shape->DrawCollisionShape(0x008800);

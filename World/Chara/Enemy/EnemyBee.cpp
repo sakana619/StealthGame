@@ -35,6 +35,8 @@ namespace {
 
 	constexpr float kMoveSpeed = 120.0f;
 
+	constexpr float kMaxRotateSpeed = 120.0f;
+
 }
 
 EnemyBee::EnemyBee()
@@ -48,7 +50,7 @@ void EnemyBee::Init()
 
 	InitAnimation();
 
-	AddCollision(std::make_unique<Collision::Sphere>(Vector3(0, 100, 0), 90.0f), CollisionType::Body);
+	AddCollision(std::make_unique<Collision::Sphere>(Vector3(0, 30, 0), 45.0f), CollisionType::Body);
 
 	GameObject::m_transform.scale = Vector3{ 0.3f,0.3f,0.3f };
 
@@ -79,6 +81,8 @@ void EnemyBee::Update(float deltaTime)
 	m_pAttackCollision->Update();
 
 	m_transform.position += m_unresolveKnockback;
+
+	printfDx(" aaa %d\n", m_nextPatrolIndex);
 
 	switch (m_state) {
 
@@ -249,6 +253,8 @@ void EnemyBee::UpdateCaution(float deltaTime)
 	difAngle = MyMath::NormalizeRadAngle(difAngle);
 
 	printfDx("%f\n", MyMath::RadToDeg(difAngle));
+
+	float rotateSpeed = kMaxRotateSpeed * deltaTime;
 
 	//difAngleが0より小さいか判定
 	if (difAngle < 0) {

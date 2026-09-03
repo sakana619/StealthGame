@@ -210,7 +210,7 @@ Result CheckToAABBBySphere(const Collision::Shape& sphere, const Collision::Shap
 
 
 
-	DrawSphere3D(closest.ToVECTOR(), 10.0f, 32, 0xff0000, 0xff0000, TRUE);
+	//DrawSphere3D(closest.ToVECTOR(), 10.0f, 32, 0xff0000, 0xff0000, TRUE);
 
 
 	return result;
