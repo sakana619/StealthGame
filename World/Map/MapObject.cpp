@@ -48,7 +48,7 @@ void MapObject::Draw()
 	GameObject::Draw();
 
 	for (auto& collision : m_collisions) {
-		collision.shape->DrawCollisionShape(0x008800);
+		//collision.shape->DrawCollisionShape(0x008800);
 	}
 
 }

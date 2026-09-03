@@ -48,4 +48,9 @@ private:
 	/// </summary>
 	std::array<int, static_cast<int>(MapData::ObjectType::Max)>m_objectModels;
 
+	/// <summary>
+	/// 地面のテクスチャーリスト
+	/// </summary>
+	std::vector<int>m_textureList;
+
 };

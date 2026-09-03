@@ -5,6 +5,7 @@
 #include"MapData.h"
 #include"MapObjectModelAssignor.h"
 #include"../GameObjectManager.h"
+#include"../Chara/Player.h"
 
 Map::Map()
 {
@@ -24,7 +25,6 @@ void Map::Init()
 
 			//マップオブジェクトの生成
 			auto obj = std::make_unique<MapObject>(type);
-			//auto obj = gameObjecMgr->CreateObject<MapObject>(type);
 
 			//初期化
 			obj->Init();
@@ -101,5 +101,16 @@ void Map::CheckHitMap(GameObjectManager* pGameObjectMgr)
 		}
 
 	}
+
+}
+
+bool Map::IsGoal(const Player* pPlayer)
+{
+
+	Vector3 goalPos = { 3000.0f,160.0f,5100.0f };
+
+	if ((goalPos - pPlayer->GetPosition()).GetSqLength() > 500 * 500)return false;
+
+	return true;
 
 }

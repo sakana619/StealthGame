@@ -45,6 +45,10 @@ SceneBase* GameScene::Update()
 	m_pCamera->SetTargetPos(m_pPlayer->GetPosition());
 	m_pCamera->Update();
 
+	if (m_pMap->IsGoal(m_pPlayer)) {
+
+	}
+
 	m_pGameObjectMgr->CheckCollision();
 	m_pGameObjectMgr->CheckAttackCollision();
 	m_pMap->CheckHitMap(m_pGameObjectMgr.get());

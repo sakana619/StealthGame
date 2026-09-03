@@ -4,6 +4,7 @@
 
 class MapObject;
 class GameObjectManager;
+class Player;
 
 /// <summary>
 /// マップオブジェクト管理クラス
@@ -30,12 +31,18 @@ public:
 	/// <param name="pGameObjectMgr"></param>
 	void CheckHitMap(GameObjectManager* pGameObjectMgr);
 
+	/// <summary>
+	/// プレイヤーがゴールにたどり着いたか
+	/// </summary>
+	/// <param name="pPlayer"></param>
+	/// <returns></returns>
+	bool IsGoal(const Player* pPlayer);
+
 private:
 
 	/// <summary>
 	/// 管理するマップオブジェクト
 	/// </summary>
 	std::vector<std::unique_ptr<MapObject>>m_pMapObjects;
-	//std::vector<MapObject*>m_pMapObjects;
 
 };
