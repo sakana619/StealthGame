@@ -14,6 +14,7 @@ void GameObjectManager::Update(float deltaTime)
 {
 	//すべてのオブジェクトの更新
 	for (auto& obj : m_pObjects) {
+		if (!obj->IsActive())continue;
 		obj->Update(deltaTime);
 	}
 
@@ -23,6 +24,7 @@ void GameObjectManager::Draw()
 {
 	//すべてのオブジェクトの描画
 	for (auto& obj : m_pObjects) {
+		if (!obj->IsActive())continue;
 		obj->Draw();
 	}
 
@@ -47,12 +49,16 @@ void GameObjectManager::CheckCollision()
 	for (size_t i = 0; i < objCount; i++) {
 		//調べるオブジェクトのA
 		GameObject* objA = m_pObjects[i].get();
+		//アクティブ状態でないなら処理をしない
+		if (!objA->IsActive())continue;
 		//調べるオブジェクトのAのコリジョン
 		const auto& collisionAData = objA->GetCollisionData();
 
 		for (size_t j = i + 1; j < objCount; j++) {
 			//調べるオブジェクトのB
 			GameObject* objB = m_pObjects[j].get();
+			//アクティブ状態でないなら処理をしない
+			if (!objB->IsActive())continue;
 			//調べるオブジェクトのBのコリジョン
 			const auto& collisionBData = objB->GetCollisionData();
 
@@ -95,15 +101,18 @@ void GameObjectManager::CheckAttackCollision()
 	for (size_t i = 0; i < objCount; i++) {
 		//攻撃者を取得
 		GameObject* attacker = m_pObjects[i].get();
+		//アクティブ状態でないなら処理をしない
+		if (!attacker->IsActive())continue;
 		//攻撃者の攻撃コリジョンを取得
 		const auto& attackCollisionDatas = attacker->GetAttackCollision()->GetCollisionDatas();
 
 		for (size_t j = 0; j < objCount; j++) {
-
+			//同じゲームオブジェクトなら処理をしない
 			if (i == j)continue;
-
 			//ターゲットを取得
 			GameObject* target = m_pObjects[j].get();
+			//アクティブ状態でないなら処理をしない
+			if (!target->IsActive())continue;
 			//タグが同じなら処理しない
 			if (attacker->GetCollisionTag() == target->GetCollisionTag())continue;
 			//ターゲットのコリジョンを取得

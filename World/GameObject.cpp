@@ -7,6 +7,7 @@
 GameObject::GameObject():
 	m_transform(),
 	m_modelHandle(),
+	m_isActive(true),
 	m_pAttackCollision(nullptr),
 	m_collisionTag(CollisionTag::Invalid)
 {

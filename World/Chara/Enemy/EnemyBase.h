@@ -38,8 +38,6 @@ public:
 
 	virtual void Death() {}
 
-	bool IsActive()const { return m_isActive; }
-
 	/// <summary>
 	/// 正面方向のベクトルを取得
 	/// </summary>
@@ -85,8 +83,6 @@ protected:
 	bool CheckInViewRadAngle();
 
 protected:
-
-	bool m_isActive;
 
 	/// <summary>
 	/// 敵キャラクターの状態

@@ -61,7 +61,8 @@ void AttackCollision::AttackData::DespawnCollision()
 }
 
 AttackCollision::AttackCollision()
-{}
+{
+}
 
 void AttackCollision::Update()
 {

@@ -6,7 +6,6 @@
 #include"../../../Utility/Vector3.h"
 
 EnemyBase::EnemyBase() :
-	m_isActive(true),
 	m_state(EnemyBase::State::Patrol),
 	m_moveSpeed(0),
 	m_visibleDistance(0),

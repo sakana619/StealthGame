@@ -148,10 +148,6 @@ void Player::Draw()
 	}
 	m_pAttackCollision->DrawCollision();
 
-	printfDx("xxx : %f\n", m_unresolveKnockback.x);
-	printfDx("yyy : %f\n", m_unresolveKnockback.y);
-	printfDx("zzz : %f\n", m_unresolveKnockback.z);
-
 }
 
 void Player::End()

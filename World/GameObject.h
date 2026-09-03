@@ -102,8 +102,22 @@ public:
 	/// <returns></returns>
 	const Vector3& GetPosition()const { return m_transform.position; }
 
+	/// <summary>
+	/// アクティブ状態を取得
+	/// </summary>
+	/// <returns></returns>
+	bool IsActive()const { return m_isActive; }
+
+	/// <summary>
+	/// 自身のコリジョンのデータ全ての取得
+	/// </summary>
+	/// <returns></returns>
 	const std::vector<CollisionData>& GetCollisionData()const { return m_collisions; }
 
+	/// <summary>
+	/// 攻撃のコリジョンを取得
+	/// </summary>
+	/// <returns></returns>
 	AttackCollision* GetAttackCollision() { return m_pAttackCollision.get(); }
 
 	/// <summary>
@@ -116,9 +130,20 @@ public:
 
 protected:
 
+	/// <summary>
+	/// 位置、回転、拡縮を管理する構造体
+	/// </summary>
 	Transform m_transform;
 
+	/// <summary>
+	/// モデルハンドル
+	/// </summary>
 	int m_modelHandle;
+
+	/// <summary>
+	/// アクティブ状態
+	/// </summary>
+	bool m_isActive;
 
 	/// <summary>
 	/// 自身のコリジョン
