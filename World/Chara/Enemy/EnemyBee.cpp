@@ -5,6 +5,8 @@
 #include<math.h>
 #include"../../../System/Time.h"
 
+int EnemyBee::m_discoveryImageHandle = -1;
+
 namespace {
 
 	//蜂のファイルパス
@@ -27,6 +29,8 @@ namespace {
 
 	};
 
+	const char* const kDiscoveryImagePath = ".\\Resource\\chara\\2117.png";
+
 	constexpr Vector3 kMoveDirection = { 0.0f,0.0,1.0f };
 
 	constexpr float kVisibleRange = 1000.0f;
@@ -47,16 +51,10 @@ EnemyBee::EnemyBee()
 
 void EnemyBee::Init()
 {
-
+	//アニメーションの読み込み
 	InitAnimation();
-
+	//コリジョンの追加
 	AddCollision(std::make_unique<Collision::Sphere>(Vector3(0, 30, 0), 45.0f), CollisionType::Body);
-
-	GameObject::m_transform.scale = Vector3{ 0.3f,0.3f,0.3f };
-
-	m_transform.position = Vector3{ 1000,0,100 };
-
-	MV1SetScale(GameObject::m_modelHandle, GameObject::m_transform.scale.ToVECTOR());
 
 	m_pAttackCollision = std::make_unique<AttackCollision>();
 
@@ -122,9 +120,11 @@ void EnemyBee::Update(float deltaTime)
 		//視界角の中にプレイヤーがいるかチェックする
 		if (CheckInViewRadAngle()) {
 			printfDx("視界の中\n");
-
+			//戦闘状態に変更
 			m_state = EnemyBase::State::Combat;
-			
+
+			DrawBillboard3D(m_transform.position.ToVECTOR(), 0.5f, -1.0f, 50, 0.0f, m_discoveryImageHandle, true);
+
 		}
 
 	}
@@ -190,7 +190,15 @@ void EnemyBee::InitAnimation()
 
 	m_animData[flyingIndex].isLoop = true;
 
+	//サイズの調整
+	GameObject::m_transform.scale = Vector3{ 0.3f,0.3f,0.3f };
+	MV1SetScale(GameObject::m_modelHandle, GameObject::m_transform.scale.ToVECTOR());
+	//初期アニメーションの再生
 	m_anim->PlayAnimation(m_animData[flyingIndex]);
+
+	if (m_discoveryImageHandle == -1) {
+		m_discoveryImageHandle = LoadGraph(kDiscoveryImagePath);
+	}
 
 }
 

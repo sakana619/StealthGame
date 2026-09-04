@@ -54,13 +54,14 @@ inline void UIManager::CreateUI(Args&& ...args)
 	static_assert(std::is_base_of<UIBase, T>::value, "is not base of UIBase");
 	//リストに追加
 	m_UIList.emplace_back(std::make_unique<T>(std::forward<Args>(args)...));
+	//初期化
+	m_UIList.back()->Init();
 
 }
 
 template<class T>
 inline T* UIManager::FindUI()
 {
-
 	//継承しているかチェック
 	static_assert(std::is_base_of<UIBase, T>::value, "is not base of UIBase");
 

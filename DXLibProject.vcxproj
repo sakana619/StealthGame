@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIManager.cpp" />
     <ClCompile Include="UI\UIBase.cpp" />
     <ClCompile Include="Utility\Loader\LoadData.cpp" />
@@ -170,6 +171,7 @@
     <Image Include="Image\Cloud.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIManager.h" />
     <ClInclude Include="UI\UIBase.h" />
     <ClInclude Include="Utility\Loader\DataBinder.h" />

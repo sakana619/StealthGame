@@ -88,9 +88,9 @@ protected:
 	/// 敵キャラクターの状態
 	/// </summary>
 	enum class State {
-		Patrol,
-		Caution,
-		Combat,
+		Patrol,		//巡回
+		Caution,	//警戒
+		Combat,		//戦闘
 
 	};
 
