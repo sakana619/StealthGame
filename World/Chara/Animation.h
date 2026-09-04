@@ -1,5 +1,8 @@
 #pragma once
 
+/// <summary>
+/// アニメーション
+/// </summary>
 namespace Animation
 {
 

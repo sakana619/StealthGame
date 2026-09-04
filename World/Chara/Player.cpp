@@ -25,8 +25,10 @@ namespace {
 		"JumpOut",
 		"Attack1",
 	};
-
+	//最大HP
 	constexpr int kMaxHp = 100;
+	//重力
+	constexpr float kGravity = 13.0f;
 
 }
 
@@ -57,9 +59,9 @@ void Player::Init()
 	m_pAttackCollision->AddCollision<Collision::AABB>(attackInfo, Vector3::Zero, Vector3(100, 100, 100));
 	//タグの設定
 	m_collisionTag = CollisionTag::Player;
-
+	//アニメーションの読み込み
 	InitAnimation();
-
+	//体力を最大値に設定
 	m_hp = kMaxHp;
 
 	m_transform.position = Vector3(1000, 500, 1000);
@@ -86,7 +88,7 @@ void Player::Update(float deltaTime)
 
 	Move();
 
-	m_fallSpeed -= 13;
+	m_fallSpeed -= kGravity;
 	m_transform.position.y += m_fallSpeed;
 
 	for (auto& collision : m_collisions) {
@@ -129,7 +131,8 @@ void Player::Update(float deltaTime)
 			m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Attack)]);
 			//方向を合わせる
 			m_transform.rotation.y = atan2f(-(nearestEnemyPos.x - m_transform.position.x), -(nearestEnemyPos.z - m_transform.position.z));
-			nearestEnemy->Damage(m_pAttackCollision->GetCollisionData(0).GetAttackInfo(), enemyToPlayer);
+			//nearestEnemy->Damage(m_pAttackCollision->GetCollisionData(0).GetAttackInfo(), enemyToPlayer);
+			m_pAttackCollision->GetCollisionData(0).SpawnCollision(1.0f, nearestEnemyPos);
 		}
 
 	}

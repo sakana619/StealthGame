@@ -72,6 +72,11 @@ void EnemyBee::Update(float deltaTime)
 		m_transform.scale.x = MyMath::Clamp(m_transform.scale.x, 0.0f, 1.0f);
 		m_transform.scale.y = MyMath::Clamp(m_transform.scale.y, 0.0f, 1.0f);
 		m_transform.scale.z = MyMath::Clamp(m_transform.scale.z, 0.0f, 1.0f);
+
+		if (m_transform.scale.x < MyMath::Epsilon) {
+			m_isActive = false;
+		}
+
 	}
 
 	if (m_anim->GetIsPlayAnimation()) {
@@ -130,16 +135,12 @@ void EnemyBee::Update(float deltaTime)
 
 void EnemyBee::Draw()
 {
-	for (auto& collision : m_collisions) {
-		collision.shape->DrawCollisionShape();
-	}
-
 	m_pAttackCollision->DrawCollision();
 
 	EnemyBase::Draw();
 	MV1SetScale(m_modelHandle, m_transform.scale.ToVECTOR());
 
-	DrawView();
+	//DrawView();
 
 }
 
@@ -159,8 +160,10 @@ void EnemyBee::ResolveCollision(const Collision::Result result, const CollisionD
 
 void EnemyBee::Death()
 {
-
+	//死亡アニメーションの再生
 	m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::EnemyBee::Death)]);
+
+	m_isDead = true;
 
 }
 
@@ -302,8 +305,7 @@ void EnemyBee::UpdateCombat(float deltaTime)
 	//視界の外に出たら
 	if (CheckInViewRange(dif.GetSqLength())) return;
 
-	int nearestPatrolIndex = 0;
-	float nearestLengthSq = (m_patrolPositions[nearestPatrolIndex] - m_transform.position).GetSqLength();
+	float nearestLengthSq = (m_patrolPositions[0] - m_transform.position).GetSqLength();
 	//一番近い巡回の座標を求める
 	for (int i = 0; i < m_patrolPositions.size(); i++) {
 
@@ -313,13 +315,12 @@ void EnemyBee::UpdateCombat(float deltaTime)
 		if (nearestLengthSq > distanceSq) {
 			//値を更新
 			nearestLengthSq = distanceSq;
-			nearestPatrolIndex = i;
+			m_nextPatrolIndex = i;
 
 		}
 
 	}
 
-	m_nextPatrolIndex = nearestPatrolIndex;
 	m_state = EnemyBase::State::Caution;
 
 }

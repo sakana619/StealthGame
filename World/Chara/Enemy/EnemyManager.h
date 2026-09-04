@@ -22,7 +22,7 @@ public:
 	/// 引数の座標から一番近い敵を取得
 	/// </summary>
 	/// <param name="Position"></param>
-	/// <returns></returns>
+	/// <returns>全ての敵が非アクティブならnullptrを返す</returns>
 	EnemyBase* GetNearestEnemy(const Vector3& position);
 
 	void SetTargetPos(const Vector3* targetPos);

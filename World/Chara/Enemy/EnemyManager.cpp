@@ -72,6 +72,7 @@ void EnemyManager::End()
 {
 
 	for (auto& enemy : m_pEnemies) {
+		if (!enemy)continue;
 		enemy->End();
 	}
 
@@ -82,15 +83,15 @@ EnemyBase* EnemyManager::GetNearestEnemy(const Vector3& position)
 
 	if (m_pEnemies.empty())return nullptr;
 
-	EnemyBase* nearestEnemy = m_pEnemies[0];
-	float nearest = (position - nearestEnemy->GetPosition()).GetSqLength();
+	EnemyBase* nearestEnemy = nullptr;
+	//最初に大きな値を入れる
+	float nearest = 16777216;
 
 	//全ての敵を調べる
 	for (auto& enemy : m_pEnemies) {
 		if (!enemy->IsActive() || enemy->IsDead())continue;
-		Vector3 enemyPos = enemy->GetPosition();
 		//距離を求める
-		float range = (position - enemyPos).GetSqLength();
+		float range = (position - enemy->GetPosition()).GetSqLength();
 
 		//nearestよりrangeの方が大きいならスルー
 		if (nearest < range)continue;

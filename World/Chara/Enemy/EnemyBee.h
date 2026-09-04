@@ -50,6 +50,9 @@ private:
 
 	Vector3 UpdateView();
 
+	/// <summary>
+	/// 視界の描画
+	/// </summary>
 	void DrawView();
 
 private:
