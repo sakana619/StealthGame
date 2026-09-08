@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIManager.cpp" />
     <ClCompile Include="UI\UIBase.cpp" />
@@ -171,6 +172,7 @@
     <Image Include="Image\Cloud.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIManager.h" />
     <ClInclude Include="UI\UIBase.h" />

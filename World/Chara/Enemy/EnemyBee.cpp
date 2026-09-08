@@ -11,13 +11,8 @@ namespace {
 
 	//蜂のファイルパス
 	const char* const kModelPath = ".\\Resource\\chara\\Bee.mv1";
-
-	constexpr Vector3 kInitPos{ -400.0f,0.0f,0.0f };
-
+	//拡大率
 	constexpr Vector3 kInitScale{ 0.3f,0.3f,0.3f };
-
-	constexpr Vector3 kCollisionOffSet{ 0.0f,20.0f,0.0f };
-	constexpr Vector3 kCollisionSize{ 50.0f,50.0f,50.0f };
 
 	// アニメーションの名前
 	const char* const kAnimationName[] = {
@@ -28,17 +23,17 @@ namespace {
 		"MonsterArmature|HitRecive"
 
 	};
-
+	//発見時の画像のファイルパス
 	const char* const kDiscoveryImagePath = ".\\Resource\\chara\\2117.png";
-
+	//進行方向
 	constexpr Vector3 kMoveDirection = { 0.0f,0.0,1.0f };
-
+	//見える距離
 	constexpr float kVisibleRange = 1000.0f;
-
+	//見える角度
 	constexpr float kVisibleRadAngle = MyMath::DegToRad(30);
-
+	//移動速度
 	constexpr float kMoveSpeed = 120.0f;
-
+	//最大回転速度
 	constexpr float kMaxRotateSpeed = 120.0f;
 
 }
@@ -79,6 +74,9 @@ void EnemyBee::Update(float deltaTime)
 
 	if (m_anim->GetIsPlayAnimation()) {
 		m_anim->Update(deltaTime);
+	}
+	else {
+		m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::EnemyBee::Flying)]);
 	}
 
 	m_pAttackCollision->Update();
@@ -263,19 +261,10 @@ void EnemyBee::UpdateCaution(float deltaTime)
 	float difAngle = targetAngle - m_transform.rotation.y;
 	difAngle = MyMath::NormalizeRadAngle(difAngle);
 
-	printfDx("%f\n", MyMath::RadToDeg(difAngle));
-
-	float rotateSpeed = kMaxRotateSpeed * deltaTime;
-
-	//difAngleが0より小さいか判定
-	if (difAngle < 0) {
-		//少しづつ目的の角度に近づける
-		m_transform.rotation.y += MyMath::Max(difAngle, MyMath::DegToRad(-2));
-	}
-	else {
-		//少しづつ目的の角度に近づける
-		m_transform.rotation.y += MyMath::Min(difAngle, MyMath::DegToRad(2));
-	}
+	//回転速度
+	float rotateSpeed = MyMath::DegToRad(kMaxRotateSpeed * deltaTime);
+	//少しづつ目的の角度に近づける
+	m_transform.rotation.y += MyMath::Clamp(difAngle, -rotateSpeed, rotateSpeed);
 
 	//正面ベクトルの更新
 	UpdateForward(kMoveDirection, m_transform.rotation.y);

@@ -64,7 +64,7 @@ void Player::Init()
 	//体力を最大値に設定
 	m_hp = kMaxHp;
 
-	m_transform.position = Vector3(1000, 500, 1000);
+	m_transform.position = Vector3(400, 500, 500);
 
 }
 
