@@ -5,6 +5,9 @@
 #include"../../../Utility/Vector3.h"
 #include"../Animation.h"
 
+/// <summary>
+/// 敵の基底クラス
+/// </summary>
 class EnemyBase :public CharacterBase
 {
 
@@ -14,11 +17,8 @@ public:
 	virtual ~EnemyBase()override = default;
 
 	virtual void Init()override = 0;
-
 	virtual void Update(float deltaTime)override = 0;
-
 	virtual void Draw()override;
-
 	virtual void End()override;
 
 	void Damage(const AttackInfo& attackInfo, const Vector3& normal)override;

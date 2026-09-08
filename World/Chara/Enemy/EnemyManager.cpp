@@ -34,8 +34,13 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 
 	//敵の数を取得 IDは0も含まれるので + 1
 	int enemyCount = datas.back().ID + 1;
+	//メモリの確保
+	m_pEnemies.reserve(enemyCount);
 
+	//一時保管変数
 	std::vector<std::vector<Vector3>>patrolPos;
+	//要素の確保
+	patrolPos.reserve(enemyCount);
 	patrolPos.resize(enemyCount);
 
 	for (int i = 0; i < datas.size(); i++) {

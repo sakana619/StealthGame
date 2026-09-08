@@ -12,11 +12,8 @@ public:
 	~EnemyBee()override = default;
 
 	void Init()override;
-
 	void Update(float deltaTime)override;
-
 	void Draw()override;
-
 	void End()override;
 
 	/// <summary>

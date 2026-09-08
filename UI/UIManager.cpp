@@ -40,4 +40,8 @@ void UIManager::Draw()
 void UIManager::End()
 {
 
+	for (const auto& ui : m_UIList) {
+		ui->End();
+	}
+
 }

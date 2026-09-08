@@ -122,7 +122,7 @@ void EnemyBee::Update(float deltaTime)
 			printfDx("視界の中\n");
 			//戦闘状態に変更
 			m_state = EnemyBase::State::Combat;
-
+			//発見時の画像を表示
 			DrawBillboard3D(m_transform.position.ToVECTOR(), 0.5f, -1.0f, 50, 0.0f, m_discoveryImageHandle, true);
 
 		}

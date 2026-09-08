@@ -49,7 +49,7 @@ public:
 	/// <returns></returns>
 	const Vector3& GetPosition()const { return m_position; }
 
-private:
+protected:
 
 	/// <summary>
 	/// UI‚Ìƒnƒ“ƒhƒ‹

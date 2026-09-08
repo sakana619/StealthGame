@@ -50,6 +50,10 @@ private:
 		/// <returns></returns>
 		const Collision::Shape* GetCollision()const { return m_collision.get(); }
 
+		/// <summary>
+		/// 攻撃情報を取得
+		/// </summary>
+		/// <returns></returns>
 		const AttackInfo& GetAttackInfo()const { return m_info; }
 
 		/// <summary>
