@@ -33,7 +33,7 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 	AttackInfo attackInfo = DataLoader::LoadMasterData<AttackInfo>(kAttackInfoDataPath)[0];
 
 	//敵の数を取得 IDは0も含まれるので + 1
-	int enemyCount = datas.back().ID + 1;
+	const int enemyCount = datas.back().ID + 1;
 	//メモリの確保
 	m_pEnemies.reserve(enemyCount);
 
@@ -62,6 +62,8 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 		newEnemy->Init();
 		//最初の巡回の座標に設定
 		newEnemy->SetPosition(patrolPos[i][0]);
+		//最初の巡回地点を設定 ↑で0に配置したから1に設定
+		newEnemy->SetNextPatrolIndex(1);
 		//巡回座標を設定
 		newEnemy->SetPatrolPos(patrolPos[i]);
 		//攻撃情報を追加

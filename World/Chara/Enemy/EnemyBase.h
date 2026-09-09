@@ -52,6 +52,12 @@ public:
 	/// <param name="patrolPosition"></param>
 	void SetPatrolPos(const std::vector<Vector3>& patrolPosition) { m_patrolPositions = patrolPosition; }
 
+	/// <summary>
+	/// 巡回の地点の設定
+	/// </summary>
+	/// <param name="index"></param>
+	void SetNextPatrolIndex(size_t index) { m_nextPatrolIndex = index; }
+
 	void SetTargetPos(const Vector3* targetPos) { m_pTargetPos = targetPos; }
 
 protected:
