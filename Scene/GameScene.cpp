@@ -88,9 +88,9 @@ void GameScene::Draw()
 	m_pMap->Draw();
 	m_pGameObjectMgr->Draw();
 
-	printfDx("x : %f\n", m_pPlayer->GetPosition().x);
-	printfDx("y : %f\n", m_pPlayer->GetPosition().y);
-	printfDx("z : %f\n", m_pPlayer->GetPosition().z);
+	//printfDx("x : %f\n", m_pPlayer->GetPosition().x);
+	//printfDx("y : %f\n", m_pPlayer->GetPosition().y);
+	//printfDx("z : %f\n", m_pPlayer->GetPosition().z);
 
 }
 

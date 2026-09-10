@@ -34,6 +34,10 @@ public:
 	/// </summary>
 	void End();
 
+	/// <summary>
+	/// カメラのターゲット座標を設定する
+	/// </summary>
+	/// <param name="targetPos"></param>
 	void SetTargetPos(const Vector3& targetPos) { m_targetPos = targetPos; }
 
 	/// <summary>
@@ -72,9 +76,5 @@ private:
 	/// 目標の座標
 	/// </summary>
 	Vector3 m_targetPos;
-
-	int m_prevMouseX;
-
-	int m_prevMouseY;
 
 };

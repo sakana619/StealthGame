@@ -83,7 +83,7 @@ void EnemyBee::Update(float deltaTime)
 
 	m_transform.position += m_unresolveKnockback;
 
-	printfDx(" aaa %d\n", m_nextPatrolIndex);
+	printfDx(" m_nextPatrolIndex %d\n", m_nextPatrolIndex);
 
 	switch (m_state) {
 
@@ -138,7 +138,7 @@ void EnemyBee::Draw()
 	EnemyBase::Draw();
 	MV1SetScale(m_modelHandle, m_transform.scale.ToVECTOR());
 
-	//DrawView();
+	DrawView();
 
 }
 

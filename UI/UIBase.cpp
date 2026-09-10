@@ -1,4 +1,5 @@
 #include "UIBase.h"
+#include"../Utility/Vector3.h"
 
 UIBase::UIBase() :
 	m_handle(-1),

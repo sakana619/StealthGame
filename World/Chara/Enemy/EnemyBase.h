@@ -130,7 +130,7 @@ protected:
 	/// </summary>
 	std::vector<Vector3> m_patrolPositions;
 
-	size_t m_nextPatrolIndex;
+	int m_nextPatrolIndex;
 
 	bool m_isBack;
 
