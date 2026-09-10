@@ -107,7 +107,7 @@ void Player::Update(float deltaTime)
 
 	//一番近い敵を取得
 	EnemyBase* nearestEnemy = m_pEnemyManager->GetNearestEnemy(GameObject::m_transform.position);
-
+	//見つからなかったら処理しない
 	if (!nearestEnemy)return;
 
 	Vector3 nearestEnemyPos = nearestEnemy->GetPosition();

@@ -46,6 +46,7 @@ void EnemyBase::Damage(const AttackInfo& attackInfo, const Vector3& normal)
 
 bool EnemyBase::IsArrivedNextPos(const Vector3& nextPos, float moveAmount)
 {
+	//距離が移動量より小さければtrue
 	return (nextPos - m_transform.position).GetSqLength() < moveAmount * moveAmount;
 }
 

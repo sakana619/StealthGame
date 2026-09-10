@@ -15,9 +15,21 @@ public:
 	virtual ~UIBase() = default;
 
 	virtual void Init() = 0;
-	void Update(float deltaTime){}
+	virtual void Update(float deltaTime){}
 	virtual void Draw() = 0;
 	virtual void End() = 0;
+
+	/// <summary>
+	/// 表示状態の取得
+	/// </summary>
+	/// <returns></returns>
+	bool GetIsVisible()const { return m_isVisible; }
+
+	/// <summary>
+	/// 座標の取得
+	/// </summary>
+	/// <returns></returns>
+	const Vector3& GetPosition()const { return m_position; }
 
 	/// <summary>
 	/// ハンドルを設定
@@ -38,16 +50,16 @@ public:
 	void SetPosition(const Vector3& position) { m_position = position; }
 
 	/// <summary>
-	/// 表示状態の取得
+	/// 表示サイズの変更
 	/// </summary>
-	/// <returns></returns>
-	bool GetIsVisible()const { return m_isVisible; }
+	/// <param name="scale"></param>
+	void SetScale(float scale) { m_scale = scale; }
 
 	/// <summary>
-	/// 座標の取得
+	/// 標準角度の変更
 	/// </summary>
-	/// <returns></returns>
-	const Vector3& GetPosition()const { return m_position; }
+	/// <param name="angle">ラジアン角指定の角度</param>
+	void SetAngle(float angle) { m_angleRad = angle; }
 
 protected:
 
@@ -60,6 +72,16 @@ protected:
 	/// 表示しているか
 	/// </summary>
 	bool m_isVisible;
+
+	/// <summary>
+	/// 画像表示サイズ
+	/// </summary>
+	float m_scale;
+
+	/// <summary>
+	/// 画像表示角度
+	/// </summary>
+	float m_angleRad;
 
 	/// <summary>
 	/// 座標

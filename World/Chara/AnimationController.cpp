@@ -5,7 +5,7 @@
 
 namespace {
 
-	const float kAnimationSpeed = 1;
+	constexpr int kDefaultFPS = 30;
 
 }
 
@@ -17,7 +17,8 @@ AnimationController::AnimationController(int modelHandle) :
 	m_totalTime(0),
 	m_isLoop(false),
 	m_isPlaying(false),
-	m_isForcePlay(false)
+	m_isForcePlay(false),
+	m_fps(kDefaultFPS)
 {
 }
 
@@ -26,7 +27,7 @@ void AnimationController::Update(float deltaTime)
 
 	if (!m_isPlaying)return;
 
-	m_time += deltaTime * 30;
+	m_time += deltaTime * m_fps;
 
 	if (m_totalTime <= m_time) {
 		//再生時間をリセット

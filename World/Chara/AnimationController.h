@@ -40,6 +40,8 @@ public:
 
 	bool GetIsForcePlay()const { return m_isForcePlay; }
 
+	void SetFPS(int fps) { m_fps = fps; }
+
 private:
 
 	/// <summary>
@@ -81,5 +83,10 @@ private:
 	/// 割り込み不可かどうか
 	/// </summary>
 	bool m_isForcePlay;
+
+	/// <summary>
+	/// アニメーションのFPS
+	/// </summary>
+	int m_fps;
 
 };
