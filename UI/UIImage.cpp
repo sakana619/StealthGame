@@ -4,16 +4,12 @@
 #include<DxLib.h>
 
 
-UIImage::UIImage() :
-	m_scale(1.0f),
-	m_angleRad(0.0f)
+UIImage::UIImage()
 {
 }
 
 UIImage::UIImage(int graphHandle) :
-	UIBase(graphHandle),
-	m_scale(1.0f),
-	m_angleRad(0.0f)
+	UIBase(graphHandle)
 {
 }
 
