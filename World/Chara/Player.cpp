@@ -30,7 +30,10 @@ namespace {
 	constexpr int kMaxHp = 100;
 	//重力
 	constexpr float kGravity = 13.0f;
-
+	//攻撃可能距離
+	constexpr float kAttackRange = 400.0f;
+	//攻撃可能距離2乗
+	constexpr float kAttackRangeSq = kAttackRange * kAttackRange;
 }
 
 Player::Player():
@@ -71,7 +74,7 @@ void Player::Init()
 
 void Player::Update(float deltaTime)
 {
-
+	//アニメーションの更新
 	UpdateAnimation(deltaTime);
 
 	if (m_unresolveKnockback.GetSqLength() > 0) {
@@ -85,27 +88,20 @@ void Player::Update(float deltaTime)
 
 	Dodge();
 
-	//if (m_isDodging)return;
-
 	Move();
 
 	m_fallSpeed -= kGravity;
 	m_transform.position.y += m_fallSpeed;
 
+	//コリジョンの更新
+	if (m_pAttackCollision)m_pAttackCollision->Update();
 	for (auto& collision : m_collisions) {
 		collision.shape->SetCenterPos(m_transform.position);
 	}
 
-	if (m_pAttackCollision)m_pAttackCollision->Update();
-
-	if (CheckHitKey(KEY_INPUT_R)) {
-
-		m_pAttackCollision->GetCollisionDatas()[0].SpawnCollision(3.0f, m_transform.position);
-
-	}
-
+	//攻撃可能な敵を取得
 	EnemyBase* canAttackEnemy = SearchCanAttackEnemy();
-
+	//攻撃可能な敵がいたら
 	if (canAttackEnemy) {
 
 		if (CheckHitKey(KEY_INPUT_L)) {
@@ -116,6 +112,7 @@ void Player::Update(float deltaTime)
 			m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Attack)]);
 			//方向を合わせる
 			m_transform.rotation.y = atan2f(-(enemyPos.x - m_transform.position.x), -(enemyPos.z - m_transform.position.z));
+			//攻撃判定を有効にする
 			m_pAttackCollision->GetCollisionData(0).SpawnCollision(1.0f, enemyPos);
 		}
 
@@ -360,6 +357,7 @@ EnemyBase* Player::SearchCanAttackEnemy()
 	m_pCanAttackUI->SetVisible(true);
 	m_pCanAttackUI->SetPosition(nearestEnemyPos);
 
+	//見つかった敵を返す
 	return nearestEnemy;
 
 }

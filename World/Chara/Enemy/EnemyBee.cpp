@@ -24,7 +24,7 @@ namespace {
 
 	};
 	//発見時の画像のファイルパス
-	const char* const kDiscoveryImagePath = ".\\Resource\\chara\\2117.png";
+	const char* const kDiscoveryImagePath = ".\\Resource\\UI\\2117.png";
 	//進行方向
 	constexpr Vector3 kMoveDirection = { 0.0f,0.0,1.0f };
 	//見える距離

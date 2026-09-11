@@ -62,6 +62,9 @@ private:
 
 private:
 
+	/// <summary>
+	/// プレイヤーの状態
+	/// </summary>
 	enum class State {
 
 		Idle,
@@ -77,9 +80,13 @@ private:
 	bool m_isDodging;
 
 	Camera* m_pCamera;
-
+	/// <summary>
+	/// 敵管理クラス
+	/// </summary>
 	EnemyManager* m_pEnemyManager;
-
+	/// <summary>
+	/// 攻撃可能を知らせるUI
+	/// </summary>
 	UIBillboard* m_pCanAttackUI;
 
 };
