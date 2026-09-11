@@ -5,16 +5,30 @@
 /// </summary>
 namespace Animation
 {
-
+	/// <summary>
+	/// プレイヤーのアニメーション
+	/// </summary>
 	enum class Player {
-
-		Neutral = 0,
+		Death = 0,	//死亡
+		Duck,		//お辞儀
+		HitRect,	//被ダメージ
+		Idle,		//待機
+		IdleGun,	//待機_銃を
+		IdleShoot,	//待機
+		Jump,
+		JumpIdle,
+		JumpLand,
+		No,
+		Punch,
 		Run,
-		JumpIn,
-		JumpLoop,
-		JumpOut,
-		Attack,
-		Max
+		RunGun,
+		RunShoot,
+		Walk,
+		WalkGun,
+		Wave,
+		Yes,
+
+		Max,
 
 	};
 

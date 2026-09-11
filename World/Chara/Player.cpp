@@ -15,17 +15,40 @@
 
 namespace {
 
-	const char* const kModelPath = ".\\Resource\\Hero.x";	// プレイヤーモデルのファイルパス
+	//const char* const kModelPath = ".\\Resource\\Hero.x";	// プレイヤーモデルのファイルパス
+	const char* const kModelPath = ".\\Resource\\chara\\Character.mv1";
 
 	//アニメーションの名前
+	//const char* const kAnimationName[] = {
+	//	"Neutral",
+	//	"Run",
+	//	"JumpIn",
+	//	"JumpLoop",
+	//	"JumpOut",
+	//	"Attack1",
+	//};
+
 	const char* const kAnimationName[] = {
-		"Neutral",
-		"Run",
-		"JumpIn",
-		"JumpLoop",
-		"JumpOut",
-		"Attack1",
+		"CharacterArmature|Death",
+		"CharacterArmature|Duck",
+		"CharacterArmature|HitRect",
+		"CharacterArmature|Idle",
+		"CharacterArmature|Idle_Gun",
+		"CharacterArmature|Idle_Shoot",
+		"CharacterArmature|Jump",
+		"CharacterArmature|Jump_Idle",
+		"CharacterArmature|Jump_Land",
+		"CharacterArmature|No",
+		"CharacterArmature|Punch",
+		"CharacterArmature|Run",
+		"CharacterArmature|Run_Gun",
+		"CharacterArmature|Run_Shoot",
+		"CharacterArmature|Walk",
+		"CharacterArmature|Walk_Gun",
+		"CharacterArmature|Wave",
+		"CharacterArmature|Yes",
 	};
+
 	//最大HP
 	constexpr int kMaxHp = 100;
 	//重力
@@ -109,7 +132,7 @@ void Player::Update(float deltaTime)
 			Vector3 enemyPos = canAttackEnemy->GetPosition();
 
 			//アニメーションの再生
-			m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Attack)]);
+			m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Punch)]);
 			//方向を合わせる
 			m_transform.rotation.y = atan2f(-(enemyPos.x - m_transform.position.x), -(enemyPos.z - m_transform.position.z));
 			//攻撃判定を有効にする
@@ -208,21 +231,21 @@ void Player::InitAnimation()
 		m_animData[i].index = MV1GetAnimIndex(m_modelHandle, kAnimationName[i]);
 	}
 
-	m_animData[static_cast<int>(Animation::Player::Neutral)].isLoop = true;
-	m_animData[static_cast<int>(Animation::Player::Run)].isLoop = true;
-	m_animData[static_cast<int>(Animation::Player::JumpIn)].isLoop = false;
-	m_animData[static_cast<int>(Animation::Player::JumpLoop)].isLoop = true;
-	m_animData[static_cast<int>(Animation::Player::JumpOut)].isLoop = false;
-	m_animData[static_cast<int>(Animation::Player::Attack)].isLoop = false;
+	//m_animData[static_cast<int>(Animation::Player::Neutral)].isLoop = true;
+	//m_animData[static_cast<int>(Animation::Player::Run)].isLoop = true;
+	//m_animData[static_cast<int>(Animation::Player::JumpIn)].isLoop = false;
+	//m_animData[static_cast<int>(Animation::Player::JumpLoop)].isLoop = true;
+	//m_animData[static_cast<int>(Animation::Player::JumpOut)].isLoop = false;
+	//m_animData[static_cast<int>(Animation::Player::Attack)].isLoop = false;
 
-	m_animData[static_cast<int>(Animation::Player::Neutral)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::Run)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::JumpIn)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::JumpLoop)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::JumpOut)].isForcePlay = false;
-	m_animData[static_cast<int>(Animation::Player::Attack)].isForcePlay = true;
+	//m_animData[static_cast<int>(Animation::Player::Neutral)].isForcePlay = false;
+	//m_animData[static_cast<int>(Animation::Player::Run)].isForcePlay = false;
+	//m_animData[static_cast<int>(Animation::Player::JumpIn)].isForcePlay = false;
+	//m_animData[static_cast<int>(Animation::Player::JumpLoop)].isForcePlay = false;
+	//m_animData[static_cast<int>(Animation::Player::JumpOut)].isForcePlay = false;
+	//m_animData[static_cast<int>(Animation::Player::Attack)].isForcePlay = true;
 
-	m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Neutral)]);
+	m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Idle)]);
 
 
 }
@@ -288,7 +311,7 @@ void Player::UpdateAnimation(float deltaTime)
 {
 
 	//アニメーションの再生がされていないなら待機アニメーションの再生
-	if (!m_anim->GetIsPlayAnimation()) m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Neutral)]);
+	if (!m_anim->GetIsPlayAnimation()) m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Idle)]);
 
 	//割り込み不可能なアニメーションなら
 	if (m_anim->GetIsForcePlay()) {
@@ -299,7 +322,7 @@ void Player::UpdateAnimation(float deltaTime)
 
 
 	State nextState = State::Idle;
-	int nextAnimIndex = static_cast<int>(Animation::Player::Neutral);
+	int nextAnimIndex = static_cast<int>(Animation::Player::Idle);
 
 	//移動があったら
 	if (GetInputVectorRotedByCamera().GetSqLength() != 0) {
