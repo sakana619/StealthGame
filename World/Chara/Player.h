@@ -3,6 +3,7 @@
 
 class Camera;
 class EnemyManager;
+class UIBillboard;
 
 class Player :public CharacterBase
 {
@@ -14,11 +15,8 @@ public:
 	~Player()override = default;
 
 	void Init()override;
-
 	void Update(float deltaTime)override;
-
 	void Draw()override;
-
 	void End()override;
 
 	/// <summary>
@@ -38,8 +36,13 @@ public:
 
 	void SetEnemyManager(EnemyManager* pEnemyManager);
 
+	void SetCanAttackUI(UIBillboard* pUIBillboard) { m_pCanAttackUI = pUIBillboard; }
+
 private:
 
+	/// <summary>
+	/// アニメーションの初期化
+	/// </summary>
 	void InitAnimation();
 
 	Vector3 GetInputVectorRotedByCamera();
@@ -69,5 +72,7 @@ private:
 	Camera* m_pCamera;
 
 	EnemyManager* m_pEnemyManager;
+
+	UIBillboard* m_pCanAttackUI;
 
 };

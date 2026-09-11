@@ -3,6 +3,8 @@
 
 #include"../Camera/Camera.h"
 #include"../System/Time.h"
+#include"../UI/UIManager.h"
+#include"../UI/UIBillboard.h"
 #include"../World/GameObjectManager.h"
 #include"../World/Chara/Player.h"
 #include"../World/Chara/Enemy/EnemyBee.h"
@@ -14,17 +16,19 @@ GameScene::GameScene() :
 	m_pPlayer(nullptr),
 	m_pEnemyMgr(nullptr),
 	m_pCamera(nullptr),
-	m_pMap(nullptr)
-{}
+	m_pMap(nullptr),
+	m_pUIMgr(nullptr)
+{
+}
 
 void GameScene::Init()
 {
 	m_pGameObjectMgr = std::make_unique<GameObjectManager>();
 	m_pCamera = std::make_unique<Camera>();
-	//m_pPlayer = std::make_unique<Player>(m_pCamera.get());
 	m_pPlayer = m_pGameObjectMgr->CreateObject<Player>(m_pCamera.get());
 	m_pEnemyMgr = std::make_unique<EnemyManager>();
 	m_pMap = std::make_unique<Map>();
+	m_pUIMgr = std::make_unique<UIManager>();
 
 	m_pCamera->Init();
 	m_pEnemyMgr->Init(m_pGameObjectMgr.get());
@@ -32,7 +36,7 @@ void GameScene::Init()
 
 	m_pPlayer->SetEnemyManager(m_pEnemyMgr.get());
 	m_pEnemyMgr->SetTargetPos(&m_pPlayer->GetPosition());
-
+	InitUI();
 }
 
 SceneBase* GameScene::Update()
@@ -102,5 +106,14 @@ void GameScene::End()
 	m_pMap->End();
 
 	m_pGameObjectMgr->End();
+
+}
+
+void GameScene::InitUI()
+{
+
+	m_pUIMgr->Init();
+
+	auto attackUI = m_pUIMgr->CreateUI<UIBillboard>();
 
 }

@@ -7,6 +7,7 @@ class GameObjectManager;
 class EnemyManager;
 class Camera;
 class Map;
+class UIManager;
 
 class GameScene :public SceneBase
 {
@@ -39,9 +40,18 @@ public:
 
 private:
 
-	//std::unique_ptr<Player>m_pPlayer;
+	/// <summary>
+	/// UIの初期化
+	/// </summary>
+	void InitUI();
+
+private:
+
 	Player* m_pPlayer;
 
+	/// <summary>
+	/// ゲームオブジェクト管理クラス
+	/// </summary>
 	std::unique_ptr<GameObjectManager>m_pGameObjectMgr;
 
 	/// <summary>
@@ -56,5 +66,9 @@ private:
 	/// マップ管理クラスのポインタ
 	/// </summary>
 	std::unique_ptr<Map>m_pMap;
+	/// <summary>
+	/// UI管理クラス
+	/// </summary>
+	std::unique_ptr<UIManager>m_pUIMgr;
 
 };

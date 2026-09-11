@@ -4,7 +4,7 @@
 /// <summary>
 /// UIのビルボードクラス
 /// </summary>
-class UIBillboard :UIBase
+class UIBillboard :public UIBase
 {
 
 public:

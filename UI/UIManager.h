@@ -28,7 +28,7 @@ public:
 	/// <typeparam name="...Args"></typeparam>
 	/// <param name="...args"></param>
 	template<class T,class ...Args>
-	void CreateUI(Args&&... args);
+	T* CreateUI(Args&&... args);
 
 	/// <summary>
 	/// 指定のUIを探す
@@ -48,14 +48,20 @@ private:
 };
 
 template<class T, class ...Args>
-inline void UIManager::CreateUI(Args&& ...args)
+inline T* UIManager::CreateUI(Args&& ...args)
 {
 	//継承しているかチェック
 	static_assert(std::is_base_of<UIBase, T>::value, "is not base of UIBase");
-	//リストに追加
-	m_UIList.emplace_back(std::make_unique<T>(std::forward<Args>(args)...));
+	//生成
+	auto ui = std::make_unique<T>(std::forward<Args>(args)...);
 	//初期化
-	m_UIList.back()->Init();
+	ui->Init();
+	//返還用のポインタ
+	T* ptr = ui.get();
+	//リストに追加
+	m_UIList.push_back(std::move(ui));
+
+	return ptr;
 
 }
 
