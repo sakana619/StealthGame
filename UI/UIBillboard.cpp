@@ -27,7 +27,7 @@ void UIBillboard::Init()
 void UIBillboard::Draw()
 {
 
-	DrawBillboard3D(m_position.ToVECTOR(), m_drawCenterY, m_drawCenterY, m_scale, m_angleRad, m_handle, TRUE);
+	DrawBillboard3D(m_position.ToVECTOR(), m_drawCenterX, m_drawCenterY, m_scale, m_angleRad, m_handle, TRUE);
 
 }
 

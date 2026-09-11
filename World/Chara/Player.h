@@ -3,6 +3,7 @@
 
 class Camera;
 class EnemyManager;
+class EnemyBase;
 class UIBillboard;
 
 class Player :public CharacterBase
@@ -50,6 +51,12 @@ private:
 	void UpdateAnimation(float deltaTime);
 
 	void Move();
+
+	/// <summary>
+	/// 攻撃可能な敵を取得する (一番近い敵)
+	/// </summary>
+	/// <returns>見つからなかったらnullptr</returns>
+	EnemyBase* SearchCanAttackEnemy();
 
 	void Dodge();
 

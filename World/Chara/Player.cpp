@@ -11,6 +11,7 @@
 #include"Enemy/EnemyManager.h"
 #include"../Component/Collision.h"
 #include"../../System/Time.h"
+#include"../../UI/CanAttackUI.h"
 
 namespace {
 
@@ -103,36 +104,19 @@ void Player::Update(float deltaTime)
 
 	}
 
-	if (!m_pEnemyManager) return;
+	EnemyBase* canAttackEnemy = SearchCanAttackEnemy();
 
-	//一番近い敵を取得
-	EnemyBase* nearestEnemy = m_pEnemyManager->GetNearestEnemy(GameObject::m_transform.position);
-	//見つからなかったら処理しない
-	if (!nearestEnemy)return;
-
-	Vector3 nearestEnemyPos = nearestEnemy->GetPosition();
-
-	//距離の差を求める
-	Vector3 dif = nearestEnemyPos - GameObject::m_transform.position;
-	//距離の差が大きかったらリターン
-	if (dif.GetSqLength() > 400 * 400)return;
-
-	//敵へのベクトル
-	Vector3 enemyToPlayer = GameObject::m_transform.position - nearestEnemyPos;
-	enemyToPlayer = enemyToPlayer.GetNormalize();
-	//一番近い敵の正面方向と一番近い敵へのベクトルで内積を求める
-	float dot = Vector3::Dot(nearestEnemy->GetForward(), enemyToPlayer);
-
-	//敵の後ろにいたら
-	if (dot < -cosf(MyMath::DegToRad(75))) {
+	if (canAttackEnemy) {
 
 		if (CheckHitKey(KEY_INPUT_L)) {
+
+			Vector3 enemyPos = canAttackEnemy->GetPosition();
+
 			//アニメーションの再生
 			m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Attack)]);
 			//方向を合わせる
-			m_transform.rotation.y = atan2f(-(nearestEnemyPos.x - m_transform.position.x), -(nearestEnemyPos.z - m_transform.position.z));
-			//nearestEnemy->Damage(m_pAttackCollision->GetCollisionData(0).GetAttackInfo(), enemyToPlayer);
-			m_pAttackCollision->GetCollisionData(0).SpawnCollision(1.0f, nearestEnemyPos);
+			m_transform.rotation.y = atan2f(-(enemyPos.x - m_transform.position.x), -(enemyPos.z - m_transform.position.z));
+			m_pAttackCollision->GetCollisionData(0).SpawnCollision(1.0f, enemyPos);
 		}
 
 	}
@@ -343,6 +327,41 @@ void Player::Move()
 {
 	const float kMoveSpeed = 500.0f;
 	GameObject::m_transform.position += GetInputVectorRotedByCamera() * kMoveSpeed * Time::GetDeltaTime();
+}
+
+EnemyBase* Player::SearchCanAttackEnemy()
+{
+	m_pCanAttackUI->SetVisible(false);
+
+	if (!m_pEnemyManager) return nullptr;
+
+	//一番近い敵を取得
+	EnemyBase* nearestEnemy = m_pEnemyManager->GetNearestEnemy(GameObject::m_transform.position);
+	//見つからなかったらnullptr
+	if (!nearestEnemy)return nullptr;
+
+	Vector3 nearestEnemyPos = nearestEnemy->GetPosition();
+
+	//距離の差を求める
+	Vector3 dif = nearestEnemyPos - GameObject::m_transform.position;
+	//距離の差が大きかったらnullptr
+	if (dif.GetSqLength() > 400 * 400)return nullptr;
+
+	//敵へのベクトル
+	Vector3 enemyToPlayer = GameObject::m_transform.position - nearestEnemyPos;
+	enemyToPlayer = enemyToPlayer.GetNormalize();
+	//一番近い敵の正面方向と一番近い敵へのベクトルで内積を求める
+	float dot = Vector3::Dot(nearestEnemy->GetForward(), enemyToPlayer);
+
+	//敵の後ろにいなかったらnullptr
+	if (dot > -cosf(MyMath::DegToRad(75)))return nullptr;
+
+	//攻撃可能なUIを設定する
+	m_pCanAttackUI->SetVisible(true);
+	m_pCanAttackUI->SetPosition(nearestEnemyPos);
+
+	return nearestEnemy;
+
 }
 
 void Player::Dodge()
