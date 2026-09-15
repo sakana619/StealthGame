@@ -14,20 +14,9 @@
 #include"../../UI/CanAttackUI.h"
 
 namespace {
-
-	//const char* const kModelPath = ".\\Resource\\Hero.x";	// プレイヤーモデルのファイルパス
+	//モデルのパス
 	const char* const kModelPath = ".\\Resource\\chara\\Character.mv1";
-
 	//アニメーションの名前
-	//const char* const kAnimationName[] = {
-	//	"Neutral",
-	//	"Run",
-	//	"JumpIn",
-	//	"JumpLoop",
-	//	"JumpOut",
-	//	"Attack1",
-	//};
-
 	const char* const kAnimationName[] = {
 		"CharacterArmature|Death",
 		"CharacterArmature|Duck",
@@ -48,6 +37,9 @@ namespace {
 		"CharacterArmature|Wave",
 		"CharacterArmature|Yes",
 	};
+
+	//モデルのスケール
+	constexpr Vector3 kModelScale = { 0.4f,0.4f,0.4f };
 
 	//最大HP
 	constexpr int kMaxHp = 100;
@@ -213,9 +205,11 @@ void Player::InitAnimation()
 
 	//モデルの読み込み
 	GameObject::m_modelHandle = MV1LoadModel(kModelPath);
+	//モデルのサイズを設定
+	MV1SetScale(m_modelHandle, kModelScale.ToVECTOR());
 
 	//アニメーションデータの移動量を無効
-	int moveAnimFrameIndex = MV1SearchFrame(m_modelHandle, "root");
+	int moveAnimFrameIndex = MV1SearchFrame(m_modelHandle, "CharacterArmature");
 	MV1SetFrameUserLocalMatrix(
 		m_modelHandle,
 		moveAnimFrameIndex,
@@ -229,24 +223,28 @@ void Player::InitAnimation()
 
 	for (int i = 0; i < animNum; i++) {
 		m_animData[i].index = MV1GetAnimIndex(m_modelHandle, kAnimationName[i]);
+		m_animData[i].isForcePlay = false;
+		m_animData[i].isLoop = false;
 	}
 
-	//m_animData[static_cast<int>(Animation::Player::Neutral)].isLoop = true;
-	//m_animData[static_cast<int>(Animation::Player::Run)].isLoop = true;
-	//m_animData[static_cast<int>(Animation::Player::JumpIn)].isLoop = false;
-	//m_animData[static_cast<int>(Animation::Player::JumpLoop)].isLoop = true;
-	//m_animData[static_cast<int>(Animation::Player::JumpOut)].isLoop = false;
-	//m_animData[static_cast<int>(Animation::Player::Attack)].isLoop = false;
+	//アニメーションのループ設定
+	m_animData[static_cast<int>(Animation::Player::Idle)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::IdleGun)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::IdleShoot)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::JumpIdle)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::Run)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::RunGun)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::RunShoot)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::Walk)].isLoop = true;
+	m_animData[static_cast<int>(Animation::Player::WalkGun)].isLoop = true;
 
-	//m_animData[static_cast<int>(Animation::Player::Neutral)].isForcePlay = false;
-	//m_animData[static_cast<int>(Animation::Player::Run)].isForcePlay = false;
-	//m_animData[static_cast<int>(Animation::Player::JumpIn)].isForcePlay = false;
-	//m_animData[static_cast<int>(Animation::Player::JumpLoop)].isForcePlay = false;
-	//m_animData[static_cast<int>(Animation::Player::JumpOut)].isForcePlay = false;
-	//m_animData[static_cast<int>(Animation::Player::Attack)].isForcePlay = true;
+	//アニメーションの割り込み設定
+	m_animData[static_cast<int>(Animation::Player::Death)].isForcePlay = true;
+	m_animData[static_cast<int>(Animation::Player::HitRect)].isForcePlay = true;
+	m_animData[static_cast<int>(Animation::Player::Punch)].isForcePlay = true;
 
+	//初期アニメーションの再生
 	m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Idle)]);
-
 
 }
 
