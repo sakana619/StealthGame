@@ -57,6 +57,6 @@ private:
 	/// <summary>
 	/// 発見時の画像ハンドル
 	/// </summary>
-	static int m_discoveryImageHandle;
+	static int m_combatImageHandle;
 
 };

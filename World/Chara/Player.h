@@ -11,7 +11,6 @@ class Player :public CharacterBase
 
 public:
 
-	Player();
 	Player(Camera* pCamera);
 	~Player()override = default;
 

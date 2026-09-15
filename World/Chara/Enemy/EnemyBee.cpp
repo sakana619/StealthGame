@@ -5,7 +5,7 @@
 #include<math.h>
 #include"../../../System/Time.h"
 
-int EnemyBee::m_discoveryImageHandle = -1;
+int EnemyBee::m_combatImageHandle = -1;
 
 namespace {
 
@@ -23,8 +23,8 @@ namespace {
 		"MonsterArmature|HitRecive"
 
 	};
-	//発見時の画像のファイルパス
-	const char* const kDiscoveryImagePath = ".\\Resource\\UI\\2117.png";
+	//戦闘時の画像のファイルパス
+	const char* const kCombatImagePath = ".\\Resource\\UI\\2117.png";
 	//進行方向
 	constexpr Vector3 kMoveDirection = { 0.0f,0.0,1.0f };
 	//見える距離
@@ -121,7 +121,7 @@ void EnemyBee::Update(float deltaTime)
 			//戦闘状態に変更
 			m_state = EnemyBase::State::Combat;
 			//発見時の画像を表示
-			DrawBillboard3D(m_transform.position.ToVECTOR(), 0.5f, -1.0f, 50, 0.0f, m_discoveryImageHandle, true);
+			DrawBillboard3D(m_transform.position.ToVECTOR(), 0.5f, -1.0f, 50, 0.0f, m_combatImageHandle, true);
 
 		}
 
@@ -137,7 +137,7 @@ void EnemyBee::Draw()
 
 	EnemyBase::Draw();
 	MV1SetScale(m_modelHandle, m_transform.scale.ToVECTOR());
-
+	printfDx(" isBack %d\n", m_isBack);
 	DrawView();
 
 }
@@ -194,8 +194,8 @@ void EnemyBee::InitAnimation()
 	//初期アニメーションの再生
 	m_anim->PlayAnimation(m_animData[flyingIndex]);
 
-	if (m_discoveryImageHandle == -1) {
-		m_discoveryImageHandle = LoadGraph(kDiscoveryImagePath);
+	if (m_combatImageHandle == -1) {
+		m_combatImageHandle = LoadGraph(kCombatImagePath);
 	}
 
 }
@@ -222,7 +222,7 @@ void EnemyBee::UpdatePatrol(float deltaTime)
 
 			//最初の地点に来たら
 			if (m_nextPatrolIndex <= 0) {
-				m_nextPatrolIndex = 0;
+				m_nextPatrolIndex = 1;
 				m_isBack = false;
 			}
 
@@ -234,7 +234,7 @@ void EnemyBee::UpdatePatrol(float deltaTime)
 			//最後の地点なら
 			if (m_nextPatrolIndex >= m_patrolPositions.size() - 1) {
 				//巡回を戻りにする
-				m_nextPatrolIndex = m_patrolPositions.size() - 1;
+				m_nextPatrolIndex = m_patrolPositions.size() - 2;
 				m_isBack = true;
 			}
 

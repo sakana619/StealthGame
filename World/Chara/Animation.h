@@ -13,20 +13,20 @@ namespace Animation
 		Duck,		//お辞儀
 		HitRect,	//被ダメージ
 		Idle,		//待機
-		IdleGun,	//待機_銃を
-		IdleShoot,	//待機
-		Jump,
-		JumpIdle,
-		JumpLand,
-		No,
+		IdleGun,	//待機_銃を持っている
+		IdleShoot,	//待機_銃を撃っている
+		Jump,		//ジャンプした瞬間
+		JumpIdle,	//ジャンプ中
+		JumpLand,	//着地
+		No,			//首をふる
 		Punch,
 		Run,
 		RunGun,
 		RunShoot,
-		Walk,
-		WalkGun,
-		Wave,
-		Yes,
+		Walk,		//歩き
+		WalkGun,	//歩き_
+		Wave,		//手をふる
+		Yes,		//頷く
 
 		Max,
 

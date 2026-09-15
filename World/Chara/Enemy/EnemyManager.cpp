@@ -17,7 +17,8 @@ namespace {
 	const char* const kPatrolDataPath = ".\\Data\\Enemy\\EnemyPatrolPos.csv";
 	//攻撃のデータのファイルパス
 	const char* const kAttackInfoDataPath = ".\\Data\\AttackInfo.csv";
-
+	//攻撃データの番号
+	constexpr int kAttackInfoDataIndex = 0;
 }
 
 EnemyManager::EnemyManager():
@@ -30,7 +31,7 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 
 	//データの取得
 	std::vector<EnemyData> datas = DataLoader::LoadMasterData<EnemyData>(kPatrolDataPath);
-	AttackInfo attackInfo = DataLoader::LoadMasterData<AttackInfo>(kAttackInfoDataPath)[0];
+	AttackInfo attackInfo = DataLoader::LoadMasterData<AttackInfo>(kAttackInfoDataPath)[kAttackInfoDataIndex];
 
 	//敵の数を取得 IDは0も含まれるので + 1
 	const int enemyCount = datas.back().ID + 1;

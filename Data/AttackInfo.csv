@@ -1,2 +1,3 @@
-damage,knockBack
-10,100
+Character,damage,knockBack
+Enemy,10,100
+Player,10,10

@@ -12,6 +12,7 @@
 #include"../Component/Collision.h"
 #include"../../System/Time.h"
 #include"../../UI/CanAttackUI.h"
+#include"../../Utility/Loader/DataLoader.h"
 
 namespace {
 	//モデルのパス
@@ -41,6 +42,11 @@ namespace {
 	//モデルのスケール
 	constexpr Vector3 kModelScale = { 0.4f,0.4f,0.4f };
 
+	//攻撃のデータのファイルパス
+	const char* const kAttackInfoDataPath = ".\\Data\\AttackInfo.csv";
+	//攻撃データの番号
+	constexpr int kAttackInfoDataIndex = 1;
+
 	//最大HP
 	constexpr int kMaxHp = 100;
 	//重力
@@ -51,12 +57,8 @@ namespace {
 	constexpr float kAttackRangeSq = kAttackRange * kAttackRange;
 }
 
-Player::Player():
-	m_pCamera(nullptr)
-{
-}
-
 Player::Player(Camera* pCamera) :
+	m_state(State::Idle),
 	m_isDodging(false),
 	m_pCamera(pCamera)
 {
@@ -66,14 +68,13 @@ void Player::Init()
 {
 
 	//コリジョンの追加
-	AddCollision(std::make_unique<Collision::AABB>(Vector3(0, 100, 0), Vector3(100, 200, 100)), CollisionType::Body);
+	AddCollision(std::make_unique<Collision::AABB>(Vector3(0, 80, 0), Vector3(100, 150, 100)), CollisionType::Body);
 	AddCollision(std::make_unique<Collision::AABB>(Vector3(0, -1, 0), Vector3(100, 14, 100)), CollisionType::Foot);
 
 	m_pAttackCollision = std::make_unique<AttackCollision>();
 
-	AttackInfo attackInfo{
-		1,1
-	};
+	//データの読み込み
+	AttackInfo attackInfo = DataLoader::LoadMasterData<AttackInfo>(kAttackInfoDataPath)[kAttackInfoDataIndex];
 	//攻撃コリジョンを追加
 	m_pAttackCollision->AddCollision<Collision::AABB>(attackInfo, Vector3::Zero, Vector3(100, 100, 100));
 	//タグの設定
