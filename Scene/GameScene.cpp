@@ -3,14 +3,13 @@
 
 #include"../Camera/Camera.h"
 #include"../System/Time.h"
-#include"../UI/UIManager.h"
 #include"../UI/UIBillboard.h"
+#include"../UI/UIManager.h"
 #include"../World/GameObjectManager.h"
 #include"../World/Chara/Player.h"
 #include"../World/Chara/Enemy/EnemyBee.h"
 #include"../World/Chara/Enemy/EnemyManager.h"
 #include"../World/Map/Map.h"
-#include"../World/Map/MapData.h"
 
 GameScene::GameScene() :
 	m_pPlayer(nullptr),
@@ -63,52 +62,21 @@ SceneBase* GameScene::Update()
 	m_pMap->CheckHitMap(m_pGameObjectMgr.get());
 	m_pUIMgr->Update(deltaTime);
 
-	return nullptr;
+	return this;
 }
 
 void GameScene::Draw()
 {
 
-	VECTOR pos1;
-	VECTOR pos2;
-
-	float kLineAreaSize = 10000;
-	float kLineNum = 50;
-
-	pos1 = VGet(-kLineAreaSize / 2.0f, 0.0f, -kLineAreaSize / 2.0f);
-	pos2 = VGet(-kLineAreaSize / 2.0f, 0.0f, kLineAreaSize / 2.0f);
-
-	for (int i = 0; i < kLineNum; i++)
-	{
-		//DrawLine3D(pos1, pos2, 0xffffff);
-		pos1.x += kLineAreaSize / static_cast<float>(kLineNum);
-		pos2.x += kLineAreaSize / static_cast<float>(kLineNum);
-	}
-
-	pos1 = VGet(-kLineAreaSize / 2.0f, 0.0f, -kLineAreaSize / 2.0f);
-	pos2 = VGet(kLineAreaSize / 2.0f, 0.0f, -kLineAreaSize / 2.0f);
-
-	for (int i = 0; i < kLineNum; i++)
-	{
-		//DrawLine3D(pos1, pos2, 0xffffff);
-		pos1.z += kLineAreaSize / static_cast<float>(kLineNum);
-		pos2.z += kLineAreaSize / static_cast<float>(kLineNum);
-	}
-
 	m_pMap->Draw();
 	m_pGameObjectMgr->Draw();
 	m_pUIMgr->Draw();
-
-	//printfDx("x : %f\n", m_pPlayer->GetPosition().x);
-	//printfDx("y : %f\n", m_pPlayer->GetPosition().y);
-	//printfDx("z : %f\n", m_pPlayer->GetPosition().z);
 
 }
 
 void GameScene::End()
 {
-	m_pPlayer->End();
-	m_pEnemyMgr->End();
+
 	m_pCamera->End();
 	m_pMap->End();
 	m_pUIMgr->End();
@@ -122,9 +90,9 @@ void GameScene::InitUI()
 
 	m_pUIMgr->Init();
 
-	int graph = LoadGraph(".\\Resource\\UI\\ImageNameHere.png");
+	int attackUIGraph = LoadGraph(".\\Resource\\UI\\ImageNameHere.png");
 
-	auto attackUI = m_pUIMgr->CreateUI<UIBillboard>(graph);
+	UIBillboard* attackUI = m_pUIMgr->CreateUI<UIBillboard>(attackUIGraph);
 	attackUI->SetDrawCenterY(-1.0f);
 	attackUI->SetScale(70);
 

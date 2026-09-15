@@ -81,8 +81,6 @@ void EnemyBee::Update(float deltaTime)
 
 	m_pAttackCollision->Update();
 
-	m_transform.position += m_unresolveKnockback;
-
 	printfDx(" m_nextPatrolIndex %d\n", m_nextPatrolIndex);
 
 	switch (m_state) {
@@ -194,7 +192,9 @@ void EnemyBee::InitAnimation()
 	//初期アニメーションの再生
 	m_anim->PlayAnimation(m_animData[flyingIndex]);
 
+	//読み込めていなかったら
 	if (m_combatImageHandle == -1) {
+		//画像の読み込み
 		m_combatImageHandle = LoadGraph(kCombatImagePath);
 	}
 

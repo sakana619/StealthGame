@@ -55,6 +55,10 @@ namespace {
 	constexpr float kAttackRange = 400.0f;
 	//攻撃可能距離2乗
 	constexpr float kAttackRangeSq = kAttackRange * kAttackRange;
+
+	//初期の座標
+	constexpr Vector3 kInitPos = { 400.0f, 500.0f, 500.0f };
+
 }
 
 Player::Player(Camera* pCamera) :
@@ -84,7 +88,7 @@ void Player::Init()
 	//体力を最大値に設定
 	m_hp = kMaxHp;
 
-	m_transform.position = Vector3(400, 500, 500);
+	m_transform.position = kInitPos;
 
 }
 

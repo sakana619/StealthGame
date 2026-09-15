@@ -20,23 +20,23 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Init();
+	void Init()override;
 
 	/// <summary>
 	/// 更新処理
 	/// </summary>
 	/// <returns></returns>
-	SceneBase* Update();
+	SceneBase* Update()override;
 
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw();
+	void Draw()override;
 
 	/// <summary>
 	/// 終了処理
 	/// </summary>
-	void End();
+	void End()override;
 
 private:
 
