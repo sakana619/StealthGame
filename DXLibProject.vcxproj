@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Utility\FadeManager.cpp" />
     <ClCompile Include="UI\CanAttackUI.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="UI\UIBillboard.cpp" />
@@ -174,6 +175,7 @@
     <Image Include="Image\Cloud.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Utility\FadeManager.h" />
     <ClInclude Include="UI\CanAttackUI.h" />
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="UI\UIBillboard.h" />
