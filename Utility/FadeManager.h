@@ -11,29 +11,33 @@ public:
 
 	static FadeManager& GetInstance();
 
-
-private:
-
-	FadeManager();
-	~FadeManager() = default;
+	void Update(float deltaTime);
+	void Draw();
 
 	/// <summary>
 	/// フェードインの開始
 	/// </summary>
+	/// <param name="durationSec"></param>
 	/// <param name="color"></param>
-	void StartFadeIn(float duration, int color = Color::kBlack);
+	void StartFadeIn(float durationSec, int color = Color::kBlack);
 
 	/// <summary>
 	/// フェードアウトの開始
 	/// </summary>
+	/// <param name="durationSec"></param>
 	/// <param name="color"></param>
-	void StartFadeOut(float duration, int color = Color::kBlack);
+	void StartFadeOut(float durationSec, int color = Color::kBlack);
 
 	/// <summary>
 	/// フェード中か取得
 	/// </summary>
 	/// <returns></returns>
-	bool IsFading()const;
+	bool IsFading()const { return m_isFading; }
+
+private:
+
+	FadeManager();
+	~FadeManager() = default;
 
 private:
 
@@ -51,5 +55,15 @@ private:
 	/// フェードの速度
 	/// </summary>
 	float m_speed;
+
+	/// <summary>
+	/// フェードの時間
+	/// </summary>
+	float m_durationSec;
+
+	/// <summary>
+	/// フェード中か
+	/// </summary>
+	bool m_isFading;
 
 };
