@@ -26,7 +26,7 @@ public:
 	/// 更新処理
 	/// </summary>
 	/// <returns></returns>
-	SceneBase* Update()override;
+	SceneBase* Update(float deltaTime)override;
 
 	/// <summary>
 	/// 描画処理

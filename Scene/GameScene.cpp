@@ -43,10 +43,8 @@ void GameScene::Init()
 
 }
 
-SceneBase* GameScene::Update()
+SceneBase* GameScene::Update(float deltaTime)
 {
-
-	float deltaTime = Time::GetDeltaTime();
 
 	m_pGameObjectMgr->Update(deltaTime);
 

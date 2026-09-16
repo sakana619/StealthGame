@@ -13,7 +13,7 @@ public:
 	~TitleScene() = default;
 
 	void Init()override;
-	SceneBase* Update()override;
+	SceneBase* Update(float deltaTime)override;
 	void Draw()override;
 	void End()override;
 

@@ -11,7 +11,7 @@ public:
 
 	virtual void Init() = 0;
 
-	virtual SceneBase* Update() { return this; }
+	virtual SceneBase* Update(float deltaTime) { return this; }
 
 	virtual void Draw() = 0;
 

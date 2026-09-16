@@ -19,7 +19,7 @@ void TitleScene::Init()
 {
 }
 
-SceneBase* TitleScene::Update()
+SceneBase* TitleScene::Update(float deltaTime)
 {
 
 	if (CheckHitKeyAll()) {

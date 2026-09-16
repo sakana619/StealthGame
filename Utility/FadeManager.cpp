@@ -29,14 +29,12 @@ void FadeManager::Update(float deltaTime)
 	m_bright += m_speed * deltaTime;
 
 	//フェードの終了判定
-	if (m_bright < 255) {
+	if (m_bright > 255) {
 		//リセット
 		m_isFading = false;
 		m_speed = 0;
 
-		m_bright = 255;
-
-		StartFadeOut(m_durationSec, m_color);
+		StartFadeIn(m_durationSec, m_color);
 
 	}
 	else if (m_bright < 0) {
@@ -70,6 +68,7 @@ void FadeManager::StartFadeIn(float durationSec, int color)
 	m_color = color;
 	m_speed = 255 / durationSec;
 	m_speed = -m_speed;
+	m_durationSec = durationSec;
 	m_isFading = true;
 
 	//明るさを設定
@@ -82,6 +81,7 @@ void FadeManager::StartFadeOut(float durationSec, int color)
 	//設定
 	m_color = color;
 	m_speed = 255 / durationSec;
+	m_durationSec = durationSec;
 	m_isFading = true;
 
 	//明るさを設定
