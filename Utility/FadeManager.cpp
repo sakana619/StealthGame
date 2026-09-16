@@ -5,6 +5,8 @@
 FadeManager& FadeManager::GetInstance() 
 {
 
+	static FadeManager instance;
+	return instance;
 }
 
 FadeManager::FadeManager()
