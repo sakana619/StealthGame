@@ -34,6 +34,8 @@ public:
 	/// <returns></returns>
 	bool IsFading()const { return m_isFading; }
 
+	bool IsFadingOut()const { return m_speed > 0; }
+
 private:
 
 	FadeManager();

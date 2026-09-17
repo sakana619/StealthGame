@@ -42,20 +42,32 @@ void SceneManager::Update()
 	SceneBase* pScene = m_pScene->Update(deltaTime);
 
 	//シーンが切り替わっていたら
-	if (m_pScene != pScene && pScene != nullptr) {
+	if (m_pScene != pScene && pScene != nullptr && m_pNextScene == nullptr) {
 
-		//終了
-		m_pScene->End();
-		delete m_pScene;
+
+		m_pNextScene = pScene;
 
 		FadeManager::GetInstance().StartFadeOut(1.0f, Color::kBlack);
 
-		m_pScene = pScene;
-		m_pScene->Init();
 
 	}
 	//フェード処理の更新
 	FadeManager::GetInstance().Update(deltaTime);
+
+	//次のシーンがあってフェードアウトが終わっていれば
+	if (m_pNextScene && !FadeManager::GetInstance().IsFadingOut()) {
+
+		//終了
+		m_pScene->End();
+		delete m_pScene;
+		//シーンの切り替え
+		m_pScene = m_pNextScene;
+		//リセット
+		m_pNextScene = nullptr;
+		//初期化
+		m_pScene->Init();
+
+	}
 
 }
 
