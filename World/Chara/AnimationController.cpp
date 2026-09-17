@@ -74,10 +74,10 @@ void AnimationController::DebugDraw()
 {
 
 	printfDx("Animation time : %f\n", m_time);
-	printfDx("Animation totalTime : %f\n", m_totalTime);
-	printfDx("Animation isPlaying : %d\n", m_isPlaying);
-	printfDx("Animation attachIndex : %d\n", m_attachIndex);
-	printfDx("Animation currentAnimIndex : %d\n", m_currentAnimIndex);
+	//printfDx("Animation totalTime : %f\n", m_totalTime);
+	//printfDx("Animation isPlaying : %d\n", m_isPlaying);
+	//printfDx("Animation attachIndex : %d\n", m_attachIndex);
+	//printfDx("Animation currentAnimIndex : %d\n", m_currentAnimIndex);
 
 	//printfDx("Animation isLoop : ");
 	//printfDx(m_isLoop ? "TRUE\n" : "FALSE\n");

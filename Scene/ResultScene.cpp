@@ -22,12 +22,18 @@ ResultScene::ResultScene(Scene::ResultType):
 
 void ResultScene::Init()
 {
+	//フォントの読み込み
+	int fontHandle = CreateFontToHandle(NULL, 40, 3, DX_FONTTYPE_EDGE);
+
+	//Command::ToTitleの設定
 	int toTitleIndex = static_cast<int>(Command::ToTitle);
 	m_commandList[toTitleIndex].command = Command::ToTitle;
+	m_commandList[toTitleIndex].fontHandle = fontHandle;
 	m_commandList[toTitleIndex].message = "タイトルへ";
-
+	//Command::RestartGameの設定
 	int restartGameIndex = static_cast<int>(Command::RestartGame);
 	m_commandList[restartGameIndex].command = Command::RestartGame;
+	m_commandList[restartGameIndex].fontHandle = fontHandle;
 	m_commandList[restartGameIndex].message = "もう一度プレイ";
 
 }
@@ -81,13 +87,13 @@ void ResultScene::Draw()
 
 	for (int i = 0; i < m_commandList.size(); i++) {
 
-		int posY = 400 + i * 30;
+		int posY = 400 + i * 50;
 		if (i == m_selectCommandIndex) {
+			//選択中のコマンドの表示
 			DrawString(50, posY, "->", Color::kWhite);
 		}
-
-		//Scene名表示
-		DrawString(80, posY, m_commandList[i].message.c_str(), Color::kWhite);
+		//メッセージの表示
+		DrawFormatStringToHandle(80, posY, Color::kWhite, m_commandList[i].fontHandle, m_commandList[i].message.c_str());
 
 	}
 
@@ -95,4 +101,10 @@ void ResultScene::Draw()
 
 void ResultScene::End()
 {
+
+	for (auto& commandData : m_commandList) {
+		//フォントハンドルの破棄
+		DeleteFontToHandle(commandData.fontHandle);
+	}
+
 }

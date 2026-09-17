@@ -38,9 +38,23 @@ public:
 	/// <returns></returns>
 	bool GetIsPlayAnimation()const { return m_isPlaying; }
 
+	/// <summary>
+	/// 再生中のアニメーションが割り込み可能か取得
+	/// </summary>
+	/// <returns></returns>
 	bool GetIsForcePlay()const { return m_isForcePlay; }
 
+	/// <summary>
+	/// アニメーションのFPSを設定する
+	/// </summary>
+	/// <param name="fps"></param>
 	void SetFPS(int fps) { m_fps = fps; }
+
+	/// <summary>
+	/// アニメーションの再生タイミングを設定する
+	/// </summary>
+	/// <param name="time"></param>
+	void SetTime(float time) { m_time = time; }
 
 private:
 

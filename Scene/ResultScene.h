@@ -5,9 +5,12 @@
 
 namespace Scene {
 
+	/// <summary>
+	/// リザルトシーンの種類
+	/// </summary>
 	enum class ResultType {
-		Clear,
-		GameOver,
+		Clear,		//クリア
+		GameOver,	//ゲームオーバー
 		MAX,
 	};
 
@@ -31,7 +34,9 @@ public:
 
 private:
 
-	//このシーンで出来ること
+	/// <summary>
+	/// このシーンのコマンド
+	/// </summary>
 	enum class Command {
 		ToTitle,		//タイトルシーンに接続
 		RestartGame,	//ゲーム再プレイ
@@ -39,12 +44,21 @@ private:
 		MAX,
 	};
 
+	/// <summary>
+	/// コマンド関連をまとめた構造体
+	/// </summary>
 	struct CommandData {
-
+		/// <summary>
+		/// 表示するメッセージ
+		/// </summary>
 		std::string message;
-
+		/// <summary>
+		/// メッセージのフォント
+		/// </summary>
 		int fontHandle;
-
+		/// <summary>
+		/// 設定されたコマンド
+		/// </summary>
 		Command command;
 
 	};
@@ -58,5 +72,10 @@ private:
 	/// 現在選択されているコマンドの番号
 	/// </summary>
 	int m_selectCommandIndex;
+
+	/// <summary>
+	/// リザルトのロゴ
+	/// </summary>
+	int m_resultLogo;
 
 };

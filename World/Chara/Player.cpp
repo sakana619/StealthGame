@@ -154,6 +154,7 @@ void Player::Draw()
 	}
 	m_pAttackCollision->DrawCollision();
 	printfDx(" HP %d\n", m_hp);
+	m_anim->DebugDraw();
 }
 
 void Player::End()
@@ -206,7 +207,7 @@ void Player::Damage(const AttackInfo& attackInfo, const Vector3& normal)
 
 bool Player::IsFInishedDeadAnimation()
 {
-	return m_isDead && !m_anim->GetIsPlayAnimation();
+	return m_isDead && m_anim->GetAnimationTime() > 22;
 }
 
 void Player::SetEnemyManager(EnemyManager* pEnemyManager)
@@ -328,6 +329,13 @@ void Player::UpdateAnimation(float deltaTime)
 
 	//アニメーションの再生がされていないなら待機アニメーションの再生
 	//if (!m_anim->GetIsPlayAnimation()) m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Idle)]);
+
+	if (IsFInishedDeadAnimation()) {
+		m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Death)]);
+		m_anim->SetTime(22);
+		m_anim->SetFPS(0);
+		return;
+	}
 
 	//割り込み不可能なアニメーションなら
 	if (m_anim->GetIsForcePlay()) {
