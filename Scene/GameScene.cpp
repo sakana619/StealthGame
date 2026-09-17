@@ -2,6 +2,7 @@
 #include<memory>
 
 #include"../Camera/Camera.h"
+#include"../Scene/ResultScene.h"
 #include"../System/Time.h"
 #include"../UI/UIBillboard.h"
 #include"../UI/UIManager.h"
@@ -52,6 +53,10 @@ SceneBase* GameScene::Update(float deltaTime)
 	m_pCamera->Update();
 
 	if (m_pMap->IsGoal(m_pPlayer)) {
+
+	}
+
+	if (m_pPlayer->IsFInishedDeadAnimation()) {
 
 	}
 

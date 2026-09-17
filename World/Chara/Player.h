@@ -34,6 +34,13 @@ public:
 
 	void Damage(const AttackInfo& attackInfo, const Vector3& normal)override;
 
+	/// <summary>
+	/// 死亡アニメーションの再生が終了したかどうか
+	/// シーン遷移で使う
+	/// </summary>
+	/// <returns></returns>
+	bool IsFInishedDeadAnimation();
+
 	void SetEnemyManager(EnemyManager* pEnemyManager);
 
 	void SetCanAttackUI(UIBillboard* pUIBillboard) { m_pCanAttackUI = pUIBillboard; }

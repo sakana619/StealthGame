@@ -97,6 +97,8 @@ void Player::Update(float deltaTime)
 	//アニメーションの更新
 	UpdateAnimation(deltaTime);
 
+	if (m_isDead)return;
+
 	if (m_unresolveKnockback.GetSqLength() > 0) {
 
 		m_transform.Translate(m_unresolveKnockback);
@@ -151,7 +153,7 @@ void Player::Draw()
 		collision.shape->DrawCollisionShape(color);
 	}
 	m_pAttackCollision->DrawCollision();
-
+	printfDx(" HP %d\n", m_hp);
 }
 
 void Player::End()
@@ -194,6 +196,17 @@ void Player::Damage(const AttackInfo& attackInfo, const Vector3& normal)
 
 	CharacterBase::Damage(attackInfo, normal);
 
+	if (m_hp < 0 && !m_isDead) {
+		//アニメーションの再生
+		m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Death)]);
+		m_isDead = true;
+	}
+
+}
+
+bool Player::IsFInishedDeadAnimation()
+{
+	return m_isDead && !m_anim->GetIsPlayAnimation();
 }
 
 void Player::SetEnemyManager(EnemyManager* pEnemyManager)
@@ -314,7 +327,7 @@ void Player::UpdateAnimation(float deltaTime)
 {
 
 	//アニメーションの再生がされていないなら待機アニメーションの再生
-	if (!m_anim->GetIsPlayAnimation()) m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Idle)]);
+	//if (!m_anim->GetIsPlayAnimation()) m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Idle)]);
 
 	//割り込み不可能なアニメーションなら
 	if (m_anim->GetIsForcePlay()) {
@@ -332,6 +345,11 @@ void Player::UpdateAnimation(float deltaTime)
 		//次のアニメーションを走りアニメーションに設定
 		nextState = State::Run;
 		nextAnimIndex = static_cast<int>(Animation::Player::Run);
+	}
+
+	if (m_isDead) {
+		nextState = State::Dead;
+		nextAnimIndex = static_cast<int>(Animation::Player::Death);
 	}
 
 	//アニメーションの変更があったら
