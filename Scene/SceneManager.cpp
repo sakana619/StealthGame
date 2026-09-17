@@ -2,13 +2,15 @@
 #include<cassert>
 
 #include"DxLib.h"
+#include"GameScene.h"
+#include"ResultScene.h"
+#include"TitleScene.h"
+#include"SceneBase.h"
 #include"../System/Game.h"
 #include"../System/Time.h"
 #include"../Utility/Color.h"
 #include"../Utility/FadeManager.h"
-#include"GameScene.h"
-#include"TitleScene.h"
-#include"SceneBase.h"
+#include"../Utility/Input.h"
 
 SceneManager::SceneManager() :
 	m_pScene(nullptr),
@@ -25,7 +27,8 @@ void SceneManager::Init()
 {
 
 	//m_pScene = new GameScene();
-	m_pScene = new TitleScene();
+	m_pScene = new ResultScene(Scene::ResultType::Clear);
+	//m_pScene = new TitleScene();
 
 	assert(m_pScene);
 	//シーンの初期化
@@ -35,8 +38,11 @@ void SceneManager::Init()
 
 void SceneManager::Update()
 {
-
+	//経過時間を取得
 	float deltaTime = Time::GetDeltaTime();
+
+	//入力情報の更新
+	Input::Update();
 
 	//シーンの切り替え、更新
 	SceneBase* pScene = m_pScene->Update(deltaTime);
@@ -86,5 +92,12 @@ void SceneManager::End()
 	m_pScene->End();
 	delete m_pScene;
 	m_pScene = nullptr;
+
+	if (m_pNextScene) {
+		m_pNextScene->End();
+		m_pNextScene = nullptr;
+	}
+
+	delete m_pNextScene;
 
 }

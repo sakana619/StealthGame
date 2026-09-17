@@ -1,10 +1,19 @@
 #include "Input.h"
 
-#include"DxLib.h"
+#include<DxLib.h>
+#include<array>
+
+namespace {
+	//保持する期間 (フレーム)
+	static constexpr int kLogMax = 20;
+	//入力履歴
+	std::array<int, kLogMax>m_inputLog;
+
+}
 
 void Input::Update()
 {
-
+	//入力状態を取得
 	int inputState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
 	//入力情報の更新

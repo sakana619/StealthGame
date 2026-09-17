@@ -121,14 +121,18 @@ void GameObjectManager::CheckAttackCollision()
 			for (const auto& attackCollision : attackCollisionDatas) {
 				//‘¶Ý‚µ‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
 				if (!attackCollision.GetIsExist())continue;
+				//“–‚½‚Á‚½‚©‚Ç‚¤‚©
+				bool isHit = false;
 
 				for (const auto& targetCollision : targetCollisionData) {
-
-					if (!targetCollision.shape)continue;
+					//Šù‚É“–‚½‚Á‚Ä‚¢‚½‚çˆ—‚µ‚È‚¢
+					if (isHit || !targetCollision.shape)continue;
 
 					Collision::Result result = targetCollision.shape->CheckCollision(*attackCollision.GetCollision());
 					//“–‚½‚Á‚Ä‚¢‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
 					if (!result.isHit)continue;
+					//“–‚½‚Á‚½
+					isHit = true;
 
 					//ƒ_ƒ[ƒW‚ð—^‚¦‚é
 					target->Damage(attackCollision.GetAttackInfo(), result.normal);

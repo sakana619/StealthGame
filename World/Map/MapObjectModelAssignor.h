@@ -21,6 +21,11 @@ public:
 	int GetModel(MapData::ObjectType type);
 
 	/// <summary>
+	/// モデルの読み込みを行う
+	/// </summary>
+	void LoadModel();
+
+	/// <summary>
 	/// モデルの破棄を行う
 	/// </summary>
 	void DeleteModel();
@@ -42,6 +47,11 @@ private:
 	MapObjectModelAssignor& operator=(const MapObjectModelAssignor&&) = delete;
 
 private:
+
+	/// <summary>
+	/// 読み込み済みかどうか
+	/// </summary>
+	bool m_isLoaded;
 
 	/// <summary>
 	/// オブジェクトのモデル配列

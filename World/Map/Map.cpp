@@ -15,6 +15,9 @@ Map::~Map() = default;
 
 void Map::Init()
 {
+	//モデルの読み込み
+	MapObjectModelAssignor::GetInstance().LoadModel();
+
 	//ステージのデータを取得
 	auto stageData = MapData::GetStageData();
 

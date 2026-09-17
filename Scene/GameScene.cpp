@@ -54,9 +54,13 @@ SceneBase* GameScene::Update(float deltaTime)
 
 	if (m_pMap->IsGoal(m_pPlayer)) {
 
+		return new ResultScene(Scene::ResultType::Clear);
+
 	}
 
 	if (m_pPlayer->IsFInishedDeadAnimation()) {
+
+		return new ResultScene(Scene::ResultType::GameOver);
 
 	}
 

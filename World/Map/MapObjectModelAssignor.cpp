@@ -24,35 +24,10 @@ namespace {
 }
 
 MapObjectModelAssignor::MapObjectModelAssignor() :
-	m_objectModels()
+	m_objectModels(),
+	m_textureList(),
+	m_isLoaded(false)
 {
-	m_objectModels.fill(-1);
-
-	for (int i = 0; i < m_objectModels.size(); i++) {
-		//読み込み
-		int model = MV1LoadModel(kModelPath[i]);
-
-		//読み込みが失敗していたら警告
-		assert(model != -1 && "MapObjectModelAssignor::MapObjectModelAssignor fail to load model");
-
-		//サイズを設定
-		VECTOR scale = MapData::kSize::scale.ToVECTOR();
-		MV1SetScale(model, scale);
-
-		m_objectModels[i] = model;
-
-	}
-
-	for (int i = 0; i < kTextureCount; i++) {
-		//読み込み
-		int texture = LoadGraph(kTexturePath[i]);
-		//失敗していたら警告
-		assert(texture != -1 && "MapObjectModelAssignor::MapObjectModelAssignor fail to load texture");
-		//テクスチャーのリストに追加
-		m_textureList.push_back(texture);
-
-	}
-
 }
 
 MapObjectModelAssignor& MapObjectModelAssignor::GetInstance()
@@ -88,8 +63,46 @@ int MapObjectModelAssignor::GetModel(MapData::ObjectType type)
 	return model;
 }
 
+void MapObjectModelAssignor::LoadModel()
+{
+
+	m_objectModels.fill(-1);
+
+	for (int i = 0; i < m_objectModels.size(); i++) {
+		//読み込み
+		int model = MV1LoadModel(kModelPath[i]);
+
+		//読み込みが失敗していたら警告
+		assert(model != -1 && "MapObjectModelAssignor::MapObjectModelAssignor fail to load model");
+
+		//サイズを設定
+		VECTOR scale = MapData::kSize::scale.ToVECTOR();
+		MV1SetScale(model, scale);
+
+		m_objectModels[i] = model;
+
+	}
+
+	for (int i = 0; i < kTextureCount; i++) {
+		//読み込み
+		int texture = LoadGraph(kTexturePath[i]);
+		//失敗していたら警告
+		assert(texture != -1 && "MapObjectModelAssignor::MapObjectModelAssignor fail to load texture");
+		//テクスチャーのリストに追加
+		m_textureList.push_back(texture);
+
+	}
+
+	//読み込み済みにする
+	m_isLoaded = true;
+
+}
+
 void MapObjectModelAssignor::DeleteModel()
 {
+	//読み込んでいなかったら処理しない
+	if (!m_isLoaded)return;
+
 	//すべてのモデルを破棄
 	for (auto& model : m_objectModels) {
 		//モデルの破棄
@@ -104,5 +117,7 @@ void MapObjectModelAssignor::DeleteModel()
 		DeleteGraph(texture);
 		texture = -1;
 	}
+
+	m_textureList.clear();
 
 }

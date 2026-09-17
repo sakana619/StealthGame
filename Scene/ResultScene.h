@@ -41,7 +41,9 @@ private:
 
 	struct CommandData {
 
-		std::string commandName;
+		std::string message;
+
+		int fontHandle;
 
 		Command command;
 
@@ -55,6 +57,6 @@ private:
 	/// <summary>
 	/// 現在選択されているコマンドの番号
 	/// </summary>
-	size_t m_selectCommandIndex;
+	int m_selectCommandIndex;
 
 };
