@@ -30,10 +30,7 @@ void FadeManager::Update(float deltaTime)
 
 	//フェードの終了判定
 	if (m_bright > 255) {
-		//リセット
-		m_isFading = false;
-		m_speed = 0;
-
+		//フェードイン開始
 		StartFadeIn(m_durationSec, m_color);
 
 	}

@@ -2,15 +2,15 @@
 #include"SceneBase.h"
 
 /// <summary>
-/// タイトルシーン
+/// ゲームオーバーシーン
 /// </summary>
-class TitleScene :public SceneBase
+class GameClearScene :public SceneBase
 {
 
 public:
 
-	TitleScene();
-	~TitleScene()override = default;
+	GameClearScene();
+	~GameClearScene()override = default;
 
 	void Init()override;
 	SceneBase* Update(float deltaTime)override;
@@ -18,7 +18,5 @@ public:
 	void End()override;
 
 private:
-
-	int m_titleLogo;
 
 };

@@ -41,14 +41,15 @@ void SceneManager::Update()
 	//シーンの切り替え、更新
 	SceneBase* pScene = m_pScene->Update(deltaTime);
 
+	//現在のシーンと違って次のシーンがなかったらtrue
+	bool isSceneChange = m_pScene != pScene && pScene != nullptr && m_pNextScene == nullptr;
+
 	//シーンが切り替わっていたら
-	if (m_pScene != pScene && pScene != nullptr && m_pNextScene == nullptr) {
-
-
+	if (isSceneChange) {
+		//次のシーンを設定
 		m_pNextScene = pScene;
-
+		//フェードアウトの開始
 		FadeManager::GetInstance().StartFadeOut(1.0f, Color::kBlack);
-
 
 	}
 	//フェード処理の更新

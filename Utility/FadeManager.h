@@ -34,12 +34,25 @@ public:
 	/// <returns></returns>
 	bool IsFading()const { return m_isFading; }
 
+	/// <summary>
+	/// フェードアウト中か取得
+	/// </summary>
+	/// <returns></returns>
 	bool IsFadingOut()const { return m_speed > 0; }
 
 private:
 
 	FadeManager();
 	~FadeManager() = default;
+
+	// コピー禁止
+	FadeManager(const FadeManager&) = delete;
+	// コピー代入禁止
+	FadeManager& operator=(const FadeManager&) = delete;
+	// ムーブ禁止
+	FadeManager(FadeManager&&) = delete;
+	// ムーブ代入禁止
+	FadeManager& operator=(const FadeManager&&) = delete;
 
 private:
 
@@ -64,7 +77,7 @@ private:
 	float m_durationSec;
 
 	/// <summary>
-	/// フェード中か
+	/// フェード中かどうか
 	/// </summary>
 	bool m_isFading;
 
