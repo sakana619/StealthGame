@@ -5,19 +5,44 @@
 #include<cassert>
 #include"GameScene.h"
 #include"TitleScene.h"
+#include"../System/SoundManager.h"
 #include"../Utility/Color.h"
 #include"../Utility/Input.h"
 
 namespace {
 
+	const char* const kClearLogo = "";
 
+	const char* const kGameOverLogo = "";
 
 }
 
-ResultScene::ResultScene(Scene::ResultType):
+ResultScene::ResultScene(Scene::ResultType type) :
 	m_commandList(),
-	m_selectCommandIndex(0)
+	m_selectCommandIndex(0),
+	m_resultLogo(-1)
 {
+
+	switch (type)
+	{
+	case Scene::ResultType::Clear:
+		m_resultLogo = LoadGraph(kClearLogo);
+		SoundManager::GetInstance().PlayBGM(Sound::BGM::ClearScene);
+		break;
+
+	case Scene::ResultType::GameOver:
+		m_resultLogo = LoadGraph(kGameOverLogo);
+		SoundManager::GetInstance().PlayBGM(Sound::BGM::GameOverScene);
+		break;
+
+	default:
+		m_resultLogo = LoadGraph(kClearLogo);
+
+		assert(false && "");
+
+		break;
+	}
+
 }
 
 void ResultScene::Init()

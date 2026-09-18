@@ -57,8 +57,6 @@ void EnemyManager::Init(GameObjectManager* gameObjectMgr)
 	}
 
 	for (int i = 0; i < enemyCount; i++) {
-		//if (i == 1)return;
-		if (i != 1)continue;
 		//GameObjectManagerに追加
 		EnemyBase* newEnemy = gameObjectMgr->CreateObject<EnemyBee>();
 		newEnemy->Init();

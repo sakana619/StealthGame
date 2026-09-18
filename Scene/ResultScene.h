@@ -24,7 +24,7 @@ class ResultScene :public SceneBase
 
 public:
 
-	ResultScene(Scene::ResultType);
+	ResultScene(Scene::ResultType type);
 	~ResultScene()override = default;
 
 	void Init()override;

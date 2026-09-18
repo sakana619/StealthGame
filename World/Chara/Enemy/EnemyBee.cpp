@@ -136,6 +136,7 @@ void EnemyBee::Draw()
 	EnemyBase::Draw();
 	MV1SetScale(m_modelHandle, m_transform.scale.ToVECTOR());
 	printfDx(" isBack %d\n", m_isBack);
+	printfDx(" State %d\n", static_cast<int>(m_state));
 	DrawView();
 
 }
@@ -215,32 +216,33 @@ void EnemyBee::UpdatePatrol(float deltaTime)
 	if (IsArrivedNextPos(nextPos, moveAmount)) {
 		//座標のずれをなくす
 		m_transform.position = nextPos;
+		//状態の変更
+		m_state = EnemyBase::State::Caution;
 		//巡回が戻りなら
 		if (m_isBack) {
-			//戻る
-			m_nextPatrolIndex--;
-
 			//最初の地点に来たら
 			if (m_nextPatrolIndex <= 0) {
-				m_nextPatrolIndex = 1;
 				m_isBack = false;
+				m_nextPatrolIndex++;
+				return;
 			}
+			//戻る
+			m_nextPatrolIndex--;
 
 		}
 		else
 		{
-			//巡回位置を更新
-			m_nextPatrolIndex++;
 			//最後の地点なら
 			if (m_nextPatrolIndex >= m_patrolPositions.size() - 1) {
 				//巡回を戻りにする
-				m_nextPatrolIndex = m_patrolPositions.size() - 2;
 				m_isBack = true;
+				m_nextPatrolIndex--;
+				return;
 			}
+			//巡回位置を更新
+			m_nextPatrolIndex++;
 
 		}
-		//状態の変更
-		m_state = EnemyBase::State::Caution;
 	}
 
 }
@@ -251,6 +253,12 @@ void EnemyBee::UpdateCaution(float deltaTime)
 	Vector3 nextPos = m_patrolPositions[m_nextPatrolIndex];
 	//次の目的地との差
 	Vector3 dif = nextPos - m_transform.position;
+
+	if (dif.GetSqLength() < MyMath::Epsilon) {
+		//ステータスを変更
+		m_state = EnemyBase::State::Patrol;
+	}
+
 	//次の目的地への角度
 	float targetAngle = atan2f(-dif.x, -dif.z);
 	targetAngle = MyMath::NormalizeRadAngle(targetAngle);

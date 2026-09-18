@@ -19,7 +19,7 @@ namespace {
     constexpr int kDefaultVolume = 160;
 
     //フェードの速度
-    constexpr float kFadeSpeed = Game::kOneFrameSeconds * 120;
+    constexpr float kFadeSpeed = 120;
 
 }
 
@@ -197,7 +197,7 @@ void SoundManager::UpdateFadeIn(float deltaTime)
 {
 
     //音量を少しずつ上げる
-    m_currentVolume += kFadeSpeed;
+    m_currentVolume += kFadeSpeed * deltaTime;
     //音量を設定
     ChangeVolumeSoundMem(m_currentVolume, m_currentBgmHandle);
 
@@ -217,7 +217,7 @@ void SoundManager::UpdateFadeIn(float deltaTime)
 void SoundManager::UpdateCrossFade(float deltaTime)
 {
     //今のBGMを少しずつ下げる
-    m_currentVolume -= kFadeSpeed;
+    m_currentVolume -= kFadeSpeed * deltaTime;
     //次のBGMを少しずつ上げる
     m_nextVolume = kDefaultVolume - m_currentVolume;
     //音量を変更
