@@ -23,6 +23,9 @@ GameScene::GameScene() :
 
 void GameScene::Init()
 {
+	//ウィンドウの名前を変える
+	SetMainWindowText("GameScene");
+
 	//インスタンスを生成
 	m_pGameObjectMgr = std::make_unique<GameObjectManager>();
 	m_pCamera = std::make_unique<Camera>();

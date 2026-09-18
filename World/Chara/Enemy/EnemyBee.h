@@ -41,6 +41,11 @@ private:
 
 	void UpdateCombat(float deltaTime)override;
 
+	/// <summary>
+	/// m_nextPatrolIndexを一番近い巡回の座標に設定する
+	/// </summary>
+	void SetNearestLengthPatrolIndex();
+
 	void CheckBehind();
 
 	void UpdateForward(Vector3 moveDirection,float forward);

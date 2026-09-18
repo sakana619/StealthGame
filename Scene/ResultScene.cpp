@@ -11,9 +11,14 @@
 
 namespace {
 
-	const char* const kClearLogo = "";
+	const char* const kClearLogo = ".\\Resource\\UI\\GameClearLogo.png";
 
-	const char* const kGameOverLogo = "";
+	const char* const kGameOverLogo = ".\\Resource\\UI\\GameOverLogo.png";
+
+	constexpr float kLogoLeftPos = 150.0f;
+	constexpr float kLogoRightPos = 700.0f;
+	constexpr float kLogoTopPos = 100.0f;
+	constexpr float kLogoBottmPos = 200.0f;
 
 }
 
@@ -47,8 +52,11 @@ ResultScene::ResultScene(Scene::ResultType type) :
 
 void ResultScene::Init()
 {
+	//ウィンドウの名前を変える
+	SetMainWindowText("ResultScene");
+
 	//フォントの読み込み
-	int fontHandle = CreateFontToHandle(NULL, 40, 3, DX_FONTTYPE_EDGE);
+	int fontHandle = CreateFontToHandle(NULL, 70, 3, DX_FONTTYPE_EDGE);
 
 	//Command::ToTitleの設定
 	int toTitleIndex = static_cast<int>(Command::ToTitle);
@@ -109,16 +117,18 @@ SceneBase* ResultScene::Update(float deltaTime)
 
 void ResultScene::Draw()
 {
+	//リザルトのロゴの描画
+	DrawExtendGraph(kLogoLeftPos, kLogoTopPos, kLogoRightPos, kLogoBottmPos, m_resultLogo, TRUE);
 
 	for (int i = 0; i < m_commandList.size(); i++) {
 
-		int posY = 400 + i * 50;
+		int posY = 300 + i * 75;
 		if (i == m_selectCommandIndex) {
 			//選択中のコマンドの表示
-			DrawString(50, posY, "->", Color::kWhite);
+			DrawString(90, posY + 30, "->", Color::kWhite);
 		}
 		//メッセージの表示
-		DrawFormatStringToHandle(80, posY, Color::kWhite, m_commandList[i].fontHandle, m_commandList[i].message.c_str());
+		DrawFormatStringToHandle(120, posY, Color::kWhite, m_commandList[i].fontHandle, m_commandList[i].message.c_str());
 
 	}
 

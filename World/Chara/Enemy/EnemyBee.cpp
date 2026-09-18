@@ -153,6 +153,15 @@ void EnemyBee::ResolveCollision(const Collision::Result result, const CollisionD
 	//当たっていなければ即時リターン
 	if (!result.isHit)return;
 
+	//壁にぶつかっていて、戦闘状態だったら
+	if (other == CollisionTag::Wall && m_state == State::Combat) {
+
+		//巡回に戻る
+		SetNearestLengthPatrolIndex();
+		m_state = EnemyBase::State::Caution;
+
+	}
+
 }
 
 void EnemyBee::Death()
@@ -310,6 +319,16 @@ void EnemyBee::UpdateCombat(float deltaTime)
 	//視界の外に出たら
 	if (CheckInViewRange(dif.GetSqLength())) return;
 
+	//一番近い巡回の座標に設定する
+	SetNearestLengthPatrolIndex();
+	//状態の変更
+	m_state = EnemyBase::State::Caution;
+
+}
+
+void EnemyBee::SetNearestLengthPatrolIndex()
+{
+
 	float nearestLengthSq = (m_patrolPositions[0] - m_transform.position).GetSqLength();
 	//一番近い巡回の座標を求める
 	for (int i = 0; i < m_patrolPositions.size(); i++) {
@@ -325,8 +344,6 @@ void EnemyBee::UpdateCombat(float deltaTime)
 		}
 
 	}
-
-	m_state = EnemyBase::State::Caution;
 
 }
 

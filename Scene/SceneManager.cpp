@@ -7,6 +7,7 @@
 #include"TitleScene.h"
 #include"SceneBase.h"
 #include"../System/Game.h"
+#include"../System/SoundManager.h"
 #include"../System/Time.h"
 #include"../Utility/Color.h"
 #include"../Utility/FadeManager.h"
@@ -29,6 +30,9 @@ void SceneManager::Init()
 	//m_pScene = new GameScene();
 	m_pScene = new ResultScene(Scene::ResultType::Clear);
 	//m_pScene = new TitleScene();
+
+	//BGMの読み込み
+	//SoundManager::GetInstance().Init();
 
 	assert(m_pScene);
 	//シーンの初期化
@@ -61,6 +65,9 @@ void SceneManager::Update()
 	//フェード処理の更新
 	FadeManager::GetInstance().Update(deltaTime);
 
+	//BGMフェードの更新
+	SoundManager::GetInstance().UpdateFade(deltaTime);
+
 	//次のシーンがあってフェードアウトが終わっていれば
 	if (m_pNextScene && !FadeManager::GetInstance().IsFadingOut()) {
 
@@ -88,7 +95,7 @@ void SceneManager::Draw()
 
 void SceneManager::End()
 {
-
+	//シーンの破棄
 	m_pScene->End();
 	delete m_pScene;
 	m_pScene = nullptr;
@@ -99,5 +106,8 @@ void SceneManager::End()
 	}
 
 	delete m_pNextScene;
+
+	//サウンドの破棄
+	SoundManager::GetInstance().End();
 
 }

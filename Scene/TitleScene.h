@@ -19,6 +19,14 @@ public:
 
 private:
 
+	/// <summary>
+	/// タイトルロゴ
+	/// </summary>
 	int m_titleLogo;
+
+	/// <summary>
+	/// メッセージフォント
+	/// </summary>
+	int m_messageFont;
 
 };
