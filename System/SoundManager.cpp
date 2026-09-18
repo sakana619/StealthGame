@@ -3,7 +3,6 @@
 
 #include"DxLib.h"
 #include<cassert>
-#include"../System/Game.h"
 
 namespace {
 

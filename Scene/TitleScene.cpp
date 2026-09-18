@@ -32,7 +32,10 @@ void TitleScene::Init()
 	m_titleLogo = LoadGraph(kTitleLogoPath);
 
 	//メッセージのフォントの読み込み
+	m_messageFont = CreateFontToHandle(NULL, 50, 3, DX_FONTTYPE_EDGE);
 
+
+	SoundManager::GetInstance().PlayBGM(Sound::BGM::TitleScene);
 
 }
 
@@ -49,8 +52,17 @@ SceneBase* TitleScene::Update(float deltaTime)
 
 void TitleScene::Draw()
 {
+
+	//メッセージの表示
+	DrawFormatStringToHandle(120, 400, Color::kWhite, m_messageFont, kStartMessage);
+
 }
 
 void TitleScene::End()
 {
+	//読み込んだロゴを破棄
+	DeleteGraph(m_titleLogo);
+	//読み込んだフォントを破棄
+	DeleteFontToHandle(m_messageFont);
+
 }

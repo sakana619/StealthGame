@@ -142,4 +142,7 @@ void ResultScene::End()
 		DeleteFontToHandle(commandData.fontHandle);
 	}
 
+	//ƒŠƒUƒ‹ƒg‚ÌƒƒS‚Ì”jŠü
+	DeleteFontToHandle(m_resultLogo);
+
 }

@@ -82,6 +82,12 @@ void GameScene::Draw()
 	m_pGameObjectMgr->Draw();
 	m_pUIMgr->Draw();
 
+	Vector3 playerPos = m_pPlayer->GetPosition();
+	printfDx(" PlayerPosition\n");
+	printfDx(" PosX %f\n", playerPos.x);
+	printfDx(" Posy %f\n", playerPos.y);
+	printfDx(" Posz %f\n", playerPos.y);
+
 }
 
 void GameScene::End()
