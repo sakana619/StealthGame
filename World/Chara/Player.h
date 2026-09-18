@@ -64,8 +64,6 @@ private:
 	/// <returns>見つからなかったらnullptr</returns>
 	EnemyBase* SearchCanAttackEnemy();
 
-	void Dodge();
-
 private:
 
 	/// <summary>
@@ -82,8 +80,6 @@ private:
 	};
 
 	State m_state;
-
-	bool m_isDodging;
 
 	Camera* m_pCamera;
 	/// <summary>

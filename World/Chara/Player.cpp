@@ -48,7 +48,7 @@ namespace {
 	constexpr int kAttackInfoDataIndex = 1;
 
 	//最大HP
-	constexpr int kMaxHp = 100;
+	constexpr int kMaxHp = 1;
 	//重力
 	constexpr float kGravity = 13.0f;
 	//攻撃可能距離
@@ -58,13 +58,16 @@ namespace {
 
 	//初期の座標
 	constexpr Vector3 kInitPos = { 400.0f, 500.0f, 500.0f };
+	//死亡アニメーションの終了時間
+	constexpr float kFInishedDeadAnimationTime = 22.5f;
 
 }
 
 Player::Player(Camera* pCamera) :
 	m_state(State::Idle),
-	m_isDodging(false),
-	m_pCamera(pCamera)
+	m_pCamera(pCamera),
+	m_pEnemyManager(nullptr),
+	m_pCanAttackUI(nullptr)
 {
 }
 
@@ -107,8 +110,6 @@ void Player::Update(float deltaTime)
 
 		return;
 	}
-
-	Dodge();
 
 	Move();
 
@@ -207,7 +208,7 @@ void Player::Damage(const AttackInfo& attackInfo, const Vector3& normal)
 
 bool Player::IsFInishedDeadAnimation()
 {
-	return m_isDead && m_anim->GetAnimationTime() > 22;
+	return m_isDead && m_anim->GetAnimationTime() > kFInishedDeadAnimationTime;
 }
 
 void Player::SetEnemyManager(EnemyManager* pEnemyManager)
@@ -332,7 +333,7 @@ void Player::UpdateAnimation(float deltaTime)
 
 	if (IsFInishedDeadAnimation()) {
 		m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Death)]);
-		m_anim->SetTime(22);
+		m_anim->SetTime(kFInishedDeadAnimationTime);
 		m_anim->SetFPS(0);
 		return;
 	}
@@ -411,63 +412,5 @@ EnemyBase* Player::SearchCanAttackEnemy()
 
 	//見つかった敵を返す
 	return nearestEnemy;
-
-}
-
-void Player::Dodge()
-{
-
-	static Vector3 moveVector = Vector3::Zero;
-
-	static float speed = 0;
-
-	//printfDx("%f\n", speed);
-
-	if (m_isDodging) {
-
-		GameObject::m_transform.Translate(moveVector);
-
-		moveVector *= speed;
-
-		speed *= 0.05f;
-
-		if (speed <= 0) {
-			m_isDodging = false;
-		}
-
-		return;
-
-	}
-
-	if (CheckHitKey(KEY_INPUT_0)) {
-
-		m_isDodging = true;
-
-		speed = 100.0f;
-
-		//プレイヤーの向き
-		const float forward = GameObject::m_transform.rotation.y;
-
-		const Vector3 moveDirection = Vector3::ZAxis;
-
-		//forwardの
-		float sin = sinf(forward);
-		float cos = cosf(forward);
-
-		moveVector = Vector3::Zero;
-
-		moveVector = {
-			moveDirection.x * -cosf(forward) - moveDirection.z * sinf(forward),
-			0.0f,
-			moveDirection.x * sinf(forward) + moveDirection.z * -cosf(forward)
-		};
-
-		moveVector = moveVector.GetNormalize();
-
-		//moveVector *= 100;
-
-		GameObject::m_transform.Translate(moveVector);
-
-	}
 
 }
