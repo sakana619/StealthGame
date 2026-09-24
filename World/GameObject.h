@@ -21,6 +21,7 @@ public:
 		Enemy,
 		Floor,
 		Wall,
+		Goal,
 	};
 
 	/// <summary>

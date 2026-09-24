@@ -197,6 +197,7 @@
     <ClInclude Include="World\Component\AttackCollision.h" />
     <ClInclude Include="World\Component\Collision.h" />
     <ClInclude Include="World\Component\CollisionJudge.h" />
+    <ClInclude Include="World\Map\GoalData.h" />
     <ClInclude Include="World\Map\MapObjectModelAssignor.h" />
     <ClInclude Include="World\Map\MapData.h" />
     <ClInclude Include="World\Map\MapObject.h" />

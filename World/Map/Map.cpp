@@ -49,6 +49,11 @@ void Map::Init()
 
 	}
 
+	//ゴールのデータの取得
+	auto goalData = MapData::GetGoalData();
+
+
+
 }
 
 void Map::Draw()

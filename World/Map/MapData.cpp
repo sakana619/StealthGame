@@ -1,13 +1,17 @@
 #include "MapData.h"
 #include"../../Utility/Vector3.h"
+#include"GoalData.h"
 #include<vector>
 
 #include"../../Utility/Loader/LoadData.h"
 #include"../../Utility/Loader/DataConvert.h"
+#include"../Utility/Loader/DataLoader.h"
 
 namespace {
 	//ステージデータのファイルパス
 	const char* const kStageDataPath = ".\\Data\\Stage\\Stage.csv";
+	//ゴールデータのファイルパス
+	const char* const kGoalDataPath = ".\\Data\\Stage\\GoalData.csv";
 
 	//読み込み済みか
 	bool isLoaded = false;
@@ -50,5 +54,18 @@ std::vector<std::vector<MapData::ObjectType>> MapData::GetStageData()
 	}
 
 	return stageData;
+
+}
+
+const GoalData& MapData::GetGoalData()
+{
+
+	GoalData res;
+	//データの取得
+	auto data = DataLoader::LoadMasterData<GoalData>(kGoalDataPath);
+
+	res = data[0];
+
+	return res;
 
 }

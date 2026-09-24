@@ -34,4 +34,13 @@ public:
 
 	void SetObjectType(MapData::ObjectType type);
 
+private:
+
+	/// <summary>
+	/// MapData::ObjectTypeをCollisionTagに変換
+	/// </summary>
+	/// <param name="type"></param>
+	/// <returns></returns>
+	CollisionTag ObjectTypeToCollisionTag(MapData::ObjectType type);
+
 };

@@ -3,6 +3,7 @@
 #include"DataConvert.h"
 #include"../../World/Chara/Enemy/EnemyData.h"
 #include"../../World/Component/AttackInfo.h"
+#include"../../World/Map/GoalData.h"
 
 /// <summary>
 /// データの割り振り
@@ -65,6 +66,33 @@ namespace Data {
 
 			param.damage = Get<int>(data, "damage");
 			param.knockBack = Get<float>(data, "knockBack");
+
+			return param;
+
+		}
+
+	};
+
+	/// <summary>
+	/// ゴールデータに変換
+	/// </summary>
+	template<>
+	struct FromData<GoalData> {
+		static GoalData Binding(const HeaderData& data) {
+
+			GoalData param;
+
+			param.position.x = Get<float>(data, "posX");
+			param.position.y = Get<float>(data, "posY");
+			param.position.z = Get<float>(data, "posZ");
+
+			param.scale.x = Get<float>(data, "scaleX");
+			param.scale.y = Get<float>(data, "scaleY");
+			param.scale.z = Get<float>(data, "scaleZ");
+
+			param.collisionSize.x = Get<float>(data, "collisionSizeX");
+			param.collisionSize.y = Get<float>(data, "collisionSizeY");
+			param.collisionSize.z = Get<float>(data, "collisionSizeZ");
 
 			return param;
 

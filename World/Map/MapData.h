@@ -1,5 +1,6 @@
 #pragma once
 #include"../../Utility/Vector3.h"
+#include"GoalData.h"
 #include<vector>
 
 /// <summary>
@@ -23,6 +24,7 @@ namespace MapData
 
 		Floor,			//床
 		Wall,			//壁
+		Goal,			//ゴールの旗
 
 		Max,			//最大数
 	};
@@ -32,5 +34,7 @@ namespace MapData
 	/// </summary>
 	/// <returns></returns>
 	std::vector<std::vector<ObjectType>> GetStageData();
+
+	const GoalData& GetGoalData();
 
 };

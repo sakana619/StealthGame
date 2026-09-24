@@ -19,12 +19,7 @@ MapObject::MapObject(MapData::ObjectType type)
 	m_modelHandle = MapObjectModelAssignor::GetInstance().GetModel(type);
 
 	//コリジョンタグの設定
-	if (type == MapData::ObjectType::Floor) {
-		m_collisionTag = CollisionTag::Floor;
-	}
-	else if (type == MapData::ObjectType::Wall) {
-		m_collisionTag = CollisionTag::Wall;
-	}
+	m_collisionTag = ObjectTypeToCollisionTag(type);
 
 }
 
@@ -61,4 +56,23 @@ void MapObject::SetObjectType(MapData::ObjectType type)
 {
 	//モデルの取得
 	m_modelHandle = MapObjectModelAssignor::GetInstance().GetModel(type);
+}
+
+GameObject::CollisionTag MapObject::ObjectTypeToCollisionTag(MapData::ObjectType type)
+{
+
+	CollisionTag tag = CollisionTag::Invalid;
+
+	if (type == MapData::ObjectType::Floor) {
+		tag = CollisionTag::Floor;
+	}
+	else if (type == MapData::ObjectType::Wall) {
+		tag = CollisionTag::Wall;
+	}
+	else if (type == MapData::ObjectType::Goal) {
+		tag = CollisionTag::Goal;
+	}
+
+	return tag;
+
 }
