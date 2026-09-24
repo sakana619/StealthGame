@@ -94,6 +94,10 @@ namespace Data {
 			param.collisionSize.y = Get<float>(data, "collisionSizeY");
 			param.collisionSize.z = Get<float>(data, "collisionSizeZ");
 
+			param.collisionOffSet.x = Get<float>(data, "collisionOffSetX");
+			param.collisionOffSet.y = Get<float>(data, "collisionOffSetY");
+			param.collisionOffSet.z = Get<float>(data, "collisionOffSetZ");
+
 			return param;
 
 		}

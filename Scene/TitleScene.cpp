@@ -9,10 +9,18 @@
 
 namespace {
 	//タイトルロゴのファイルパス
-	const char* const kTitleLogoPath = "";
+	const char* const kTitleLogoPath = ".\\Resource\\UI\\TitleLogo.png";
+
+	constexpr float kTitleLogoPosX = 400;
+	constexpr float kTitleLogoPosY = 200;
+
+	constexpr float kTitleLogoScale = 0.4f;
 
 	//スタートのメッセージ
 	const char* const kStartMessage = "スペースキーでスタート";
+
+	constexpr float kMessagePosX = 120;
+	constexpr float kMessagePosY = 400;
 
 }
 
@@ -52,9 +60,11 @@ SceneBase* TitleScene::Update(float deltaTime)
 
 void TitleScene::Draw()
 {
+	//タイトルのロゴの描画
+	DrawRotaGraph(kTitleLogoPosX, kTitleLogoPosY, kTitleLogoScale, 0.0f, m_titleLogo, TRUE);
 
 	//メッセージの表示
-	DrawFormatStringToHandle(120, 400, Color::kWhite, m_messageFont, kStartMessage);
+	DrawFormatStringToHandle(kMessagePosX, kMessagePosY, Color::kWhite, m_messageFont, kStartMessage);
 
 }
 

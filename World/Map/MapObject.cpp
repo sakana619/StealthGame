@@ -43,7 +43,7 @@ void MapObject::Draw()
 	GameObject::Draw();
 
 	for (auto& collision : m_collisions) {
-		//collision.shape->DrawCollisionShape(0x008800);
+		collision.shape->DrawCollisionShape(0x008800);
 	}
 
 }
@@ -56,6 +56,12 @@ void MapObject::SetObjectType(MapData::ObjectType type)
 {
 	//モデルの取得
 	m_modelHandle = MapObjectModelAssignor::GetInstance().GetModel(type);
+}
+
+void MapObject::SetScale(const Vector3& scale)
+{
+	//スケールの変更
+	MV1SetScale(m_modelHandle, scale.ToVECTOR());
 }
 
 GameObject::CollisionTag MapObject::ObjectTypeToCollisionTag(MapData::ObjectType type)

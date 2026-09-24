@@ -1,2 +1,2 @@
-posX,posY,posZ,scaleX,scaleY,scaleZ,collisionSizeX,collisionSizeY,collisionSizeZ
-150,150,150,1,1,1,150,150,150
+posX,posY,posZ,scaleX,scaleY,scaleZ,collisionSizeX,collisionSizeY,collisionSizeZ,collisionOffSetX,collisionOffSetY,collisionOffSetZ
+3750,150,590,1,1,1,150,200,150,0,100,0

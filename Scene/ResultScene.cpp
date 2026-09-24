@@ -14,6 +14,8 @@ namespace {
 	const char* const kClearLogo = ".\\Resource\\UI\\GameClearLogo.png";
 
 	const char* const kGameOverLogo = ".\\Resource\\UI\\GameOverLogo.png";
+	//決定ボタンの文字列
+	const char* const kDecideButtonString = "スペースキーで決定";
 
 	constexpr float kLogoLeftPos = 150.0f;
 	constexpr float kLogoRightPos = 700.0f;
@@ -68,6 +70,8 @@ void ResultScene::Init()
 	m_commandList[restartGameIndex].command = Command::RestartGame;
 	m_commandList[restartGameIndex].fontHandle = fontHandle;
 	m_commandList[restartGameIndex].message = "もう一度プレイ";
+
+	m_decideButtonStringFont = fontHandle;
 
 }
 
@@ -131,6 +135,8 @@ void ResultScene::Draw()
 		DrawFormatStringToHandle(120, posY, Color::kWhite, m_commandList[i].fontHandle, m_commandList[i].message.c_str());
 
 	}
+
+	DrawFormatStringToHandle(120, 490, Color::kYellow, m_decideButtonStringFont, kDecideButtonString);
 
 }
 

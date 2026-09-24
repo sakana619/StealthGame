@@ -78,4 +78,9 @@ private:
 	/// </summary>
 	int m_resultLogo;
 
+	/// <summary>
+	/// 決定ボタンのフォント
+	/// </summary>
+	int m_decideButtonStringFont;
+
 };

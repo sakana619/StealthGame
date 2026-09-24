@@ -49,16 +49,20 @@ int MapObjectModelAssignor::GetModel(MapData::ObjectType type)
 	VECTOR scale = MapData::kSize::scale.ToVECTOR();
 	MV1SetScale(model, scale);
 
-	//モデルのテクスチャーの数取得
-	int textureNum = MV1GetTextureNum(model);
-	//テクスチャーをランダムに取得
-	int rand = GetRand(kTextureCount - 1);
-	//テクスチャーを取得
-	int texture = m_textureList[rand];
+	//ゴールオブジェクトでなければ
+	if (type != MapData::ObjectType::Goal) {
+		//モデルのテクスチャーの数取得
+		int textureNum = MV1GetTextureNum(model);
+		//テクスチャーをランダムに取得
+		int rand = GetRand(kTextureCount - 1);
+		//テクスチャーを取得
+		int texture = m_textureList[rand];
 
-	for (int i = 0; i < textureNum; i++) {
-		//テクスチャーのセット
-		MV1SetTextureGraphHandle(model, i, texture, false);
+		for (int i = 0; i < textureNum; i++) {
+			//テクスチャーのセット
+			MV1SetTextureGraphHandle(model, i, texture, false);
+		}
+
 	}
 
 	return model;

@@ -51,10 +51,23 @@ void Map::Init()
 
 	//ゴールのデータの取得
 	auto goalData = MapData::GetGoalData();
+	//ゴールオブジェクトの作成
+	auto goalObject = std::make_unique<MapObject>(MapData::ObjectType::Goal);
+	//スケールの設定
+	goalObject->SetScale(goalData.scale);
 
-	auto gooalObject = std::make_unique<MapObject>(MapData::ObjectType::Goal);
+	//ゴールの当たり判定の作成
+	auto goalCollision = std::make_unique<Collision::AABB>(goalData.collisionOffSet, goalData.collisionSize);
+	//コリジョンの追加
+	goalObject->AddCollision(std::move(goalCollision), GameObject::CollisionType::Body);
+	//座標の設定
+	goalObject->SetPosition(goalData.position);
 
-	gooalObject->SetPosition(goalData.position);
+	//ゴールオブジェクトを取得
+	m_pGoalObject = goalObject.get();
+
+	//オブジェクトの追加
+	m_pMapObjects.push_back(std::move(goalObject));
 
 }
 
@@ -85,6 +98,8 @@ void Map::CheckHitMap(GameObjectManager* pGameObjectMgr)
 	if (pGameObjectMgr->GetObjcts().empty())return;
 
 	for (const auto& mapObj : m_pMapObjects) {
+
+		if (mapObj->GetCollisionTag() == GameObject::CollisionTag::Goal)continue;
 
 		for (const auto& mapCollision : mapObj->GetCollisionData()) {
 
@@ -117,10 +132,24 @@ void Map::CheckHitMap(GameObjectManager* pGameObjectMgr)
 bool Map::IsGoal(const Player* pPlayer)
 {
 
-	Vector3 goalPos = { 3000.0f,160.0f,5100.0f };
+	const auto& playerCollisions = pPlayer->GetCollisionData();
 
-	if ((goalPos - pPlayer->GetPosition()).GetSqLength() > 500 * 500)return false;
+	//プレイヤーとゴールオブジェクトの全てのコリジョンで当たり判定のチェック
+	for (const auto& playerCollision : playerCollisions) {
 
-	return true;
+		const auto& goalCollisions = m_pGoalObject->GetCollisionData();
+
+		for (const auto& goalCollision : goalCollisions) {
+			//当たっているかチェック
+			Collision::Result result = goalCollision.shape->CheckCollision(*playerCollision.shape);
+			//当たっていたらtrue
+			if (result.isHit) return true;
+			
+
+		}
+
+	}
+	//ここまで来たらfalse
+	return false;
 
 }

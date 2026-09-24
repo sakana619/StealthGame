@@ -45,4 +45,9 @@ private:
 	/// </summary>
 	std::vector<std::unique_ptr<MapObject>>m_pMapObjects;
 
+	/// <summary>
+	/// ゴールオブジェクト
+	/// </summary>
+	MapObject* m_pGoalObject;
+
 };

@@ -18,5 +18,9 @@ struct GoalData
 	/// 当たり判定のサイズ
 	/// </summary>
 	Vector3 collisionSize;
+	/// <summary>
+	/// 当たり判定のオフセット
+	/// </summary>
+	Vector3 collisionOffSet;
 
 };
