@@ -27,8 +27,8 @@ SceneManager::~SceneManager()
 void SceneManager::Init()
 {
 
-	//m_pScene = new GameScene();
-	m_pScene = new ResultScene(Scene::ResultType::Clear);
+	m_pScene = new GameScene();
+	//m_pScene = new ResultScene(Scene::ResultType::Clear);
 	//m_pScene = new TitleScene();
 
 	//BGMÇÃì«Ç›çûÇ›

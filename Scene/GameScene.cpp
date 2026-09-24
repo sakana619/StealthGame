@@ -86,7 +86,7 @@ void GameScene::Draw()
 	printfDx(" PlayerPosition\n");
 	printfDx(" PosX %f\n", playerPos.x);
 	printfDx(" Posy %f\n", playerPos.y);
-	printfDx(" Posz %f\n", playerPos.y);
+	printfDx(" Posz %f\n", playerPos.z);
 
 }
 

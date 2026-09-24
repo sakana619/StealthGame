@@ -52,7 +52,9 @@ void Map::Init()
 	//ゴールのデータの取得
 	auto goalData = MapData::GetGoalData();
 
+	auto gooalObject = std::make_unique<MapObject>(MapData::ObjectType::Goal);
 
+	gooalObject->SetPosition(goalData.position);
 
 }
 

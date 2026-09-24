@@ -32,9 +32,9 @@ namespace {
 	//見える角度
 	constexpr float kVisibleRadAngle = MyMath::DegToRad(30);
 	//移動速度
-	constexpr float kMoveSpeed = 120.0f;
+	constexpr float kMoveSpeed = 240.0f;
 	//最大回転速度
-	constexpr float kMaxRotateSpeed = 120.0f;
+	constexpr float kMaxRotateSpeed = 160.0f;
 
 }
 
@@ -135,8 +135,6 @@ void EnemyBee::Draw()
 
 	EnemyBase::Draw();
 	MV1SetScale(m_modelHandle, m_transform.scale.ToVECTOR());
-	printfDx(" isBack %d\n", m_isBack);
-	printfDx(" State %d\n", static_cast<int>(m_state));
 	DrawView();
 
 }

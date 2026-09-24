@@ -63,6 +63,7 @@ GameObject::CollisionTag MapObject::ObjectTypeToCollisionTag(MapData::ObjectType
 
 	CollisionTag tag = CollisionTag::Invalid;
 
+	//タグの変更
 	if (type == MapData::ObjectType::Floor) {
 		tag = CollisionTag::Floor;
 	}

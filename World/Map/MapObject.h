@@ -14,9 +14,7 @@ public:
 	~MapObject()override = default;
 
 	void Init()override;
-
 	void Update(float deltaTime)override;
-
 	void Draw()override;
 
 	/// <summary>
@@ -33,6 +31,8 @@ public:
 		CollisionTag other)override;
 
 	void SetObjectType(MapData::ObjectType type);
+
+	void SetScale(const Vector3& scale);
 
 private:
 

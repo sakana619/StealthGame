@@ -11,7 +11,7 @@ namespace {
 
 		".\\Resource\\Object\\MapObject.mv1",
 		".\\Resource\\Object\\MapObject.mv1",
-		".\\Resource\\Object\\MapObject.mv1",
+		".\\Resource\\Object\\flag_A_red.mv1",
 	};
 	//テクスチャーの数
 	constexpr int kTextureCount = 3;
