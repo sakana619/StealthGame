@@ -41,11 +41,6 @@ void MapObject::Update(float deltaTime)
 void MapObject::Draw()
 {
 	GameObject::Draw();
-
-	for (auto& collision : m_collisions) {
-		collision.shape->DrawCollisionShape(0x008800);
-	}
-
 }
 
 void MapObject::ResolveCollision(const Collision::Result result, const CollisionData& myData, const CollisionData& otherData, CollisionTag other)

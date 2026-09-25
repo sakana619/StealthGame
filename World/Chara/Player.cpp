@@ -127,7 +127,7 @@ void Player::Update(float deltaTime)
 	//攻撃可能な敵がいたら
 	if (canAttackEnemy) {
 
-		if (CheckHitKey(KEY_INPUT_L)) {
+		if (CheckHitKey(KEY_INPUT_SPACE)) {
 
 			Vector3 enemyPos = canAttackEnemy->GetPosition();
 
@@ -147,15 +147,7 @@ void Player::Draw()
 {
 
 	GameObject::Draw();
-	for (auto& collision : m_collisions) {
 
-		int color = collision.type == CollisionType::Body ? 0xffffff : 0x000000;
-
-		collision.shape->DrawCollisionShape(color);
-	}
-	m_pAttackCollision->DrawCollision();
-	printfDx(" HP %d\n", m_hp);
-	m_anim->DebugDraw();
 }
 
 void Player::End()

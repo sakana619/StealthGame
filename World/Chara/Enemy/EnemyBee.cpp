@@ -81,8 +81,6 @@ void EnemyBee::Update(float deltaTime)
 
 	m_pAttackCollision->Update();
 
-	printfDx(" m_nextPatrolIndex %d\n", m_nextPatrolIndex);
-
 	switch (m_state) {
 
 		case EnemyBase::State::Patrol:
@@ -115,9 +113,11 @@ void EnemyBee::Update(float deltaTime)
 
 		//視界角の中にプレイヤーがいるかチェックする
 		if (CheckInViewRadAngle()) {
-			printfDx("視界の中\n");
 			//戦闘状態に変更
 			m_state = EnemyBase::State::Combat;
+
+			if (CheckHitKey(KEY_INPUT_0))return;
+
 			//発見時の画像を表示
 			DrawBillboard3D(m_transform.position.ToVECTOR(), 0.5f, -1.0f, 50, 0.0f, m_combatImageHandle, true);
 
@@ -131,11 +131,9 @@ void EnemyBee::Update(float deltaTime)
 
 void EnemyBee::Draw()
 {
-	m_pAttackCollision->DrawCollision();
 
 	EnemyBase::Draw();
 	MV1SetScale(m_modelHandle, m_transform.scale.ToVECTOR());
-	DrawView();
 
 }
 
