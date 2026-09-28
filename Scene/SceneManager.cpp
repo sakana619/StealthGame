@@ -31,8 +31,8 @@ void SceneManager::Init()
 	m_pScene = new ResultScene(Scene::ResultType::Clear);
 	//m_pScene = new TitleScene();
 
-	//BGMの読み込み
-	//SoundManager::GetInstance().Init();
+	//サウンドの読み込み
+	SoundManager::GetInstance().Init();
 
 	assert(m_pScene);
 	//シーンの初期化

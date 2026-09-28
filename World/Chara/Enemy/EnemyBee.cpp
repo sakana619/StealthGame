@@ -3,6 +3,7 @@
 
 #include<DxLib.h>
 #include<math.h>
+#include"../../../System/SoundManager.h"
 #include"../../../System/Time.h"
 
 int EnemyBee::m_combatImageHandle = -1;
@@ -114,7 +115,7 @@ void EnemyBee::Update(float deltaTime)
 		//視界角の中にプレイヤーがいるかチェックする
 		if (CheckInViewRadAngle()) {
 			//戦闘状態に変更
-			m_state = EnemyBase::State::Combat;
+			ChangeStateCombat();
 
 			if (CheckHitKey(KEY_INPUT_0))return;
 
@@ -319,6 +320,17 @@ void EnemyBee::UpdateCombat(float deltaTime)
 	SetNearestLengthPatrolIndex();
 	//状態の変更
 	m_state = EnemyBase::State::Caution;
+
+}
+
+void EnemyBee::ChangeStateCombat()
+{
+	//すでに戦闘状態なら処理しない
+	if (m_state == EnemyBase::State::Combat)return;
+
+	SoundManager::GetInstance().PlaySe(Sound::SE::EnemyDiscovery);
+
+	m_state = EnemyBase::State::Combat;
 
 }
 

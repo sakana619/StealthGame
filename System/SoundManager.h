@@ -16,6 +16,9 @@ namespace Sound {
 
 	enum class SE {
 
+		Decide,			//Œˆ’è‰¹
+		EnemyDiscovery,	//“G‚ÌƒvƒŒƒCƒ„[”­Œ©
+
 		Max,
 
 	};

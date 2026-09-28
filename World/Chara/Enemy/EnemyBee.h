@@ -41,6 +41,8 @@ private:
 
 	void UpdateCombat(float deltaTime)override;
 
+	void ChangeStateCombat();
+
 	/// <summary>
 	/// m_nextPatrolIndexを一番近い巡回の座標に設定する
 	/// </summary>

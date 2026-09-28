@@ -7,6 +7,8 @@
 namespace {
 
     //SEのファイルパス
+    const char* const kDecideSeFilePath = ".\\Resource\\Sound\\maou_se_system24.mp3";
+    const char* const kEnemyDiscoverySeFilePath = ".\\Resource\\Sound\\maou_se_8bit14.mp3";
 
     //BGMのファイルパス
     const char* const kTitleBgmFilePath = "";
@@ -53,7 +55,7 @@ void SoundManager::Init()
     if (m_isLoaded)return;
 
     //音の読み込み
-    LoadBgm();
+    //LoadBgm();
     LoadSe();
 
     //読み込み完了
@@ -181,6 +183,8 @@ void SoundManager::LoadBgm()
 void SoundManager::LoadSe()
 {
     //SEの読み込み
+    m_seHandles[static_cast<int>(Sound::SE::Decide)] = LoadSoundMem(kDecideSeFilePath);
+    m_seHandles[static_cast<int>(Sound::SE::EnemyDiscovery)] = LoadSoundMem(kEnemyDiscoverySeFilePath);
 
     //SEの初期化
     for (auto& se : m_seHandles) {
