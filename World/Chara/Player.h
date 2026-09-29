@@ -72,6 +72,14 @@ private:
 private:
 
 	/// <summary>
+	/// 攻撃の種類
+	/// </summary>
+	enum class AttackType {
+		Punch = 0,
+
+	};
+
+	/// <summary>
 	/// プレイヤーの状態
 	/// </summary>
 	enum class State {

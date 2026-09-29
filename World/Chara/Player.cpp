@@ -128,7 +128,7 @@ void Player::Update(float deltaTime)
 			//方向を合わせる
 			m_transform.rotation.y = atan2f(-(enemyPos.x - m_transform.position.x), -(enemyPos.z - m_transform.position.z));
 			//攻撃判定を有効にする
-			m_pAttackCollision->GetCollisionData(0).SpawnCollision(1.0f, enemyPos);
+			m_pAttackCollision->GetCollisionData(static_cast<int>(AttackType::Punch)).SpawnCollision(1.0f, enemyPos);
 		}
 
 	}

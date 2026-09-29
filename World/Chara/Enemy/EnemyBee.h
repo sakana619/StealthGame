@@ -62,6 +62,14 @@ private:
 private:
 
 	/// <summary>
+	/// 攻撃の種類
+	/// </summary>
+	enum class AttackType {
+		Bite = 0,
+
+	};
+
+	/// <summary>
 	/// 発見時の画像ハンドル
 	/// </summary>
 	static int m_combatImageHandle;

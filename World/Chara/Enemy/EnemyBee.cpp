@@ -307,7 +307,8 @@ void EnemyBee::UpdateCombat(float deltaTime)
 	//正面に進む
 	m_transform.Translate(m_forward);
 
-	m_pAttackCollision->GetCollisionData(0).SpawnCollision(0.1f, m_transform.position);
+	//攻撃の生成
+	m_pAttackCollision->GetCollisionData(static_cast<int>(AttackType::Bite)).SpawnCollision(0.1f, m_transform.position);
 
 	if (dif.GetLength() < 150) {
 		m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::EnemyBee::Bite)]);
