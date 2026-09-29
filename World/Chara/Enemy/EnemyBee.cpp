@@ -126,8 +126,6 @@ void EnemyBee::Update(float deltaTime)
 
 	}
 
-	CheckBehind();
-
 }
 
 void EnemyBee::Draw()
@@ -351,29 +349,6 @@ void EnemyBee::SetNearestLengthPatrolIndex()
 			m_nextPatrolIndex = i;
 
 		}
-
-	}
-
-}
-
-void EnemyBee::CheckBehind()
-{
-
-	//プレイヤーへの方向
-	Vector3 dif = *m_pTargetPos - GameObject::m_transform.position;
-	//プレイヤーとの距離の2乗
-	float range = dif.GetSqLength();
-
-	if (range > 400 * 400)return;
-
-	Vector3 toPlayer = dif.GetNormalize();
-
-	//正面方向とプレイヤー方向の内積
-	float dot = Vector3::Dot(m_forward, toPlayer);
-
-	if (dot < -cos(MyMath::DegToRad(75))) {
-
-		printfDx("Behind\n");
 
 	}
 

@@ -48,8 +48,6 @@ private:
 	/// </summary>
 	void SetNearestLengthPatrolIndex();
 
-	void CheckBehind();
-
 	void UpdateForward(Vector3 moveDirection,float forward);
 
 	Vector3 UpdateView();

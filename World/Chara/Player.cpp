@@ -61,6 +61,10 @@ namespace {
 	//死亡アニメーションの終了時間
 	constexpr float kFInishedDeadAnimationTime = 22.5f;
 
+	constexpr float kCanAttackRange = 400;
+
+	constexpr float kCanAttackBehindAngleRad = MyMath::DegToRad(75);
+
 }
 
 Player::Player(Camera* pCamera) :
@@ -387,7 +391,7 @@ EnemyBase* Player::SearchCanAttackEnemy()
 	//距離の差を求める
 	Vector3 dif = nearestEnemyPos - GameObject::m_transform.position;
 	//距離の差が大きかったらnullptr
-	if (dif.GetSqLength() > 400 * 400)return nullptr;
+	if (dif.GetSqLength() > kCanAttackRange * kCanAttackRange)return nullptr;
 
 	//敵へのベクトル
 	Vector3 enemyToPlayer = GameObject::m_transform.position - nearestEnemyPos;
@@ -396,7 +400,7 @@ EnemyBase* Player::SearchCanAttackEnemy()
 	float dot = Vector3::Dot(nearestEnemy->GetForward(), enemyToPlayer);
 
 	//敵の後ろにいなかったらnullptr
-	if (dot > -cosf(MyMath::DegToRad(75)))return nullptr;
+	if (dot > -cosf(kCanAttackBehindAngleRad))return nullptr;
 
 	//攻撃可能なUIを設定する
 	m_pCanAttackUI->SetVisible(true);
