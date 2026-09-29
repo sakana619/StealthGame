@@ -2,7 +2,7 @@
 #include"DxLib.h"
 #include"../System/Game.h"
 
-SceneBase::SceneBase()
+SceneBase::SceneBase() :
+	m_isSceneChanging(false)
 {
 }
-

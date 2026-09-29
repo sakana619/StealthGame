@@ -3,6 +3,7 @@
 
 #include"../Camera/Camera.h"
 #include"../Scene/ResultScene.h"
+#include"../System/SoundManager.h"
 #include"../System/Time.h"
 #include"../UI/UIBillboard.h"
 #include"../UI/UIManager.h"
@@ -42,6 +43,8 @@ void GameScene::Init()
 	m_pPlayer->SetEnemyManager(m_pEnemyMgr.get());
 	m_pEnemyMgr->SetTargetPos(&m_pPlayer->GetPosition());
 
+	SoundManager::GetInstance().PlayBGM(Sound::BGM::GameScene);
+
 	//UIの初期化
 	InitUI();
 
@@ -60,18 +63,26 @@ SceneBase* GameScene::Update(float deltaTime)
 	m_pMap->CheckHitMap(m_pGameObjectMgr.get());
 	m_pUIMgr->Update(deltaTime);
 
-	if (m_pMap->IsGoal(m_pPlayer)) {
 
-		return new ResultScene(Scene::ResultType::Clear);
+	//シーンが遷移していなければ
+	if (!m_isSceneChanging) {
 
+		//ゴールしているか判定
+		if (m_pMap->IsGoal(m_pPlayer)) {
+			m_pPlayer->OnGoal();
+			//シーン遷移フラグをtrue
+			m_isSceneChanging = true;
+			//シーンの遷移
+			return new ResultScene(Scene::ResultType::Clear);
+		}
+		//死亡アニメーションの再生が終了しているか判定
+		if (m_pPlayer->IsFInishedDeadAnimation()) {
+			//シーン遷移フラグをtrue
+			m_isSceneChanging = true;
+			//シーンの遷移
+			return new ResultScene(Scene::ResultType::GameOver);
+		}
 	}
-
-	if (m_pPlayer->IsFInishedDeadAnimation()) {
-
-		return new ResultScene(Scene::ResultType::GameOver);
-
-	}
-
 
 	return this;
 }

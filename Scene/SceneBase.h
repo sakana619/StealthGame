@@ -17,5 +17,12 @@ public:
 
 	virtual void End() = 0;
 
+protected:
+
+	/// <summary>
+	/// ƒV[ƒ“‚Ì‘JˆÚ‚ª‚ ‚é‚©”»’è
+	/// </summary>
+	bool m_isSceneChanging;
+
 };
 

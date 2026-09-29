@@ -7,14 +7,14 @@
 namespace {
 
     //SEのファイルパス
-    const char* const kDecideSeFilePath = ".\\Resource\\Sound\\maou_se_system24.mp3";
-    const char* const kEnemyDiscoverySeFilePath = ".\\Resource\\Sound\\maou_se_8bit14.mp3";
+    const char* const kDecideSeFilePath = ".\\Resource\\Sound\\SE\\maou_se_system24.mp3";
+    const char* const kEnemyDiscoverySeFilePath = ".\\Resource\\Sound\\SE\\maou_se_8bit14.mp3";
 
     //BGMのファイルパス
-    const char* const kTitleBgmFilePath = "";
-    const char* const kGameSceneBgmFilePath = "";
-    const char* const kClearSceneBgmFilePath = "";
-    const char* const kGameOverSceneBgmFilePath = "";
+    const char* const kTitleBgmFilePath = ".\\Resource\\Sound\\BGM\\maou_game_village06.mp3";
+    const char* const kGameSceneBgmFilePath = ".\\Resource\\Sound\\BGM\\maou_game_dangeon05.mp3";
+    const char* const kClearSceneBgmFilePath = ".\\Resource\\Sound\\BGM\\maou_bgm_8bit29.mp3";
+    const char* const kGameOverSceneBgmFilePath = ".\\Resource\\Sound\\BGM\\maou_bgm_8bit20.mp3";
 
     //音量のデフォルト
     constexpr int kDefaultVolume = 160;
@@ -55,7 +55,7 @@ void SoundManager::Init()
     if (m_isLoaded)return;
 
     //音の読み込み
-    //LoadBgm();
+    LoadBgm();
     LoadSe();
 
     //読み込み完了

@@ -51,6 +51,9 @@ SceneBase* TitleScene::Update(float deltaTime)
 {
 
 	if (Input::IsPressed(PAD_INPUT_10)) {
+		//Œˆ’è‰¹‚ÌÄ¶
+		SoundManager::GetInstance().PlaySe(Sound::SE::Decide);
+
 		return new GameScene;
 	}
 

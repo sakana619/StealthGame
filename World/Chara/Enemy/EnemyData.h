@@ -6,17 +6,14 @@
 /// </summary>
 struct EnemyData
 {
-
 	/// <summary>
 	/// “G‚ÌID
 	/// </summary>
 	int ID;
-
 	/// <summary>
 	/// „‰ñÀ•W‚Ì”Ô†
 	/// </summary>
 	int patrolIndex;
-
 	/// <summary>
 	/// „‰ñ‚·‚éÀ•W
 	/// </summary>

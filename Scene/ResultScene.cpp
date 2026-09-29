@@ -27,7 +27,8 @@ namespace {
 ResultScene::ResultScene(Scene::ResultType type) :
 	m_commandList(),
 	m_selectCommandIndex(0),
-	m_resultLogo(-1)
+	m_resultLogo(-1),
+	m_decideButtonStringFont(-1)
 {
 
 	switch (type)
@@ -58,7 +59,7 @@ void ResultScene::Init()
 	SetMainWindowText("ResultScene");
 
 	//フォントの読み込み
-	int fontHandle = CreateFontToHandle(NULL, 70, 3, DX_FONTTYPE_EDGE);
+	int fontHandle = CreateFontToHandle("MS UI Gothic", 70, 3, DX_FONTTYPE_EDGE);
 
 	//Command::ToTitleの設定
 	int toTitleIndex = static_cast<int>(Command::ToTitle);
@@ -94,6 +95,9 @@ SceneBase* ResultScene::Update(float deltaTime)
 
 	//決定キーが入力されたら (スペースキー)
 	if (Input::IsPressed(PAD_INPUT_10)) {
+		//決定音の再生
+		SoundManager::GetInstance().PlaySe(Sound::SE::Decide);
+
 		//実行するコマンド
 		Command command = m_commandList[m_selectCommandIndex].command;
 

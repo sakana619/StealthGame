@@ -35,6 +35,11 @@ public:
 	void Damage(const AttackInfo& attackInfo, const Vector3& normal)override;
 
 	/// <summary>
+	/// ゴール時の処理
+	/// </summary>
+	void OnGoal();
+
+	/// <summary>
 	/// 死亡アニメーションの再生が終了したかどうか
 	/// シーン遷移で使う
 	/// </summary>
@@ -80,6 +85,11 @@ private:
 	};
 
 	State m_state;
+
+	/// <summary>
+	/// 既にゴールしているか判定
+	/// </summary>
+	bool m_isAlreadyGoaled;
 
 	Camera* m_pCamera;
 	/// <summary>

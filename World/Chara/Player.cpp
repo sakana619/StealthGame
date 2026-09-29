@@ -65,6 +65,7 @@ namespace {
 
 Player::Player(Camera* pCamera) :
 	m_state(State::Idle),
+	m_isAlreadyGoaled(false),
 	m_pCamera(pCamera),
 	m_pEnemyManager(nullptr),
 	m_pCanAttackUI(nullptr)
@@ -100,16 +101,7 @@ void Player::Update(float deltaTime)
 	//アニメーションの更新
 	UpdateAnimation(deltaTime);
 
-	if (m_isDead)return;
-
-	if (m_unresolveKnockback.GetSqLength() > 0) {
-
-		m_transform.Translate(m_unresolveKnockback);
-
-		m_unresolveKnockback *= -0.1f;
-
-		return;
-	}
+	if (m_isDead || m_isAlreadyGoaled)return;
 
 	Move();
 
@@ -198,6 +190,14 @@ void Player::Damage(const AttackInfo& attackInfo, const Vector3& normal)
 
 }
 
+void Player::OnGoal()
+{
+	//ゴールアニメーションの再生
+	m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Wave)]);
+	//ゴールした
+	m_isAlreadyGoaled = true;
+}
+
 bool Player::IsFInishedDeadAnimation()
 {
 	return m_isDead && m_anim->GetAnimationTime() > kFInishedDeadAnimationTime;
@@ -254,6 +254,7 @@ void Player::InitAnimation()
 	m_animData[static_cast<int>(Animation::Player::Death)].isForcePlay = true;
 	m_animData[static_cast<int>(Animation::Player::HitRect)].isForcePlay = true;
 	m_animData[static_cast<int>(Animation::Player::Punch)].isForcePlay = true;
+	m_animData[static_cast<int>(Animation::Player::Wave)].isForcePlay = true;
 
 	//初期アニメーションの再生
 	m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Idle)]);
@@ -321,7 +322,7 @@ void Player::UpdateAnimation(float deltaTime)
 {
 
 	//アニメーションの再生がされていないなら待機アニメーションの再生
-	//if (!m_anim->GetIsPlayAnimation()) m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Idle)]);
+	if (!m_anim->GetIsPlayAnimation()) m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Idle)]);
 
 	if (IsFInishedDeadAnimation()) {
 		m_anim->PlayAnimation(m_animData[static_cast<int>(Animation::Player::Death)]);
@@ -336,7 +337,6 @@ void Player::UpdateAnimation(float deltaTime)
 		//リターン
 		return;
 	}
-
 
 	State nextState = State::Idle;
 	int nextAnimIndex = static_cast<int>(Animation::Player::Idle);
