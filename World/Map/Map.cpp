@@ -7,7 +7,8 @@
 #include"../GameObjectManager.h"
 #include"../Chara/Player.h"
 
-Map::Map()
+Map::Map() :
+	m_pGoalObject(nullptr)
 {
 }
 

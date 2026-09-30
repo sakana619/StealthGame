@@ -29,11 +29,15 @@ namespace {
 	//進行方向
 	constexpr Vector3 kMoveDirection = { 0.0f,0.0,1.0f };
 	//見える距離
-	constexpr float kVisibleRange = 1000.0f;
+	constexpr float kDefaultVisibleRange = 1000.0f;
 	//見える角度
 	constexpr float kVisibleRadAngle = MyMath::DegToRad(30);
+	//戦闘状態時の見える距離
+	constexpr float kCombatVisibleRange = 1800.0f;
 	//移動速度
 	constexpr float kMoveSpeed = 240.0f;
+	//移動速度
+	constexpr float kCombatMoveSpeed = 1000.0f;
 	//最大回転速度
 	constexpr float kMaxRotateSpeed = 160.0f;
 
@@ -41,7 +45,7 @@ namespace {
 
 EnemyBee::EnemyBee()
 {
-	m_visibleDistance = kVisibleRange;
+	m_visibleDistance = kDefaultVisibleRange;
 	m_visibleRadAngle = kVisibleRadAngle;
 }
 
@@ -133,7 +137,7 @@ void EnemyBee::Draw()
 
 	EnemyBase::Draw();
 	MV1SetScale(m_modelHandle, m_transform.scale.ToVECTOR());
-
+	
 }
 
 void EnemyBee::End()
@@ -154,6 +158,8 @@ void EnemyBee::ResolveCollision(const Collision::Result result, const CollisionD
 		//巡回に戻る
 		SetNearestLengthPatrolIndex();
 		m_state = EnemyBase::State::Caution;
+		//見える距離の変更
+		m_visibleDistance = kDefaultVisibleRange;
 
 	}
 
@@ -296,14 +302,22 @@ void EnemyBee::UpdateCombat(float deltaTime)
 {
 	//目標とのベクトルの差を求める
 	Vector3 dif = *m_pTargetPos - m_transform.position;
+
+	float minDistance = 100;
+
+	//ぶつからない様に距離を取る
+	if (dif.GetSqLength() < minDistance * minDistance) return;
+
 	//目標への角度を求める
 	float targetAngle = atan2f(-dif.x, -dif.z);
 	//目標の角度に設定
 	m_transform.rotation.y = targetAngle;
 	//正面の方向を変更
 	UpdateForward(kMoveDirection, targetAngle);
-	//正面に進む
-	m_transform.Translate(m_forward);
+
+	//移動方向を取得
+	Vector3 moveDirection = m_forward * kCombatMoveSpeed * deltaTime;
+	m_transform.Translate(moveDirection);
 
 	//攻撃の生成
 	m_pAttackCollision->GetCollisionData(static_cast<int>(AttackType::Bite)).SpawnCollision(0.1f, m_transform.position);
@@ -319,6 +333,8 @@ void EnemyBee::UpdateCombat(float deltaTime)
 	SetNearestLengthPatrolIndex();
 	//状態の変更
 	m_state = EnemyBase::State::Caution;
+	//見える距離の変更
+	m_visibleDistance = kDefaultVisibleRange;
 
 }
 
@@ -326,10 +342,12 @@ void EnemyBee::ChangeStateCombat()
 {
 	//すでに戦闘状態なら処理しない
 	if (m_state == EnemyBase::State::Combat)return;
-
+	//SEの再生
 	SoundManager::GetInstance().PlaySe(Sound::SE::EnemyDiscovery);
-
+	//状態の変更
 	m_state = EnemyBase::State::Combat;
+	//見える距離の変更
+	m_visibleDistance = kCombatVisibleRange;
 
 }
 
@@ -402,7 +420,7 @@ Vector3 EnemyBee::UpdateView()
 	float difRange = dif.GetSqLength();
 
 	//プレイヤーが視界の距離の範囲内にいたら
-	if (difRange < kVisibleRange * kVisibleRange) {
+	if (difRange < kDefaultVisibleRange * kDefaultVisibleRange) {
 
 		//距離の差から角度の差を求める
 		float difAngle = atan2f(dif.x, dif.z);
@@ -443,7 +461,7 @@ void EnemyBee::DrawView()
 	direction.x = -sinf(forwardRad + kVisibleRadAngle);
 	direction.z = -cosf(forwardRad + kVisibleRadAngle);
 
-	direction *= kVisibleRange;
+	direction *= kDefaultVisibleRange;
 
 	Vector3 rightLine = m_transform.position + direction;
 
@@ -452,7 +470,7 @@ void EnemyBee::DrawView()
 	direction.x = -sinf(forwardRad - kVisibleRadAngle);
 	direction.z = -cosf(forwardRad - kVisibleRadAngle);
 
-	direction *= kVisibleRange;
+	direction *= kDefaultVisibleRange;
 
 	Vector3 leftLine = m_transform.position + direction;
 
@@ -463,7 +481,7 @@ void EnemyBee::DrawView()
 	direction.x = -sinf(forwardRad);
 	direction.z = -cosf(forwardRad);
 
-	direction *= kVisibleRange;
+	direction *= kDefaultVisibleRange;
 
 	Vector3 centerLine = m_transform.position + direction;
 

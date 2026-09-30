@@ -28,8 +28,8 @@ void SceneManager::Init()
 {
 
 	//m_pScene = new GameScene();
-	m_pScene = new ResultScene(Scene::ResultType::Clear);
-	//m_pScene = new TitleScene();
+	//m_pScene = new ResultScene(Scene::ResultType::Clear);
+	m_pScene = new TitleScene();
 
 	//ƒTƒEƒ“ƒh‚Ì“Ç‚İ‚İ
 	SoundManager::GetInstance().Init();

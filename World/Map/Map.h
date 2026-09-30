@@ -26,7 +26,7 @@ public:
 	void End();
 
 	/// <summary>
-	/// マップと
+	/// マップとゲームオブジェクトの当たり判定を処理
 	/// </summary>
 	/// <param name="pGameObjectMgr"></param>
 	void CheckHitMap(GameObjectManager* pGameObjectMgr);

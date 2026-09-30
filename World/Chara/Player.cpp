@@ -167,11 +167,13 @@ void Player::ResolveCollision(const Collision::Result result, const CollisionDat
 		m_transform.position.y += push.y;
 	}
 
-	if (MyMath::Abs(result.normal.z) > 0 && myData.type == CollisionType::Body) {
+	bool isMapObject = other == CollisionTag::Floor || other == CollisionTag::Wall;
+
+	if (MyMath::Abs(result.normal.z) > 0 && myData.type == CollisionType::Body && isMapObject) {
 		m_transform.position.z += push.z;
 	}
 
-	if (MyMath::Abs(result.normal.x) > 0 && myData.type == CollisionType::Body) {
+	if (MyMath::Abs(result.normal.x) > 0 && myData.type == CollisionType::Body && isMapObject) {
 		m_transform.position.x += push.x;
 	}
 

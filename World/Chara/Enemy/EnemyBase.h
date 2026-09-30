@@ -13,6 +13,18 @@ class EnemyBase :public CharacterBase
 
 public:
 
+	/// <summary>
+	/// 敵キャラクターの状態
+	/// </summary>
+	enum class State {
+		Patrol,		//巡回
+		Caution,	//警戒
+		Combat,		//戦闘
+
+	};
+
+public:
+
 	EnemyBase();
 	virtual ~EnemyBase()override = default;
 
@@ -60,6 +72,8 @@ public:
 
 	void SetTargetPos(const Vector3* targetPos) { m_pTargetPos = targetPos; }
 
+	void SetState(State state) { m_state = state; }
+
 protected:
 
 	virtual void UpdatePatrol(float deltaTime) = 0;
@@ -89,16 +103,6 @@ protected:
 	bool CheckInViewRadAngle();
 
 protected:
-
-	/// <summary>
-	/// 敵キャラクターの状態
-	/// </summary>
-	enum class State {
-		Patrol,		//巡回
-		Caution,	//警戒
-		Combat,		//戦闘
-
-	};
 
 	/// <summary>
 	/// 状態
