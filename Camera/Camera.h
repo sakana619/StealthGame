@@ -17,7 +17,7 @@ public:
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update();
+	void Update(float deltaTime);
 
 	/// <summary>
 	/// 描画処理
@@ -57,12 +57,12 @@ private:
 	/// <summary>
 	/// カメラの角度の更新
 	/// </summary>
-	void UpdateAngle();
+	void UpdateAngle(float deltaTime);
 
 	/// <summary>
 	/// カメラの座標の更新
 	/// </summary>
-	void UpdatePos();
+	void UpdatePos(float deltaTime);
 
 private:
 

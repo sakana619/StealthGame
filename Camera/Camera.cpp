@@ -11,10 +11,15 @@ namespace {
 	constexpr float kLowAngleMost = MyMath::DegToRad(-30);
 	constexpr float kHighAngleMost = MyMath::DegToRad(60);
 
+	constexpr float kRotationSpeed = MyMath::DegToRad(2);
+
+	constexpr float kDistaceToTarget = 500;
+
 }
 
 Camera::Camera():
 	m_transform(),
+	m_r(kDistaceToTarget),
 	m_targetPos()
 {
 }
@@ -32,15 +37,15 @@ void Camera::Init()
 		VGet(0.0f, 0.0f, -100.0f)
 	);
 
-	m_r = 500;
+	SetMouseDispFlag(false);
 
 }
 
-void Camera::Update()
+void Camera::Update(float deltaTime)
 {
 
-	UpdateAngle();
-	UpdatePos();
+	UpdateAngle(deltaTime);
+	UpdatePos(deltaTime);
 
 }
 
@@ -56,26 +61,27 @@ void Camera::End()
 {
 }
 
-void Camera::UpdateAngle()
+void Camera::UpdateAngle(float deltaTime)
 {
+
+	float rotationSpeed = kRotationSpeed * deltaTime;
 
 	//矢印キーでの角度の変更
 	if (CheckHitKey(KEY_INPUT_UP)) {
-		m_transform.rotation.x += 2 * DX_PI_F / 180;
+		m_transform.rotation.x += rotationSpeed;
 		m_transform.rotation.x = MyMath::Clamp(m_transform.rotation.x, kLowAngleMost, kHighAngleMost);
 	}
 	if (CheckHitKey(KEY_INPUT_DOWN)) {
-		m_transform.rotation.x -= 2 * DX_PI_F / 180;
+		m_transform.rotation.x -= rotationSpeed;
 		m_transform.rotation.x = MyMath::Clamp(m_transform.rotation.x, kLowAngleMost, kHighAngleMost);
 	}
 	if (CheckHitKey(KEY_INPUT_LEFT)) {
-		m_transform.rotation.y += 2 * DX_PI_F / 180;
+		m_transform.rotation.y += rotationSpeed;
 	}
 	if (CheckHitKey(KEY_INPUT_RIGHT)) {
-		m_transform.rotation.y -= 2 * DX_PI_F / 180;
+		m_transform.rotation.y -= rotationSpeed;
 	}
 
-	/*
 	//マウスの座標を取得
 	int mouseX, mouseY;
 	GetMousePoint(&mouseX, &mouseY);
@@ -87,14 +93,13 @@ void Camera::UpdateAngle()
 	m_transform.rotation.y += MyMath::DegToRad(difX) * 0.1f;
 	//マウスカーソルをがはみ出ないようにする
 	SetMousePoint(Game::kScreenCenterX, Game::kScreenCenterY);
-	*/
 
 	m_transform.rotation.y = MyMath::NormalizeRadAngle(m_transform.rotation.y);
 	m_transform.rotation.x = MyMath::Clamp(m_transform.rotation.x, kLowAngleMost, kHighAngleMost);
 
 }
 
-void Camera::UpdatePos()
+void Camera::UpdatePos(float deltaTime)
 {
 
 	//
